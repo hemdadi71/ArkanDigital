@@ -1,0 +1,11 @@
+csr  reactVanilla
+client side rendering
+ssr  getServerSideProps in next
+server side rendering
+ssg getStaticProps in next
+static site generation
+isr
+incremental site generation
+onDemand isr
+
+progressiveSPA
