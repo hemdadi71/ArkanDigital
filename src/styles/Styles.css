@@ -1,0 +1,12 @@
+@font-face {
+  font-family: iranSans;
+  src: url(../../public/Fonts/Vazir-Font/Vazir-Regular-FD.woff);
+}
+* {
+  font-family: iranSans !important;
+}
+body {
+  background-color: #fff;
+  max-width: 1600px;
+  margin: 0 auto;
+}

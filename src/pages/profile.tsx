@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 
-function profile() {
+function Profile() {
   const router = useRouter()
   return (
     <>
-      <div>profile</div>
+      <div>Profile</div>
       <button onClick={() => router.push('/login')}>go to login</button>
     </>
   )
 }
 
-export default profile
+export default Profile

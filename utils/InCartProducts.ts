@@ -5,8 +5,6 @@ export const InCartProducts = (cart, products) => {
       if (product) {
         return product
       }
-      // If the product is not found in the products array, you can handle it as per your requirement.
-      // Here, I'm returning null.
       return null
     })
     .filter(product => product !== null)

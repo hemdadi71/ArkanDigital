@@ -1,17 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link'
 import React from 'react'
 
-function ProductCart({ src, name, price }) {
+function ProductCart({ src, name, price, id }: ProductCartProps) {
   return (
     <>
-      <div className="border rounded-md flex flex-col gap-2 p-3 w-[400px]">
-        <div className='h-[60%]'>
+      <Link
+        href={`/product/${id}`}
+        className="border rounded-md flex flex-col gap-2 p-3 w-[400px]">
+        <div className="h-[60%]">
           <img className="w-full h-full" src={src} alt="img" />
         </div>
         <p>category</p>
         <p>{name}</p>
         <p>{price} تومان</p>
-      </div>
+      </Link>
     </>
   )
 }
