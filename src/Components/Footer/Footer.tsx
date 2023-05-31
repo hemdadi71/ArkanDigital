@@ -3,13 +3,12 @@ import React from 'react'
 
 function Footer() {
   const router = useRouter()
+
   return (
     <>
-      {router.pathname !== '/admin' && (
-        <footer>
-          <div>footer</div>
-        </footer>
-      )}
+      <footer>
+        <div>footer</div>
+      </footer>
     </>
   )
 }

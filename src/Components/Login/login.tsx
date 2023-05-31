@@ -1,27 +1,37 @@
-
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { cookies } from 'next/dist/client/components/headers'
-import { redirect } from 'next/navigation';
-function Products() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const router = useRouter()
-  const handleSignIn = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    const data = {
-      username,
-      password,
-    }
+import { redirect } from 'next/navigation'
+import { schema } from '../Schema/LoginSchema'
+import Input from '../Input/Input'
+import { useDispatch } from 'react-redux'
+import { hideRegisterModal } from '@/Redux/Reducers/RegisterModal'
+import Cookies from 'js-cookie'
+import { setRole } from '@/Redux/Reducers/Role'
+import { loginData } from '../../Types/types'
+function Login() {
+  const dispatch = useDispatch()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+  const handleSignIn: SubmitHandler<loginData> = (data: loginData) => {
     axios
       .post('/api/auth/signin', data)
       .then(res => {
-        console.log(res.data.user.role)
-        localStorage.setItem('user', res.data.user.role)
-        res.data.user.role === 'admin'
-          ? router.push('/admin')
-          : router.push('/profile')
+        const { tokens, user } = res.data
+        const userData = JSON.stringify({ tokens, user })
+        Cookies.set('token', userData, { expires: 7 })
+        if (res.data) {
+          dispatch(hideRegisterModal())
+          dispatch(setRole(user.role))
+        }
       })
       .catch(err => console.log(err.message))
   }
@@ -29,29 +39,28 @@ function Products() {
     <>
       <div>
         <form
-          onSubmit={handleSignIn}
-          className="flex flex-col gap-2 bg-gray-200 p-5">
+          onSubmit={handleSubmit(handleSignIn)}
+          className="flex flex-col gap-2 p-5">
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Username</label>
-            <input
-              id="username"
+            <Input
               name="username"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+              register={{ ...register('username') }}
               type="text"
+              label="نام کاربری:"
+              errorTxt={errors.username?.message}
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              type="password"
+            <Input
+              name="password"
+              register={{ ...register('password') }}
+              type="text"
+              label="رمز عبور:"
+              errorTxt={errors.password?.message}
             />
           </div>
           <button type="submit" className="bg-blue-200 mt-3">
-            Sign In
+            ورود
           </button>
         </form>
       </div>
@@ -59,4 +68,4 @@ function Products() {
   )
 }
 
-export default Products
+export default Login

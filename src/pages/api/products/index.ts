@@ -1,9 +1,10 @@
-import dbConnect from '@/lib/dbConenct'
+
 import { NextApiRequest, NextApiResponse } from 'next'
 import ProductModel from '@/server/models/ProductModel'
 import multer from 'multer'
 import path from 'path'
 import fs from 'fs'
+import dbConnect from '@/lib/dbConenct'
 
 const storage = multer.diskStorage({
   destination: './public/product/images',

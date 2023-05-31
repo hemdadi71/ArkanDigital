@@ -1,15 +1,19 @@
 import React from 'react'
-import { LayoutProps } from '../../Types/types'
-import Header from '@/Components/Header/Header'
-import Footer from '@/Components/Footer/Footer'
-
+import { LayoutProps } from '../Types/types'
+import RegisterModal from '@/Components/RegisterModal/RegisterModal'
+import { useSelector } from 'react-redux'
+import { AnimatePresence } from 'framer-motion'
+import { LayoutHandler } from './Functions'
 function Layout({ children }: LayoutProps) {
+  const isRegisterModalOpen = useSelector(
+    (state: RegisterModalState) => state.registerModal.isOpen
+  )
   return (
     <>
-    
-        <Header />
-        {children}
-        <Footer />
+      {LayoutHandler(children)}
+      <AnimatePresence>
+        {isRegisterModalOpen && <RegisterModal />}
+      </AnimatePresence>
     </>
   )
 }

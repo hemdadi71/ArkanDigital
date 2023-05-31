@@ -30,7 +30,6 @@ const OrderSchema = new mongoose.Schema({
       const now = new Date()
       const tomorrow = new Date()
       tomorrow.setDate(now.getDate() + 1)
-
       return tomorrow
     },
   },

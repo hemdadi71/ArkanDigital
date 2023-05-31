@@ -15,3 +15,13 @@ export interface ProductProps {
   thumbnail: string
   images: [string]
 }
+export interface RegisterModalState {
+  isOpen: boolean
+}
+export interface RoleState {
+  role: string
+}
+export interface loginData {
+  username: string
+  password: string
+}

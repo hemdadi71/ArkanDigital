@@ -53,5 +53,31 @@ export default async function handler(
         res.status(400).json({ success: false, error: 'Failed to create user' })
       }
       break
+    case 'PUT': // Update profile
+      try {
+        const { firstname, lastname, phone, address } = req.body
+
+
+        // Find the user in the database
+        const user = await UserModel.findById(userId)
+        if (!user) {
+          res.status(404).json({ success: false, message: 'User not found' })
+          return
+        }
+
+        // Update the user's profile fields
+        user.firstname = firstname || user.firstname
+        user.lastname = lastname || user.lastname
+        user.phone = phone || user.phone
+        user.address = address || user.address
+
+        // Save the updated user
+        await user.save()
+
+        res.status(200).json({ success: true, user })
+      } catch (error) {
+        res.status(400).json({ success: false, error: 'Failed to update user' })
+      }
+      break
   }
 }

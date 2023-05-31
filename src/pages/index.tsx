@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Products from '@/Components/Products/products'
 import Slider from '@/Components/Slider/Slider'
-import Image from 'next/image'
 import React from 'react'
 
 export default function Home() {
@@ -27,6 +26,7 @@ export default function Home() {
         </div>
       </div>
       <Products />
+      
     </>
   )
 }
