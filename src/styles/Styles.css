@@ -13,3 +13,16 @@ body {
 .full-width {
   width: 100%;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #E2E8F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #abb7c9;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #919cac;
+}

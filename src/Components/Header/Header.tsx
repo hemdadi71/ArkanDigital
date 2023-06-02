@@ -96,7 +96,7 @@ function Header() {
             href="/checkout/cart"
             className="relative flex cursor-pointer items-center hover:text-purple-600">
             <p className="w-[20px] h-[20px] p-3 flex items-center justify-center text-white rounded-full bg-purple-600 absolute top-[-12px] right-[-12px]">
-              5
+              0
             </p>
             <RiShoppingCart2Line size={27} />
             <p className="font-semibold mr-1">سبد خرید</p>
