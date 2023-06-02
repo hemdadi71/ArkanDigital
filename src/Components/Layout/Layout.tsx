@@ -1,5 +1,5 @@
 import React from 'react'
-import { LayoutProps } from '../Types/types'
+import { LayoutProps } from '../../Types/types'
 import RegisterModal from '@/Components/RegisterModal/RegisterModal'
 import { useSelector } from 'react-redux'
 import { AnimatePresence } from 'framer-motion'

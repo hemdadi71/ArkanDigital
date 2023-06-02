@@ -1,5 +1,4 @@
-
-import Layout from '@/Layout/Layout'
+import Layout from '@/Components/Layout/Layout'
 import { store } from '@/Redux/Store'
 import '@/styles/globals.css'
 import '@/styles/Styles.css'

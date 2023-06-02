@@ -7,7 +7,7 @@ function Logo() {
     <>
       <div className="flex items-center gap-1 font-semibold text-xl">
         <Link href="/">
-          <img className="w-16" src="/product/Logo/1.png" alt="img" />
+          <img width='40' src="/product/Logo/1.png" alt="img" />
         </Link>
         <p>فروشگاه آرکان</p>
       </div>

@@ -26,7 +26,8 @@ function Header() {
   return (
     <>
       <header className="pb-4 pt-5 px-2">
-        <div className="flex items-center justify-between px-4">
+        <div
+          className="flex items-center justify-between px-4">
           <Logo />
           {router.pathname !== '/' && (
             <Link
