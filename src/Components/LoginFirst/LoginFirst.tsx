@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 function LoginFirst() {
   const roleState = useSelector((state: RoleState) => state.role)
-  const { role } = roleState
+  const { role }: any = roleState
   const dispatch = useDispatch()
   const router = useRouter()
   useEffect(() => {

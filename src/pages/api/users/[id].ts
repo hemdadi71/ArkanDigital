@@ -1,9 +1,12 @@
 // pages/api/users/[id].js
 
-import UserModel from "@/server/models/User.model"
+import UserModel from '@/server/models/User.model'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id } = req.query // Extract the [id] parameter from the request query
 
   if (req.method === 'GET') {

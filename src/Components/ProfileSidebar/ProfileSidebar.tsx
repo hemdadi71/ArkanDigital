@@ -3,7 +3,8 @@ import React from 'react'
 import { HiOutlineWallet } from 'react-icons/hi2'
 import ProfileTabs from './Tabs/ProfileTabs'
 function ProfileSidebar() {
-  const data = JSON.parse(Cookies.get('token'))
+  const token = Cookies.get('token')
+  const data = token ? JSON.parse(token) : null
   const { user } = data
   return (
     <>

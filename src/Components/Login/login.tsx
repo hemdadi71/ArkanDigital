@@ -11,17 +11,19 @@ import { useDispatch } from 'react-redux'
 import { hideRegisterModal } from '@/Redux/Reducers/RegisterModal'
 import Cookies from 'js-cookie'
 import { setRole } from '@/Redux/Reducers/Role'
-import { loginData } from '../../Types/types'
+import { loginData } from '@/Types/types'
+import * as yup from 'yup'
+type FormData = yup.InferType<typeof schema>;
 function Login() {
   const dispatch = useDispatch()
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
-  const handleSignIn: SubmitHandler<loginData> = (data: loginData) => {
+  const handleSignIn = (data: loginData) => {
     axios
       .post('/api/auth/signin', data)
       .then(res => {

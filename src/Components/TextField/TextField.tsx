@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 
-function TextField({type,placeholder,}) {
-  return (
-    <>
-      <input type="text" />
-    </>
-  )
-}
+// function TextField({type,placeholder,}) {
+//   return (
+//     <>
+//       <input type="text" />
+//     </>
+//   )
+// }
 
-export default TextField
+// export default TextField

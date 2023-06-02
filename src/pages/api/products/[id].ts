@@ -1,8 +1,12 @@
 // pages/api/products/[id].js
 
 import ProductModel from '@/server/models/ProductModel'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id } = req.query // Extract the [id] parameter from the request query
 
   if (req.method === 'GET') {

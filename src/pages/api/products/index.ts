@@ -1,11 +1,10 @@
-
 import { NextApiRequest, NextApiResponse } from 'next'
 import ProductModel from '@/server/models/ProductModel'
 import multer from 'multer'
 import path from 'path'
 import fs from 'fs'
 import dbConnect from '@/lib/dbConenct'
-
+import { Request, Response } from 'express'
 const storage = multer.diskStorage({
   destination: './public/product/images',
   filename: function (req, file, cb) {
@@ -28,10 +27,7 @@ export const config = {
     bodyParser: false,
   },
 }
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: Request, res: Response) {
   const { method, body } = req
   await dbConnect()
 
@@ -123,7 +119,7 @@ export default async function handler(
           }
 
           // Get the uploaded files' information from the request object
-          const { thumbnail, images } = req.files
+          const { thumbnail, images }: any = req.files
 
           // Process the uploaded files as needed
           // ...
@@ -143,7 +139,7 @@ export default async function handler(
           const product = await ProductModel.create({
             ...req.body,
             thumbnail: thumbnail[0].filename,
-            images: images.map(image => image.filename),
+            images: images.map((image: any) => image.filename),
           })
 
           res.status(201).json({ success: true, product })

@@ -55,8 +55,7 @@ export default async function handler(
       break
     case 'PUT': // Update profile
       try {
-        const { firstname, lastname, phone, address } = req.body
-
+        const { firstname, lastname, phone, address, userId } = req.body
 
         // Find the user in the database
         const user = await UserModel.findById(userId)

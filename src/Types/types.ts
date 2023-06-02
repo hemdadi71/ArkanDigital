@@ -1,5 +1,5 @@
 export interface LayoutProps {
-  children: ReactNode
+  children: any
 }
 export interface ProductCartProps {
   src: string

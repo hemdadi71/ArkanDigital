@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion'
 import { LayoutHandler } from './Functions'
 function Layout({ children }: LayoutProps) {
   const isRegisterModalOpen = useSelector(
-    (state: RegisterModalState) => state.registerModal.isOpen
+    (state: any) => state.registerModal.isOpen
   )
   return (
     <>

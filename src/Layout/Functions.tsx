@@ -10,9 +10,9 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-export function LayoutHandler(children: ReactNode) {
+export function LayoutHandler(children: any) {
   const router = useRouter()
-  const roleState = useSelector((state: RoleState) => state.role)
+  const roleState = useSelector((state: any) => state.role)
   const { role } = roleState
   const dispatch = useDispatch()
   useEffect(() => {

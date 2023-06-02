@@ -1,6 +1,5 @@
 import Input from '@/Components/Input/Input'
 import { userDataSchema } from '@/Components/Schema/CompleteUserData'
-import { setUser } from '@/Redux/Reducers/User'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -10,7 +9,8 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 function Profile() {
   const router = useRouter()
-  const data = JSON.parse(Cookies.get('token'))
+  const token = Cookies.get('token')
+  const data = token ? JSON.parse(token) : null
   let { user, tokens } = data
   const {
     handleSubmit,
@@ -19,7 +19,7 @@ function Profile() {
   } = useForm({
     resolver: yupResolver(userDataSchema),
   })
-  const handleSignIn = data => {
+  const handleSignIn = (data: any) => {
     try {
       const response = axios.put(
         `/api/users/${user.id ? user.id : user._id}`,
@@ -95,7 +95,7 @@ function Profile() {
                 />
               </div>
             </div>
-            <div className='flex justify-end w-full px-16'>
+            <div className="flex justify-end w-full px-16">
               <button
                 type="submit"
                 className="bg-[#7614AF] px-8 text-white rounded-md py-1 w-fit">

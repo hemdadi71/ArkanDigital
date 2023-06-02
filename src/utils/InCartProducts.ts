@@ -1,11 +1,13 @@
-export const InCartProducts = (cart, products) => {
+export const InCartProducts = (cart: any, products: any) => {
   return cart
-    .map(cartItemId => {
-      const product = products.find(product => product._id === cartItemId)
+    .map((cartItemId: any) => {
+      const product = products.find(
+        (product: any) => product._id === cartItemId
+      )
       if (product) {
         return product
       }
       return null
     })
-    .filter(product => product !== null)
+    .filter((product: any) => product !== null)
 }

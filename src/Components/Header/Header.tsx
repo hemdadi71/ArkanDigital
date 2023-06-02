@@ -17,7 +17,7 @@ function Header() {
   const [isShowDropdown, SetIsShowDropdown] = useState(false)
   const roleState = useSelector((state: RoleState) => state.role)
   const dispatch = useDispatch()
-  const { role } = roleState
+  const { role }: any = roleState
   const router = useRouter()
   const handleSignOut = () => {
     Cookies.remove('token')
@@ -50,7 +50,7 @@ function Header() {
               onMouseEnter={() => SetIsShowDropdown(true)}
               onMouseLeave={() => SetIsShowDropdown(false)}
               className="font-semibold relative cursor-pointer flex justify-center py-3">
-              <div className='flex items-center gap-1 hover:text-purple-600'>
+              <div className="flex items-center gap-1 hover:text-purple-600">
                 <RiAdminLine size={30} />
                 <p>مدیریت</p>
               </div>
