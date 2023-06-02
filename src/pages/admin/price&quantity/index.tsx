@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 function details() {
   return (
     <>
-      <div>details</div>
+      <div className='text-center text-xl'>price&quantity</div>
     </>
   )
 }

@@ -19,7 +19,7 @@ function AdminTabs() {
         <Tab as={Fragment}>
           {({ selected }) => (
             <Link
-              href="/admin/details"
+              href="/admin/price&quantity"
               className={`${
                 selected ? 'bg-purple-600 text-white' : 'bg-white text-black'
               } py-1 px-6 rounded-md outline-none border`}>

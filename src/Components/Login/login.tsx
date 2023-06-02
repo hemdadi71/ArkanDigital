@@ -54,7 +54,7 @@ function Login() {
             <Input
               name="password"
               register={{ ...register('password') }}
-              type="text"
+              type="password"
               label="رمز عبور:"
               errorTxt={errors.password?.message}
             />

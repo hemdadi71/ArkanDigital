@@ -30,10 +30,12 @@ function AdminHeader() {
           </Link>
           <div className="w-[2px] h-[35px] bg-gray-400"></div>
           <Link href="/" className="flex items-center gap-2">
-            <div className="border rounded-md p-2 bg-[#ECE0F3]">
+            <div
+              onClick={handleSignOut}
+              className="border rounded-md p-2 bg-[#ECE0F3]">
               <FiLogOut className="text-[#5D108B]" size={24} />
             </div>
-            <button onClick={handleSignOut}>خروج از حساب کاربری مدیریت</button>
+            <p>خروج از حساب کاربری مدیریت</p>
           </Link>
         </div>
       </header>

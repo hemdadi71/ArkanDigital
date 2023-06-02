@@ -5,7 +5,7 @@ import { RoleState } from '../../../Types/types'
 function Products() {
   return (
     <>
-      <div>products</div>
+      <div className="text-center text-xl">products</div>
     </>
   )
 }

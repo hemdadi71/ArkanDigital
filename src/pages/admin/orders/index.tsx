@@ -5,7 +5,7 @@ import { RoleState } from '../../../Types/types'
 function orders() {
   return (
     <>
-      <div>orders</div>
+      <div className='text-center text-xl'>orders</div>
     </>
   )
 }
