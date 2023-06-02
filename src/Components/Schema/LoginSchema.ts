@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 export const schema = yup.object({
-  username: yup.string().required(),
+  username: yup.string().required('لطفا نام کاربری را وارد کنید'),
   // phone: yup
   //   .string()
   //   .required()
@@ -14,7 +14,7 @@ export const schema = yup.object({
   //   .matches(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{3,4}$/, 'email is not valid'),
   password: yup
     .string()
-    .required()
+    .required('لطفا رمز عبور را وارد کنید')
     // .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/, 'password not valid'),
   // corfirmPassword: yup
   //   .string()
