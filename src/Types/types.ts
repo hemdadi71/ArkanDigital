@@ -3,6 +3,8 @@ export interface LayoutProps {
 }
 export interface ProductCartProps {
   src: string
+  category: string
+  subcategory: string
   name: string
   price: string
   id: string
@@ -14,6 +16,8 @@ export interface ProductProps {
   _id: string
   thumbnail: string
   images: [string]
+  category: string
+  subcategory: string
 }
 export interface RegisterModalState {
   isOpen: boolean

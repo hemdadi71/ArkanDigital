@@ -1,11 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { RoleState } from '../../../Types/types'
+
+import ProductForm from '@/Components/AddProduct/AddProduct'
 
 function Products() {
   return (
     <>
-      <div className="text-center text-xl">products</div>
+      <div className="text-center text-xl">
+        {/* <ProductForm /> */}
+        products
+      </div>
     </>
   )
 }

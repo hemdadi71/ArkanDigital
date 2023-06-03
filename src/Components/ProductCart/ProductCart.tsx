@@ -3,7 +3,14 @@ import { ProductCartProps } from '@/Types/types'
 import Link from 'next/link'
 import React from 'react'
 
-function ProductCart({ src, name, price, id }: ProductCartProps) {
+function ProductCart({
+  src,
+  name,
+  price,
+  id,
+  category,
+  subcategory,
+}: ProductCartProps) {
   return (
     <>
       <Link
@@ -12,7 +19,9 @@ function ProductCart({ src, name, price, id }: ProductCartProps) {
         <div className="h-[60%]">
           <img className="w-full h-full" src={src} alt="img" />
         </div>
-        <p>category</p>
+        <p>
+          {category}/{subcategory}
+        </p>
         <p>{name}</p>
         <p>{price} تومان</p>
       </Link>

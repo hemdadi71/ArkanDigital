@@ -1,136 +1,126 @@
-// // import React, { useState } from 'react';
-// import axios from 'axios'
-// import { useState } from 'react'
-
-// const ProductForm = () => {
-//   const [category, setCategory] = useState('')
-//   const [subcategory, setSubcategory] = useState('')
-//   const [name, setName] = useState('')
-//   const [slugname, setSlugname] = useState('')
-//   const [price, setPrice] = useState(0)
-//   const [quantity, setQuantity] = useState(0)
-//   const [brand, setBrand] = useState('')
-//   const [description, setDescription] = useState('')
-//   const [thumbnail, setThumbnail] = useState<File | null>(null)
-//   const [images, setImages] = useState<FileList | null>(null)
-
-//   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-//     const files = event.target.files
-//     if (files?.length) {
-//       setImages(files)
-//     }
-//   }
-
-//   const handleSubmit = async (event: FormEvent) => {
-//     event.preventDefault()
-
-//     const formData = new FormData()
-//     formData.append('category', category)
-//     formData.append('subcategory', subcategory)
-//     formData.append('name', name)
-//     formData.append('slugname', slugname)
-//     formData.append('price', price.toString())
-//     formData.append('quantity', quantity.toString())
-//     formData.append('brand', brand)
-//     formData.append('description', description)
-//     if (thumbnail) {
-//       formData.append('thumbnail', thumbnail)
-//     }
-//     if (images?.length) {
-//       Array.from(images).forEach(file => {
-//         formData.append('images', file)
-//       })
-//     }
-
-//     try {
-//       const response = await axios.post('/api/products', formData, {
-//         headers: {
-//           'Content-Type': 'multipart/form-data',
-//         },
-//       })
-//       console.log(response.data)
-//       // Product is successfully posted
-//       // You can perform any additional actions or show a success message here
-//     } catch (error) {
-//       // Handle error response
-//       console.log('Failed to create product:', error.response.data.error)
-//     }
-//   }
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <div>
-//         <label>Category:</label>
-//         <input
-//           type="text"
-//           value={category}
-//           onChange={e => setCategory(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Subcategory:</label>
-//         <input
-//           type="text"
-//           value={subcategory}
-//           onChange={e => setSubcategory(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Name:</label>
-//         <input
-//           type="text"
-//           value={name}
-//           onChange={e => setName(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Slugname:</label>
-//         <input
-//           type="text"
-//           value={slugname}
-//           onChange={e => setSlugname(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Price:</label>
-//         <input
-//           type="number"
-//           value={price}
-//           onChange={e => setPrice(Number(e.target.value))}
-//         />
-//       </div>
-//       <div>
-//         <label>Quantity:</label>
-//         <input
-//           type="number"
-//           value={quantity}
-//           onChange={e => setQuantity(Number(e.target.value))}
-//         />
-//       </div>
-//       <div>
-//         <label>Brand:</label>
-//         <input
-//           type="text"
-//           value={brand}
-//           onChange={e => setBrand(e.target.value)}
-//         />
-//       </div>
-//       <div>
-//         <label>Description:</label>
-//         <textarea
-//           value={description}
-//           onChange={e => setDescription(e.target.value)}></textarea>
-//       </div>
-//       <div>
-//         <label>Thumbnail:</label>
-//         <input type="file" onChange={e => setThumbnail(e.target.files[0])} />
-//       </div>
-//       <div>
-//         <label>Images:</label>
-//         <input type="file" multiple onChange={handleImageChange} />
-//       </div>
-//       <input type="submit" />
-//     </form>
-//   )
-// }
-// export default ProductForm
+// import React, { useState } from 'react';
+import axios from 'axios'
+import { useState } from 'react'
+import Input from '../Input/Input'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { productSchema } from '../Schema/ProuctSchema'
+import { postProduct, uploadCloudinary } from '../api'
+const ProductForm = () => {
+  const [imageLink, setImageLink] = useState([])
+  const [thumbnailLink, setThumbnailLink] = useState([])
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(productSchema),
+  })
+  const formSubmit = async (data: any) => {
+    console.log(data.images)
+    try {
+      const imageArr: any = []
+      for (let image of data.images) {
+        const Data = await uploadCloudinary(image)
+        imageArr.push(Data.url)
+      }
+      setImageLink(imageArr)
+      const thumbnailArr: any = []
+      for (let thumbnail of data.thumbnail) {
+        const Data = await uploadCloudinary(thumbnail)
+        thumbnailArr.push(Data.url)
+      }
+      setThumbnailLink(thumbnailArr)
+    } catch (error) {
+      console.log(error)
+    }
+    data.images = imageLink
+    data.thumbnail = thumbnailLink[0]
+    console.log(data.images)
+    console.log(data.thumbnail)
+    console.log(data)
+    if (imageLink.length && thumbnailLink.length) {
+      postProduct(data).then(res => console.log(res))
+    }
+  }
+  return (
+    <form
+      className="w-[50%] flex flex-wrap"
+      onSubmit={handleSubmit(formSubmit)}>
+      <Input
+        name="name"
+        register={{ ...register('name') }}
+        type="text"
+        label="Name"
+        errorTxt={errors.name?.message}
+      />
+      <Input
+        name="slugname"
+        register={{ ...register('slugname') }}
+        type="text"
+        label="Slugname"
+        errorTxt={errors.slugname?.message}
+      />
+      <Input
+        name="brand"
+        register={{ ...register('brand') }}
+        type="text"
+        label="Brand"
+        errorTxt={errors.brand?.message}
+      />
+      <Input
+        name="price"
+        register={{ ...register('price') }}
+        type="text"
+        label="Price"
+        errorTxt={errors.price?.message}
+      />
+      <Input
+        name="quantity"
+        register={{ ...register('quantity') }}
+        type="text"
+        label="Quantity"
+        errorTxt={errors.quantity?.message}
+      />
+      <Input
+        name="images"
+        register={{ ...register('images') }}
+        type="file"
+        label="images"
+        errorTxt={errors.images?.message}
+      />
+      <Input
+        name="thumbnail"
+        register={{ ...register('thumbnail') }}
+        type="file"
+        label="Thumbnail"
+        errorTxt={errors.thumbnail?.message}
+      />
+      <Input
+        name="category"
+        register={{ ...register('category') }}
+        type="text"
+        label="Category"
+        errorTxt={errors.category?.message}
+      />
+      <Input
+        name="subcategory"
+        register={{ ...register('subcategory') }}
+        type="text"
+        label="Subcategory"
+        errorTxt={errors.subcategory?.message}
+      />
+      <Input
+        name="description"
+        register={{ ...register('description') }}
+        type="text"
+        label="description"
+        errorTxt={errors.description?.message}
+      />
+      <button type="submit" className="bg-blue-500 rounded-md px-4 py-1">
+        send
+      </button>
+    </form>
+  )
+}
+export default ProductForm
