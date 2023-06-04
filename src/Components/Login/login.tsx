@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { cookies } from 'next/dist/client/components/headers'
 import { redirect } from 'next/navigation'
-import { schema } from '../Schema/LoginSchema'
+import { schema } from '../../utils/Schema/LoginSchema'
 import Input from '../Input/Input'
 import { useDispatch } from 'react-redux'
 import { hideRegisterModal } from '@/Redux/Reducers/RegisterModal'
@@ -13,7 +13,7 @@ import Cookies from 'js-cookie'
 import { setRole } from '@/Redux/Reducers/Role'
 import { loginData } from '@/Types/types'
 import * as yup from 'yup'
-type FormData = yup.InferType<typeof schema>;
+type FormData = yup.InferType<typeof schema>
 function Login() {
   const dispatch = useDispatch()
   const {

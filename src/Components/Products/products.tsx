@@ -14,7 +14,7 @@ function Products() {
   }, [])
   return (
     <>
-      <div className="flex gap-5 flex-wrap">
+      <div className="flex gap-5 flex-wrap p-5">
         {products &&
           products.map((item: ProductProps) => {
             return (

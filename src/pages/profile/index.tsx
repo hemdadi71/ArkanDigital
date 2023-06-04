@@ -1,5 +1,5 @@
 import Input from '@/Components/Input/Input'
-import { userDataSchema } from '@/Components/Schema/CompleteUserData'
+import { userDataSchema } from '@/utils/Schema/CompleteUserData'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import Cookies from 'js-cookie'

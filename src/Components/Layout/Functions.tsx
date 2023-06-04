@@ -31,12 +31,18 @@ export function LayoutHandler(children: any) {
     )
   if (router.pathname.includes('profile') && role === 'user')
     return (
-      <main className="flex h-ful">
+      <main className="flex">
         <ProfileSidebar />
         <div className="flex-1 full-width">
           <ProfileHeader />
           <article>{children}</article>
         </div>
+      </main>
+    )
+  if (router.pathname.includes('register') && role === '')
+    return (
+      <main className="flex w-[100vw] h-[100vh]">
+        <article className='w-full h-full'>{children}</article>
       </main>
     )
   if (

@@ -4,7 +4,7 @@ function SearchInput() {
   const [isFocus, setIsFocus] = useState(false)
   return (
     <>
-      <div className="w-[40%] relative flex items-center">
+      <div className="w-full relative flex items-center">
         <input
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}

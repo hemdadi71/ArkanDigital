@@ -1,5 +1,6 @@
 import Login from '@/Components/Login/login'
 import { Tab } from '@headlessui/react'
+import Link from 'next/link'
 import { Fragment } from 'react'
 function ModalTabs() {
   return (
@@ -9,7 +10,7 @@ function ModalTabs() {
           {({ selected }) => (
             <button
               className={`${
-                selected ? 'bg-purple-500 text-white' : 'bg-gray-100 text-black'
+                selected ? 'bg-purple text-white' : 'bg-gray-100 text-black'
               } px-8 py-1 rounded-md`}>
               <p>ورود</p>
             </button>
@@ -19,7 +20,7 @@ function ModalTabs() {
           {({ selected }) => (
             <button
               className={`${
-                selected ? 'bg-purple-500 text-white' : 'bg-gray-100 text-black'
+                selected ? 'bg-purple text-white' : 'bg-gray-100 text-black'
               } px-6 py-1 rounded-md`}>
               <p>ثبت نام</p>
             </button>

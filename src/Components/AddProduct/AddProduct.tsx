@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Input from '../Input/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { productSchema } from '../Schema/ProuctSchema'
+import { productSchema } from '../../utils/Schema/ProuctSchema'
 import { postProduct, uploadCloudinary } from '../api'
 const ProductForm = () => {
   const [imageLink, setImageLink] = useState([])

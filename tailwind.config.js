@@ -10,6 +10,10 @@ module.exports = {
       container: {
         center: true,
       },
+      colors: {
+        purple: '#7414AD',
+        txtgray: '#6B7280',
+      },
     },
   },
   plugins: [],
