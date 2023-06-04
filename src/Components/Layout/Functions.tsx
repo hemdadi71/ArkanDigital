@@ -24,9 +24,11 @@ export function LayoutHandler(children: any) {
   }, [])
   if (router.pathname.includes('admin') && role === 'admin')
     return (
-      <main>
+      <main className='overflow-hidden'>
         <AdminHeader />
-        <article>{children}</article>
+        <article className="w-[100vw] h-[100vh] bg-[#F2F3F5]">
+          {children}
+        </article>
       </main>
     )
   if (router.pathname.includes('profile') && role === 'user')
@@ -42,7 +44,7 @@ export function LayoutHandler(children: any) {
   if (router.pathname.includes('register') && role === '')
     return (
       <main className="flex w-[100vw] h-[100vh]">
-        <article className='w-full h-full'>{children}</article>
+        <article className="w-full h-full">{children}</article>
       </main>
     )
   if (

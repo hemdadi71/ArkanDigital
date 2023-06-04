@@ -19,6 +19,9 @@ export interface ProductProps {
   category: string
   subcategory: string
 }
+export interface ProductState {
+  products: ProductProps
+}
 export interface RegisterModalState {
   isOpen: boolean
 }

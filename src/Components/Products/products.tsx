@@ -1,22 +1,25 @@
 import ProductCart from '@/Components/ProductCart/ProductCart'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ProductCartProps, ProductProps } from '../../Types/types'
+import { ProductCartProps, ProductProps, ProductState } from '../../Types/types'
 import { getProducts } from '../api'
+import { useDispatch, useSelector } from 'react-redux'
+import { allProducts } from '@/Redux/Reducers/ProductsSlice'
+import { useQuery } from 'react-query'
 
 function Products() {
-  const [products, setProducts] = useState([])
-  useEffect(() => {
-    // axios('/api/users/646b63be62090c3be0742304').then(res => {
-    //   console.log(res)
-    // })
-    getProducts().then(res => setProducts(res))
-  }, [])
+  const dispatch = useDispatch()
+  const { data, isLoading, isError } = useQuery('getProducts', getProducts, {
+    onSuccess: data => {
+      dispatch(allProducts(data))
+    },
+  })
   return (
     <>
       <div className="flex gap-5 flex-wrap p-5">
-        {products &&
-          products.map((item: ProductProps) => {
+        {isLoading && <div>Loading...</div>}
+        {data &&
+          data.map((item: ProductProps) => {
             return (
               <ProductCart
                 subcategory={item.subcategory}
