@@ -10,6 +10,11 @@ body {
   max-width: 1600px;
   margin: 0 auto;
 }
+.admin {
+  background-image: url(../../public/adminBG/v617batch2-bb-01-technology.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
 .full-width {
   width: 100%;
 }
@@ -17,7 +22,7 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #E2E8F0;
+  background: #e2e8f0;
 }
 ::-webkit-scrollbar-thumb {
   background: #abb7c9;

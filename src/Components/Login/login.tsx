@@ -15,6 +15,7 @@ import { loginData } from '@/Types/types'
 import * as yup from 'yup'
 type FormData = yup.InferType<typeof schema>
 function Login() {
+  const router = useRouter()
   const dispatch = useDispatch()
   const {
     handleSubmit,
@@ -33,6 +34,7 @@ function Login() {
         if (res.data) {
           dispatch(hideRegisterModal())
           dispatch(setRole(user.role))
+          user.role === 'admin' && router.push('/admin/products')
         }
       })
       .catch(err => console.log(err.message))
@@ -42,7 +44,7 @@ function Login() {
       <div>
         <form
           onSubmit={handleSubmit(handleSignIn)}
-          className="flex flex-col gap-2 p-5">
+          className="flex flex-col gap-4 p-5 items-center">
           <div className="flex flex-col gap-1">
             <Input
               name="username"
@@ -61,7 +63,9 @@ function Login() {
               errorTxt={errors.password?.message}
             />
           </div>
-          <button type="submit" className="bg-blue-200 mt-3">
+          <button
+            type="submit"
+            className="bg-purple text-white w-fit py-1 px-6 rounded-md mt-3">
             ورود
           </button>
         </form>

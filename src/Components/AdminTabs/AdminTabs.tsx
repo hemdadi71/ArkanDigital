@@ -10,7 +10,7 @@ function AdminTabs() {
             <Link
               href="/admin/products"
               className={`${
-                selected ? 'bg-purple-600 text-white' : 'bg-white text-black'
+                selected ? 'bg-purple text-white' : 'bg-white text-black'
               } py-1 px-6 rounded-md outline-none border`}>
               کالاها
             </Link>
@@ -21,7 +21,7 @@ function AdminTabs() {
             <Link
               href="/admin/price&quantity"
               className={`${
-                selected ? 'bg-purple-600 text-white' : 'bg-white text-black'
+                selected ? 'bg-purple text-white' : 'bg-white text-black'
               } py-1 px-6 rounded-md outline-none border`}>
               موجودی و قیمت ها
             </Link>
@@ -32,7 +32,7 @@ function AdminTabs() {
             <Link
               href="/admin/orders"
               className={`${
-                selected ? 'bg-purple-600 text-white' : 'bg-white text-black'
+                selected ? 'bg-purple text-white' : 'bg-white text-black'
               } py-1 px-6 rounded-md outline-none border`}>
               سفارش ها
             </Link>
