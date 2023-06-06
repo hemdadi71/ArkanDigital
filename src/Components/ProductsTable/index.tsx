@@ -7,6 +7,8 @@ import { ProductProps } from '@/Types/types'
 import { getProducts } from '../api'
 import { useEffect, useState } from 'react'
 import { columns } from './TableColumns'
+import { Skeleton } from '@mui/material'
+import Loading from '../Loading'
 
 const RTLDataGridPagination = () => {
   return <GridPagination className="rtl-pagination ml-auto mr-6" />
@@ -31,7 +33,7 @@ export default function ProductsTable() {
   const getRowId = (row: ProductProps) => row._id
   return (
     <>
-      <Box sx={{ height: '400', width: '100%', backgroundColor: 'white' }}>
+      <Box sx={{ height: 350, width: '100%', backgroundColor: 'white' }}>
         <DataGrid
           getRowId={getRowId}
           rowCount={rowCountState}
@@ -42,6 +44,22 @@ export default function ProductsTable() {
           loading={isLoading}
           components={{
             Pagination: RTLDataGridPagination,
+            LoadingOverlay: () => (
+              <Box
+                sx={{ opacity: '0.1' }}
+                display="flex"
+                position="relative"
+                zIndex="10"
+                left={0}
+                top={0}
+                bgcolor="gray"
+                alignItems="center"
+                justifyContent="center"
+                height={400}
+                width="100%">
+                <Loading />
+              </Box>
+            ),
           }}
           pageSizeOptions={[1, 2, 5, 10]}
           paginationMode="server"
