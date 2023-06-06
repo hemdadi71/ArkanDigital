@@ -72,10 +72,10 @@ export default function PriceTable() {
             localeText={{
               MuiTablePagination: {
                 labelDisplayedRows: ({ from, to, count }) =>
-                  
                   `صفحه ${from} از ${count} : تعداد کل صفحات ${count}`,
               },
             }}
+            
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
           />

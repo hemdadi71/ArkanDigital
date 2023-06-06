@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export const getProducts = async () => {
+export const getProducts = async (limit: number = 0, page: number = 1) => {
   try {
-    const { data } = await axios.get('/api/product')
+    const { data } = await axios.get(`/api/product?limit=${limit}&page=${page}`)
     if (data.success) {
       const products = data.products
       return products
@@ -13,6 +13,7 @@ export const getProducts = async () => {
     console.log(error)
   }
 }
+
 export const postProduct = async (data: any) => {
   try {
     const response = await axios.post('/api/product', data)

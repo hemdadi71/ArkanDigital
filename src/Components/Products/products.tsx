@@ -9,11 +9,16 @@ import { useQuery } from 'react-query'
 
 function Products() {
   const dispatch = useDispatch()
-  const { data, isLoading, isError } = useQuery('getProducts', getProducts, {
-    onSuccess: data => {
-      dispatch(allProducts(data))
-    },
-  })
+  const { data, isLoading, isError } = useQuery(
+    'getProducts',
+    () => getProducts(),
+    {
+      onSuccess: data => {
+        dispatch(allProducts(data))
+        localStorage.setItem('procutsLength', data.length)
+      },
+    }
+  )
   return (
     <>
       <div className="flex gap-5 flex-wrap p-5">
