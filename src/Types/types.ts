@@ -32,3 +32,12 @@ export interface loginData {
   username: string
   password: string
 }
+
+export interface SignUpFormInputs {
+  username: string
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+  reenterPassword: string
+}

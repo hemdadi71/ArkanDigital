@@ -1,4 +1,3 @@
-
 // import dbConnect from '@/lib/dbConnect';
 import dbConnect from '@/lib/dbConenct'
 import OrderModel from '@/server/models/OrderModel'
@@ -14,8 +13,28 @@ export default async function handler(
   switch (method) {
     case 'GET':
       try {
-        // Fetch all orders from the MongoDB collection
-        const orders = await OrderModel.find({}).populate('user', 'username')
+        const { page = 1, limit = 10, sort, quantity } = req.query
+
+        const filter: any = {}
+
+        if (quantity && typeof quantity === 'object' && 'gte' in quantity) {
+          filter.quantity = { $gte: Number(quantity.gte) }
+        }
+
+        let sortOption: any = {}
+
+        if (sort === 'price') {
+          sortOption = { price: 1 }
+        } else if (sort === '-price') {
+          sortOption = { price: -1 }
+        }
+
+        const orders = await OrderModel.find(filter)
+          .sort(sortOption)
+          .skip((Number(page) - 1) * Number(limit))
+          .limit(Number(limit))
+          .populate('user', 'username')
+
         res.status(200).json({ success: true, orders })
       } catch (error) {
         res

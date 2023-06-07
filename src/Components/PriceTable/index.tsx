@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import * as React from 'react'
+import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import {
   DataGrid,
@@ -12,75 +12,75 @@ import { ProductProps, ProductState } from '@/Types/types'
 import { useSelector } from 'react-redux'
 import { getProducts } from '../api'
 import { Button } from '@mui/material'
+import Loading from '../Loading'
 
-const columns: GridColDef[] = [
-  {
-    field: 'name',
-    headerName: 'نام کالا',
-    width: 300,
-    editable: false,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'price',
-    headerName: 'قیمت',
-    width: 120,
-    editable: true,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'quantity',
-    headerName: 'موجودی',
-    width: 70,
-    editable: true,
-  },
-]
+
 const RTLDataGridPagination = () => {
   return <GridPagination className="rtl-pagination ml-auto mr-6" />
 }
 export default function PriceTable() {
-  const {
-    data: rows,
-    isLoading,
-    isError,
-  } = useQuery('getProducts', getProducts, {
-    enabled: true,
+  const procutsLength: number = +(localStorage.getItem('procutsLength') ?? 0)
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 5,
   })
+  const totalPages = Math.ceil(procutsLength / paginationModel.pageSize)
+  const [rowCountState, setRowCountState] = useState(procutsLength)
+  useEffect(() => {
+    setRowCountState(prevRowCountState =>
+      procutsLength !== undefined ? procutsLength : prevRowCountState
+    )
+  }, [procutsLength, setRowCountState, paginationModel.pageSize])
+  const { data: rows, isLoading } = useQuery(
+    ['getProducts', paginationModel.page, paginationModel.pageSize],
+    () => getProducts(paginationModel.pageSize, paginationModel.page + 1)
+  )
   const getRowId = (row: ProductProps) => row._id
   return (
     <>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
+     
         <Box sx={{ width: '100%', backgroundColor: 'white' }}>
           <DataGrid
             getRowId={getRowId}
-            rows={rows}
+            rowCount={rowCountState}
+            rows={rows || []}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
-                },
-              },
-            }}
+            onPaginationModelChange={setPaginationModel}
+            paginationModel={paginationModel}
+            loading={isLoading}
             components={{
               Pagination: RTLDataGridPagination,
+              LoadingOverlay: () => (
+                <Box
+                  sx={{ opacity: '0.1' }}
+                  display="flex"
+                  position="relative"
+                  zIndex="10"
+                  left={0}
+                  top={0}
+                  bgcolor="gray"
+                  alignItems="center"
+                  justifyContent="center"
+                  height={400}
+                  width="100%">
+                  <Loading />
+                </Box>
+              ),
             }}
+            pageSizeOptions={[1, 2, 5, 10]}
+            paginationMode="server"
             localeText={{
               MuiTablePagination: {
-                labelDisplayedRows: ({ from, to, count }) =>
-                  `صفحه ${from} از ${count} : تعداد کل صفحات ${count}`,
+                labelDisplayedRows: () =>
+                  `صفحه ${
+                    paginationModel.page + 1
+                  } از ${totalPages}: تعداد کل صفحات ${totalPages}`,
+                labelRowsPerPage: 'تعداد ردیف در هر صفحه:',
               },
             }}
-            
-            pageSizeOptions={[5]}
             disableRowSelectionOnClick
           />
         </Box>
-      )}
     </>
   )
 }

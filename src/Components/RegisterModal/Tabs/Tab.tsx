@@ -1,4 +1,5 @@
 import Login from '@/Components/Login/login'
+import SignUpForm from '@/Components/SignUp'
 import { Tab } from '@headlessui/react'
 import Link from 'next/link'
 import { Fragment } from 'react'
@@ -31,7 +32,9 @@ function ModalTabs() {
         <Tab.Panel>
           <Login />
         </Tab.Panel>
-        <Tab.Panel>Content 2</Tab.Panel>
+        <Tab.Panel>
+          <SignUpForm />
+        </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
   )

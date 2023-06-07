@@ -12,7 +12,7 @@ import Loading from '../Loading'
 const RTLDataGridPagination = () => {
   return <GridPagination className="rtl-pagination ml-auto mr-6" />
 }
-export default function ProductsPricesTable({ columns }) {
+export default function OrdersTable({ columns }) {
   const procutsLength: number = +(localStorage.getItem('procutsLength') ?? 0)
   const [paginationModel, setPaginationModel] = useState({
     page: 0,

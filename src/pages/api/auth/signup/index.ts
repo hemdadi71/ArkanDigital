@@ -12,7 +12,14 @@ export default async function handler(
   switch (method) {
     case 'POST': // Sign up
       try {
-        const { username, email, password, reenterPassword } = req.body
+        const {
+          firstname,
+          lastname,
+          username,
+          email,
+          password,
+          reenterPassword,
+        } = req.body
 
         // Check if required properties exist
         if (!username || !email || !password || !reenterPassword) {
@@ -41,12 +48,13 @@ export default async function handler(
         }
 
         const user = await UserModel.create({
+          firstname,
+          lastname,
           username,
           email,
           password,
           reenterPassword,
-          cart: [],
-          rode: 'user',
+          role: 'user',
         })
         res.status(201).json({ success: true, user })
       } catch (error) {
