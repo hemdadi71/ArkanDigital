@@ -1,7 +1,6 @@
 import Login from '@/Components/Login/login'
 import SignUpForm from '@/Components/SignUp'
 import { Tab } from '@headlessui/react'
-import Link from 'next/link'
 import { Fragment } from 'react'
 function ModalTabs() {
   return (

@@ -5,15 +5,19 @@ import SearchInput from '../SearchInput/SearchInput'
 import { TbLogin } from 'react-icons/tb'
 import { RiAdminLine, RiShoppingCart2Line } from 'react-icons/ri'
 import { FaPhoneAlt } from 'react-icons/fa'
-import { AiFillHome, AiOutlineHome, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineHome, AiOutlineUser } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
-import { showRegisterModal } from '@/Redux/Reducers/RegisterModal'
+import { showRegisterModal } from '@/Redux/Slices/RegisterModal'
 import { RoleState } from '../../Types/types'
 import Cookies from 'js-cookie'
-import { setRole } from '@/Redux/Reducers/Role'
+import { setRole } from '@/Redux/Slices/Role'
+import moment from 'moment-jalaali'
+// ..........................................................
 function Header() {
+  const date = moment(Date.now()).format('jYYYY/jMM/jDD')
+  console.log(date)
   const [isShowDropdown, SetIsShowDropdown] = useState(false)
   const roleState = useSelector((state: RoleState) => state.role)
   const dispatch = useDispatch()

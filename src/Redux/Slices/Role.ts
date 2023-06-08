@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RoleState } from '../../Types/types'
-import Cookies from 'js-cookie'
-// const data = JSON.parse(Cookies.get('token'))
-
+type RoleState = {
+  role: string
+}
 const roleSlice = createSlice({
   name: 'role',
   initialState: { role: '' } as RoleState,

@@ -2,10 +2,11 @@ import Link from 'next/link'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
-import { setRole } from '@/Redux/Reducers/Role'
+import { setRole } from '@/Redux/Slices/Role'
 import AdminTabs from '../AdminTabs/AdminTabs'
 import { AiOutlineHome } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
+// .................................................
 function AdminHeader() {
   const dispatch = useDispatch()
   const handleSignOut = () => {

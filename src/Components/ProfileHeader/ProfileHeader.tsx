@@ -4,7 +4,7 @@ import { RiShoppingCart2Line } from 'react-icons/ri'
 import { FiLogOut } from 'react-icons/fi'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
-import { setRole } from '@/Redux/Reducers/Role'
+import { setRole } from '@/Redux/Slices/Role'
 import Cookies from 'js-cookie'
 
 function ProfileHeader() {

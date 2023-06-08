@@ -8,6 +8,7 @@ export const PriceColumns: GridColDef[] = [
     editable: false,
     sortable: false,
     filterable: false,
+    cellClassName:'font-semibold'
   },
   {
     field: 'price',

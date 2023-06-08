@@ -1,39 +1,45 @@
 /* eslint-disable @next/next/no-img-element */
 // import * as React from 'react'
 import Box from '@mui/material/Box'
-import { DataGrid, GridPagination } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridPagination } from '@mui/x-data-grid'
 import { useQuery } from 'react-query'
-import { ProductProps } from '@/Types/types'
+import { ProductProps, ProductsColumns } from '@/Types/types'
 import { getProducts } from '../api'
 import { useEffect, useState } from 'react'
-
-import Loading from '../Loading'
-
-const RTLDataGridPagination = () => {
+// ..............................................................
+export const RTLDataGridPagination = () => {
   return <GridPagination className="rtl-pagination ml-auto mr-6" />
 }
-export default function ProductsPricesTable({ columns }) {
+// ..............................................................
+export default function ProductsPricesTable({ columns }: ProductsColumns) {
   const procutsLength: number = +(localStorage.getItem('procutsLength') ?? 0)
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 5,
   })
-  const totalPages = Math.ceil(procutsLength / paginationModel.pageSize)
+  const { page, pageSize } = paginationModel
+  const totalPages = Math.ceil(procutsLength / pageSize)
   const [rowCountState, setRowCountState] = useState(procutsLength)
   useEffect(() => {
     setRowCountState(prevRowCountState =>
       procutsLength !== undefined ? procutsLength : prevRowCountState
     )
-  }, [procutsLength, setRowCountState, paginationModel.pageSize])
+  }, [procutsLength, setRowCountState, pageSize])
   const { data: rows, isLoading } = useQuery(
-    ['getProducts', paginationModel.page, paginationModel.pageSize],
-    () => getProducts(paginationModel.pageSize, paginationModel.page + 1)
+    ['getProducts', page, pageSize],
+    () => getProducts(pageSize, page + 1)
   )
   const getRowId = (row: ProductProps) => row._id
   return (
     <>
-      <Box sx={{ height: 350, width: '100%', backgroundColor: 'white' }}>
+      <Box
+        sx={{
+          height: 350,
+          width: '100%',
+          backgroundColor: 'white',
+        }}>
         <DataGrid
+          rowHeight={65}
           getRowId={getRowId}
           rowCount={rowCountState}
           rows={rows || []}
@@ -43,22 +49,6 @@ export default function ProductsPricesTable({ columns }) {
           loading={isLoading}
           components={{
             Pagination: RTLDataGridPagination,
-            LoadingOverlay: () => (
-              <Box
-                sx={{ opacity: '0.1' }}
-                display="flex"
-                position="relative"
-                zIndex="10"
-                left={0}
-                top={0}
-                bgcolor="gray"
-                alignItems="center"
-                justifyContent="center"
-                height={400}
-                width="100%">
-                <Loading />
-              </Box>
-            ),
           }}
           pageSizeOptions={[1, 2, 5, 10]}
           paginationMode="server"

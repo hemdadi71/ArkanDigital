@@ -2,9 +2,9 @@ import { Tab } from '@headlessui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Fragment } from 'react'
+// .......................................................
 function AdminTabs() {
   const router = useRouter()
-  console.log(router.route.includes('price'))
   return (
     <Tab.Group>
       <Tab.List className="flex gap-4">

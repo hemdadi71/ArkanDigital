@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 
 const FileInput = ({
   name,
@@ -9,13 +9,7 @@ const FileInput = ({
   defaultValue,
   id,
 }: any) => {
-  function handleOnChange(e) {
-    // setImageSrc(e.target.files[0])
-    console.log(e.target)
-    //   setUploadData(undefined)
-
-    // reader.readAsDataURL(e.target.files[0])
-  }
+  
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -33,7 +27,6 @@ const FileInput = ({
           type={type}
           {...register}
         />
-        {/* <img src={imageSrc} alt="img" /> */}
         <span className="text-red-500">{errorTxt}</span>
       </div>
     </>

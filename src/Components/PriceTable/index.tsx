@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { getProducts } from '../api'
 import { Button } from '@mui/material'
 import Loading from '../Loading'
+import { PriceColumns } from './PriceColumns'
 
 
 const RTLDataGridPagination = () => {
@@ -44,7 +45,7 @@ export default function PriceTable() {
             getRowId={getRowId}
             rowCount={rowCountState}
             rows={rows || []}
-            columns={columns}
+            columns={PriceColumns}
             onPaginationModelChange={setPaginationModel}
             paginationModel={paginationModel}
             loading={isLoading}

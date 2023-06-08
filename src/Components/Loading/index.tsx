@@ -6,7 +6,7 @@ function Loading({ className = '', txt = '' }) {
       <div className={`absolute${className}`}>
         <div className="spinner-container flex items-center gap-3">
           <div className="loading-spinner"></div>
-          <p className='font-semibold text-xl'>{txt}</p>
+          <p className="font-semibold text-xl">{txt}</p>
         </div>
       </div>
     </>

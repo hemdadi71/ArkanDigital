@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { ProductCartProps, ProductProps, ProductState } from '../../Types/types'
 import { getProducts } from '../api'
 import { useDispatch, useSelector } from 'react-redux'
-import { allProducts } from '@/Redux/Reducers/ProductsSlice'
+import { allProducts } from '@/Redux/Slices/ProductsSlice'
 import { useQuery } from 'react-query'
 
 function Products() {

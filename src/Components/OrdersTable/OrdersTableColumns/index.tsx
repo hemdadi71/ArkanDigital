@@ -1,9 +1,9 @@
+import { UserData } from '@/Types/types'
 import { Button } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
-
-export function Columns(userData) {
+// ....................................................
+export function Columns(userData: UserData[]) {
   const columns: GridColDef[] = [
-    // Modify the columns according to your order data structure
     {
       field: 'user.username',
       headerName: 'نام کاربر',
@@ -12,10 +12,12 @@ export function Columns(userData) {
       sortable: false,
       filterable: false,
       renderCell: params => {
-        const user = userData?.find(item => item._id === params.row.user)
+        const user =
+          userData?.find(item => item._id === params.row.user) ||
+          ({} as UserData)
         return (
           <>
-            <p>
+            <p className="font-semibold">
               {user.firstname} {user.lastname}
             </p>
           </>
@@ -33,8 +35,21 @@ export function Columns(userData) {
     {
       field: 'createdAt',
       headerName: 'زمان ثبت سفارش',
-      width: 140,
+      width: 200,
       editable: true,
+      renderCell: params => {
+        const dateNow = params.row.createdAt.split('T')[0].replace(/-/g, '/')
+        const timeNow = params.row.createdAt.split('T')[1].split('.')[0]
+        console.log(timeNow)
+        return (
+          <>
+            <div className="flex items-center gap-1">
+              <p>{dateNow}</p>
+              {/* <p>ساعت {timeNow}</p> */}
+            </div>
+          </>
+        )
+      },
     },
     {
       field: 'checkOrder',

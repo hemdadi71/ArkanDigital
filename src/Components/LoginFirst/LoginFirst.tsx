@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { showRegisterModal } from '@/Redux/Reducers/RegisterModal'
+import { showRegisterModal } from '@/Redux/Slices/RegisterModal'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RoleState } from '../../Types/types'
 import { useRouter } from 'next/router'
-
+// ........................................................
 function LoginFirst() {
   const roleState = useSelector((state: RoleState) => state.role)
   const { role }: any = roleState
@@ -22,7 +22,7 @@ function LoginFirst() {
         </p>
         <button
           onClick={() => dispatch(showRegisterModal())}
-          className="bg-purple-600 rounded-md py-1 px-4 text-white w-fit mx-auto">
+          className="bg-purple rounded-md py-1 px-4 text-white w-fit mx-auto">
           برای وارد شدن کلیک کنید
         </button>
       </div>

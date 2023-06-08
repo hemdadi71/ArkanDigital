@@ -1,19 +1,20 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { cookies } from 'next/dist/client/components/headers'
-import { redirect } from 'next/navigation'
 import { schema } from '../../utils/Schema/LoginSchema'
 import Input from '../Input/Input'
 import { useDispatch } from 'react-redux'
-import { hideRegisterModal } from '@/Redux/Reducers/RegisterModal'
+import { hideRegisterModal } from '@/Redux/Slices/RegisterModal'
 import Cookies from 'js-cookie'
-import { setRole } from '@/Redux/Reducers/Role'
+import { setRole } from '@/Redux/Slices/Role'
 import { loginData } from '@/Types/types'
 import * as yup from 'yup'
+import { postLogin } from '../api'
+import toast from 'react-hot-toast'
+// ..................................................
 type FormData = yup.InferType<typeof schema>
+// ..................................................
 function Login() {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -25,20 +26,21 @@ function Login() {
     resolver: yupResolver(schema),
   })
   const handleSignIn = (data: loginData) => {
-    axios
-      .post('/api/auth/signin', data)
-      .then(res => {
-        const { tokens, user } = res.data
-        const userData = JSON.stringify({ tokens, user })
-        Cookies.set('token', userData, { expires: 7 })
-        if (res.data) {
-          dispatch(hideRegisterModal())
-          dispatch(setRole(user.role))
-          user.role === 'admin' && router.push('/admin/products')
-        }
-      })
-      .catch(err => console.log(err.message))
+    postLogin(data).then(res => {
+      const { tokens, user } = res
+      const userData = JSON.stringify({ tokens, user })
+      Cookies.set('token', userData, { expires: 7 })
+      if (res) {
+        dispatch(hideRegisterModal())
+        dispatch(setRole(user.role))
+        user.role === 'admin' && router.push('/admin/products')
+        toast('خوش آمدید', {
+          icon: '👏',
+        })
+      }
+    })
   }
+  // ...........................................................
   return (
     <>
       <div>

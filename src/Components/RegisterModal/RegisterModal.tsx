@@ -1,4 +1,4 @@
-import { hideRegisterModal } from '@/Redux/Reducers/RegisterModal'
+import { hideRegisterModal } from '@/Redux/Slices/RegisterModal'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'

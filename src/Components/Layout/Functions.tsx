@@ -4,16 +4,17 @@ import Header from '@/Components/Header/Header'
 import LoginFirst from '@/Components/LoginFirst/LoginFirst'
 import ProfileHeader from '@/Components/ProfileHeader/ProfileHeader'
 import ProfileSidebar from '@/Components/ProfileSidebar/ProfileSidebar'
-import { setRole } from '@/Redux/Reducers/Role'
+import { setRole } from '@/Redux/Slices/Role'
+import { RoleState } from '@/Types/types'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+// ................................................................
 export function LayoutHandler(children: any) {
   const router = useRouter()
-  const roleState = useSelector((state: any) => state.role)
-  const { role } = roleState
+  const roleState = useSelector((state: RoleState) => state.role)
+  const { role }: any = roleState
   const dispatch = useDispatch()
   useEffect(() => {
     const data = Cookies.get('token')
@@ -24,7 +25,7 @@ export function LayoutHandler(children: any) {
   }, [])
   if (router.pathname.includes('admin') && role === 'admin')
     return (
-      <main className='overflow-hidden'>
+      <main className="overflow-hidden">
         <AdminHeader />
         <article className="w-[100vw] h-[100vh] bg-[#F2F3F5]">
           {children}

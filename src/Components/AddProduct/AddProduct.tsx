@@ -12,7 +12,8 @@ import ImagePreview from './ImagePreview'
 import { handleChange, handleThumbnailChange } from './Functions'
 import ThumbnailPreview from './ThumbnailPreview'
 import { useDispatch } from 'react-redux'
-import { hideProductModal } from '@/Redux/Reducers/AddProductSlice'
+import { hideProductModal } from '@/Redux/Slices/AddProductSlice'
+import { ProductProps } from '@/Types/types'
 
 const ProductForm = () => {
   const [imageLink, setImageLink] = useState([])

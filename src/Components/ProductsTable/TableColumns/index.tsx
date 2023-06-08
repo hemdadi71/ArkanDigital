@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "@mui/material"
-import { GridColDef } from "@mui/x-data-grid"
+import { Button } from '@mui/material'
+import { GridColDef } from '@mui/x-data-grid'
 
 export const columns: GridColDef[] = [
   {
     field: 'thumbnail',
     headerName: 'تصویر',
-    width: 100,
+    disableColumnMenu: true,
+    width: 120,
     editable: false,
     sortable: false,
     filterable: false,
@@ -14,7 +15,7 @@ export const columns: GridColDef[] = [
       <>
         <div className="rounded-md overflow-hidden">
           <img
-            className="w-full h-full rounded-md"
+            className="w-full h-full rounded-md hover:scale-[1.2] transition-all ease-in-out duration-200"
             src={params.value}
             alt="Thumbnail"
           />
@@ -27,8 +28,7 @@ export const columns: GridColDef[] = [
     headerName: 'نام کالا',
     width: 200,
     editable: true,
-    sortable: false,
-    filterable: false,
+    cellClassName: 'font-semibold text-[15px]',
   },
   {
     field: 'category',
@@ -46,6 +46,8 @@ export const columns: GridColDef[] = [
   {
     field: 'edit',
     headerName: 'ویرایش',
+    disableColumnMenu: true,
+    sortable: false,
     width: 100,
     editable: false,
     renderCell: value => {
@@ -64,6 +66,8 @@ export const columns: GridColDef[] = [
   {
     field: 'remove',
     headerName: 'حذف',
+    disableColumnMenu: true,
+    sortable: false,
     width: 100,
     editable: false,
     renderCell: value => {

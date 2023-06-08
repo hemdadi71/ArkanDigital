@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RegisterModalState } from '../../Types/types'
-const initialState: RegisterModalState = {
+import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit'
+import { ProductsModal, RegisterModalState } from '../../Types/types'
+const initialState: ProductsModal = {
   isOpen: false,
 }
 const addProductModalSlice = createSlice({
@@ -17,5 +17,5 @@ const addProductModalSlice = createSlice({
 })
 
 export const { showProductModal, hideProductModal } =
-addProductModalSlice.actions
+  addProductModalSlice.actions
 export default addProductModalSlice.reducer

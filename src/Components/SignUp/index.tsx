@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import Input from '../Input/Input'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { hideRegisterModal } from '@/Redux/Reducers/RegisterModal'
+import { hideRegisterModal } from '@/Redux/Slices/RegisterModal'
 // .............................................................
 const SignUpForm: React.FC = () => {
   const {

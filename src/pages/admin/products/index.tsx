@@ -2,26 +2,30 @@ import React from 'react'
 import ProductsPricesTable from '@/Components/ProductsTable'
 import { useDispatch, useSelector } from 'react-redux'
 import AddProductModal from '@/Components/AddProductModal'
-import { showProductModal } from '@/Redux/Reducers/AddProductSlice'
+import { showProductModal } from '@/Redux/Slices/AddProductSlice'
 import { AnimatePresence } from 'framer-motion'
 import { columns } from '@/Components/ProductsTable/TableColumns'
+import { ProductsModalState } from '@/Types/types'
 
 function Products() {
   const dispatch = useDispatch()
-  const isProductModal = useSelector(state => state.productModal.isOpen)
+  const isProductModal = useSelector(
+    (state: ProductsModalState) => state.productModal.isOpen
+  )
   return (
     <>
-      <div className="flex flex-col p-10 gap-5">
-        <p className="text-xl font-semibold">مدیریت کالاها</p>
-        <div className="w-[70%]">
+      <div className="flex flex-col p-10 gap-5 w-[70%]">
+        <div className="flex justify-between items-center">
+          <p className="text-xl font-semibold">مدیریت کالاها</p>
+          <button
+            onClick={() => dispatch(showProductModal())}
+            className="rounded-md px-4 py-1 bg-purple text-white">
+            اضافه کردن محصول
+          </button>
+        </div>
+        <div className="w-full">
           <ProductsPricesTable columns={columns} />
-          <div className="flex justify-end py-5">
-            <button
-              onClick={() => dispatch(showProductModal())}
-              className="rounded-md px-4 py-1 bg-purple text-white">
-              اضافه کردن محصول
-            </button>
-          </div>
+          <div className="flex justify-end py-5"></div>
         </div>
       </div>
       <AnimatePresence>{isProductModal && <AddProductModal />}</AnimatePresence>

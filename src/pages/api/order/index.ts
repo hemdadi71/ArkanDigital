@@ -7,33 +7,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { method, body } = req
+  const { method, body, query } = req
   await dbConnect()
 
   switch (method) {
     case 'GET':
       try {
-        const { page = 1, limit = 10, sort, quantity } = req.query
+        const { page = 1, limit = 10, deliveryStatus = false } = query
 
-        const filter: any = {}
+        const skip = (Number(page) - 1) * Number(limit)
+        let queryOptions = {}
 
-        if (quantity && typeof quantity === 'object' && 'gte' in quantity) {
-          filter.quantity = { $gte: Number(quantity.gte) }
+        if (deliveryStatus) {
+          queryOptions = { ...queryOptions, deliveryStatus: deliveryStatus }
         }
 
-        let sortOption: any = {}
-
-        if (sort === 'price') {
-          sortOption = { price: 1 }
-        } else if (sort === '-price') {
-          sortOption = { price: -1 }
-        }
-
-        const orders = await OrderModel.find(filter)
-          .sort(sortOption)
-          .skip((Number(page) - 1) * Number(limit))
+        const orders = await OrderModel.find(queryOptions)
+          .skip(skip)
           .limit(Number(limit))
-          .populate('user', 'username')
 
         res.status(200).json({ success: true, orders })
       } catch (error) {

@@ -1,38 +1,44 @@
 /* eslint-disable @next/next/no-img-element */
-// import * as React from 'react'
 import Box from '@mui/material/Box'
-import { DataGrid, GridPagination } from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid'
 import { useQuery } from 'react-query'
-import { ProductProps } from '@/Types/types'
-import { getProducts } from '../api'
+import { getOrders } from '../api'
 import { useEffect, useState } from 'react'
-
-import Loading from '../Loading'
-
-const RTLDataGridPagination = () => {
-  return <GridPagination className="rtl-pagination ml-auto mr-6" />
-}
-export default function OrdersTable({ columns }) {
-  const procutsLength: number = +(localStorage.getItem('procutsLength') ?? 0)
+import { Columns } from './OrdersTableColumns'
+import { RTLDataGridPagination } from '../ProductsTable'
+import { OrderTableProps, ProductProps } from '@/Types/types'
+// .....................................................................
+export default function OrdersTable({
+  allOrdersLength,
+  userData,
+  status,
+}: OrderTableProps) {
+  const columns = Columns(userData)
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 5,
   })
-  const totalPages = Math.ceil(procutsLength / paginationModel.pageSize)
-  const [rowCountState, setRowCountState] = useState(procutsLength)
+  const { page, pageSize } = paginationModel
+  const totalPages = Math.ceil(allOrdersLength / pageSize)
+  const [rowCountState, setRowCountState] = useState(allOrdersLength)
   useEffect(() => {
     setRowCountState(prevRowCountState =>
-      procutsLength !== undefined ? procutsLength : prevRowCountState
+      allOrdersLength !== undefined ? allOrdersLength : prevRowCountState
     )
-  }, [procutsLength, setRowCountState, paginationModel.pageSize])
+  }, [allOrdersLength, setRowCountState, pageSize])
   const { data: rows, isLoading } = useQuery(
-    ['getProducts', paginationModel.page, paginationModel.pageSize],
-    () => getProducts(paginationModel.pageSize, paginationModel.page + 1)
+    ['getOrders', page, pageSize, status],
+    () => getOrders(pageSize, page + 1, status)
   )
   const getRowId = (row: ProductProps) => row._id
   return (
     <>
-      <Box sx={{ height: 350, width: '100%', backgroundColor: 'white' }}>
+      <Box
+        sx={{
+          height: 350,
+          width: '100%',
+          backgroundColor: 'white',
+        }}>
         <DataGrid
           getRowId={getRowId}
           rowCount={rowCountState}
@@ -43,22 +49,6 @@ export default function OrdersTable({ columns }) {
           loading={isLoading}
           components={{
             Pagination: RTLDataGridPagination,
-            LoadingOverlay: () => (
-              <Box
-                sx={{ opacity: '0.1' }}
-                display="flex"
-                position="relative"
-                zIndex="10"
-                left={0}
-                top={0}
-                bgcolor="gray"
-                alignItems="center"
-                justifyContent="center"
-                height={400}
-                width="100%">
-                <Loading />
-              </Box>
-            ),
           }}
           pageSizeOptions={[1, 2, 5, 10]}
           paginationMode="server"

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import RegisterModal from './Reducers/RegisterModal'
-import Role from './Reducers/Role'
-import ProductsSlice from './Reducers/ProductsSlice'
-import AddProductSlice from './Reducers/AddProductSlice'
+import RegisterModal from './Slices/RegisterModal'
+import Role from './Slices/Role'
+import ProductsSlice from './Slices/ProductsSlice'
+import AddProductSlice from './Slices/AddProductSlice'
 
 // ....................................................
 export const store = configureStore({

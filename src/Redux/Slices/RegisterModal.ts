@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RegisterModalState } from '../../Types/types'
-const initialState: RegisterModalState = {
+import { registerModal, RegisterModalState } from '../../Types/types'
+ const initialState: registerModal = {
   isOpen: false,
 }
 const registerModalSlice = createSlice({
