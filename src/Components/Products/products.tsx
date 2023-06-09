@@ -1,7 +1,7 @@
 import ProductCart from '@/Components/ProductCart/ProductCart'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ProductCartProps, ProductProps } from '../../../Types'
+import { ProductCartProps, ProductProps } from '../../../Types/types'
 
 function Products() {
   const [products, setProducts] = useState([])
