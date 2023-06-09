@@ -1,31 +1,42 @@
 import ProductCart from '@/Components/ProductCart/ProductCart'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ProductCartProps, ProductProps } from '../../../Types/types'
+import { ProductCartProps, ProductProps, ProductState } from '../../Types/types'
+import { getProducts } from '../api'
+import { useDispatch, useSelector } from 'react-redux'
+import { allProducts } from '@/Redux/Slices/ProductsSlice'
+import { useQuery } from 'react-query'
 
 function Products() {
-  const [products, setProducts] = useState([])
-  useEffect(() => {
-    axios('http://localhost:3000/api/products').then(res => {
-      const { products } = res.data
-      setProducts(products)
-      console.log(products)
-    })
-  }, [])
+  const dispatch = useDispatch()
+  const { data, isLoading, isError } = useQuery(
+    'getProducts',
+    () => getProducts(),
+    {
+      onSuccess: data => {
+        dispatch(allProducts(data))
+        localStorage.setItem('procutsLength', data.length)
+      },
+    }
+  )
   return (
     <>
-      <div className="flex gap-5 flex-wrap">
-        {products.map((item: ProductProps) => {
-          return (
-            <ProductCart
-              key={item._id}
-              src={`/product/images/${item.thumbnail}`}
-              price={item.price}
-              name={item.name}
-              id={item._id}
-            />
-          )
-        })}
+      <div className="flex gap-5 flex-wrap p-5">
+        {isLoading && <div>Loading...</div>}
+        {data &&
+          data.map((item: ProductProps) => {
+            return (
+              <ProductCart
+                subcategory={item.subcategory}
+                category={item.category}
+                key={item._id}
+                src={item.thumbnail}
+                price={item.price}
+                name={item.name}
+                id={item._id}
+              />
+            )
+          })}
       </div>
     </>
   )

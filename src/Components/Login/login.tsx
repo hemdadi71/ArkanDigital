@@ -1,57 +1,74 @@
-
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { cookies } from 'next/dist/client/components/headers'
-import { redirect } from 'next/navigation';
-function Products() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema } from '../../utils/Schema/LoginSchema'
+import Input from '../Input/Input'
+import { useDispatch } from 'react-redux'
+import { hideRegisterModal } from '@/Redux/Slices/RegisterModal'
+import Cookies from 'js-cookie'
+import { setRole } from '@/Redux/Slices/Role'
+import { loginData } from '@/Types/types'
+import * as yup from 'yup'
+import { postLogin } from '../api'
+import toast from 'react-hot-toast'
+// ..................................................
+type FormData = yup.InferType<typeof schema>
+// ..................................................
+function Login() {
   const router = useRouter()
-  const handleSignIn = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    const data = {
-      username,
-      password,
-    }
-    axios
-      .post('/api/auth/signin', data)
-      .then(res => {
-        console.log(res.data.user.role)
-        localStorage.setItem('user', res.data.user.role)
-        res.data.user.role === 'admin'
-          ? router.push('/admin')
-          : router.push('/profile')
-      })
-      .catch(err => console.log(err.message))
+  const dispatch = useDispatch()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  })
+  const handleSignIn = (data: loginData) => {
+    postLogin(data).then(res => {
+      const { tokens, user } = res
+      const userData = JSON.stringify({ tokens, user })
+      Cookies.set('token', userData, { expires: 7 })
+      if (res) {
+        dispatch(hideRegisterModal())
+        dispatch(setRole(user.role))
+        user.role === 'admin' && router.push('/admin/products')
+        toast('خوش آمدید', {
+          icon: '👏',
+        })
+      }
+    })
   }
+  // ...........................................................
   return (
     <>
       <div>
         <form
-          onSubmit={handleSignIn}
-          className="flex flex-col gap-2 bg-gray-200 p-5">
+          onSubmit={handleSubmit(handleSignIn)}
+          className="flex flex-col gap-4 p-5 items-center">
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Username</label>
-            <input
-              id="username"
+            <Input
               name="username"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+              register={{ ...register('username') }}
               type="text"
+              label="نام کاربری:"
+              errorTxt={errors.username?.message}
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+            <Input
+              name="password"
+              register={{ ...register('password') }}
               type="password"
+              label="رمز عبور:"
+              errorTxt={errors.password?.message}
             />
           </div>
-          <button type="submit" className="bg-blue-200 mt-3">
-            Sign In
+          <button
+            type="submit"
+            className="bg-purple text-white w-fit py-1 px-6 rounded-md mt-3">
+            ورود
           </button>
         </form>
       </div>
@@ -59,4 +76,4 @@ function Products() {
   )
 }
 
-export default Products
+export default Login

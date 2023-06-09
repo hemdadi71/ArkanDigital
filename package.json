@@ -9,13 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.10.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.14",
-    "@mui/material": "^5.13.2",
+    "@hookform/resolvers": "^3.1.0",
+    "@mui/material": "^5.13.3",
     "@mui/styled-engine-sc": "^5.12.0",
+    "@mui/x-data-grid": "^6.6.0",
+    "@mui/x-data-grid-generator": "^6.6.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@splidejs/react-splide": "^0.7.12",
+    "@types/express": "^4.17.17",
     "@types/node": "20.1.2",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -29,6 +35,8 @@
     "framer-motion": "^10.12.16",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
+    "moment-jalaali": "^0.10.0",
+    "mongodb": "^5.6.0",
     "mongoose": "^7.1.2",
     "multer": "^1.4.5-lts.1",
     "next": "13.4.2",
@@ -44,10 +52,13 @@
     "styled-components": "^5.3.11",
     "swiper": "^9.3.2",
     "tailwindcss": "3.3.2",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.3",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/moment-jalaali": "^0.7.6",
     "@types/multer": "^1.4.7"
   }
 }

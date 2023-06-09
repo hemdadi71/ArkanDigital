@@ -12,7 +12,14 @@ export default async function handler(
   switch (method) {
     case 'POST': // Sign up
       try {
-        const { username, email, password, reenterPassword } = req.body
+        const {
+          firstname,
+          lastname,
+          username,
+          email,
+          password,
+          reenterPassword,
+        } = req.body
 
         // Check if required properties exist
         if (!username || !email || !password || !reenterPassword) {
@@ -41,16 +48,42 @@ export default async function handler(
         }
 
         const user = await UserModel.create({
+          firstname,
+          lastname,
           username,
           email,
           password,
           reenterPassword,
-          cart: [],
-          rode: 'user',
+          role: 'user',
         })
         res.status(201).json({ success: true, user })
       } catch (error) {
         res.status(400).json({ success: false, error: 'Failed to create user' })
+      }
+      break
+    case 'PUT': // Update profile
+      try {
+        const { firstname, lastname, phone, address, userId } = req.body
+
+        // Find the user in the database
+        const user = await UserModel.findById(userId)
+        if (!user) {
+          res.status(404).json({ success: false, message: 'User not found' })
+          return
+        }
+
+        // Update the user's profile fields
+        user.firstname = firstname || user.firstname
+        user.lastname = lastname || user.lastname
+        user.phone = phone || user.phone
+        user.address = address || user.address
+
+        // Save the updated user
+        await user.save()
+
+        res.status(200).json({ success: true, user })
+      } catch (error) {
+        res.status(400).json({ success: false, error: 'Failed to update user' })
       }
       break
   }

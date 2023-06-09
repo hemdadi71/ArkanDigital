@@ -1,135 +1,180 @@
+/* eslint-disable @next/next/no-img-element */
 // import React, { useState } from 'react';
 import axios from 'axios'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import Input from '../Input/Input'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { productSchema } from '../../utils/Schema/ProuctSchema'
+import { postProduct, uploadCloudinary } from '../api'
+import FileInput from '../FileInput'
+import ImagePreview from './ImagePreview'
+import { handleChange, handleThumbnailChange } from './Functions'
+import ThumbnailPreview from './ThumbnailPreview'
+import { useDispatch } from 'react-redux'
+import { hideProductModal } from '@/Redux/Slices/AddProductSlice'
+import { ProductProps } from '@/Types/types'
+import CategoryForm from '../AddCategory'
 
 const ProductForm = () => {
-  const [category, setCategory] = useState('')
-  const [subcategory, setSubcategory] = useState('')
-  const [name, setName] = useState('')
-  const [slugname, setSlugname] = useState('')
-  const [price, setPrice] = useState(0)
-  const [quantity, setQuantity] = useState(0)
-  const [brand, setBrand] = useState('')
-  const [description, setDescription] = useState('')
-  const [thumbnail, setThumbnail] = useState<File | null>(null)
-  const [images, setImages] = useState<FileList | null>(null)
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (files?.length) {
-      setImages(files)
-    }
-  }
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault()
-
-    const formData = new FormData()
-    formData.append('category', category)
-    formData.append('subcategory', subcategory)
-    formData.append('name', name)
-    formData.append('slugname', slugname)
-    formData.append('price', price.toString())
-    formData.append('quantity', quantity.toString())
-    formData.append('brand', brand)
-    formData.append('description', description)
-    if (thumbnail) {
-      formData.append('thumbnail', thumbnail)
-    }
-    if (images?.length) {
-      Array.from(images).forEach(file => {
-        formData.append('images', file)
-      })
-    }
-
+  const [imageLink, setImageLink] = useState([])
+  const [thumbnailLink, setThumbnailLink] = useState([])
+  const [imageSrc, setImageSrc] = useState([])
+  const [thumbnailSrc, setThumbnailSrc] = useState('')
+  const dispatch = useDispatch()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(productSchema),
+  })
+  const formSubmit = async (data: any) => {
     try {
-      const response = await axios.post('/api/products', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      console.log(response.data)
-      // Product is successfully posted
-      // You can perform any additional actions or show a success message here
+      const imageArr: any = []
+      for (let image of data.images) {
+        const Data = await uploadCloudinary(image)
+        imageArr.push(Data.url)
+      }
+      setImageLink(imageArr)
+      const thumbnailArr: any = []
+      for (let thumbnail of data.thumbnail) {
+        const Data = await uploadCloudinary(thumbnail)
+        thumbnailArr.push(Data.url)
+      }
+      setThumbnailLink(thumbnailArr)
     } catch (error) {
-      // Handle error response
-      console.log('Failed to create product:', error.response.data.error)
+      console.log(error)
+    }
+    data.images = imageLink
+    data.thumbnail = thumbnailLink[0]
+    console.log(data.images)
+    console.log(data.thumbnail)
+    console.log(data)
+    if (imageLink.length && thumbnailLink.length) {
+      postProduct(data).then(res => {
+        console.log(res)
+        dispatch(hideProductModal())
+      })
     }
   }
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Category:</label>
-        <input
+    <form className="flex flex-col gap-y-1" onSubmit={handleSubmit(formSubmit)}>
+      <div className="flex md:flex-row flex-col gap-10">
+        <Input
+          name="name"
+          register={{ ...register('name') }}
           type="text"
-          value={category}
-          onChange={e => setCategory(e.target.value)}
+          label="نام محصول:"
+          errorTxt={errors.name?.message}
         />
-      </div>
-      <div>
-        <label>Subcategory:</label>
-        <input
+        <Input
+          name="slugname"
+          register={{ ...register('slugname') }}
           type="text"
-          value={subcategory}
-          onChange={e => setSubcategory(e.target.value)}
+          label="نام کوتاه محصول:"
+          errorTxt={errors.slugname?.message}
         />
-      </div>
-      <div>
-        <label>Name:</label>
-        <input
+        <Input
+          name="brand"
+          register={{ ...register('brand') }}
           type="text"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          label="برند محصول:"
+          errorTxt={errors.brand?.message}
         />
-      </div>
-      <div>
-        <label>Slugname:</label>
-        <input
+        <Input
+          name="price"
+          register={{ ...register('price') }}
           type="text"
-          value={slugname}
-          onChange={e => setSlugname(e.target.value)}
+          label="قیمت محصول:"
+          errorTxt={errors.price?.message}
         />
       </div>
-      <div>
-        <label>Price:</label>
-        <input
-          type="number"
-          value={price}
-          onChange={e => setPrice(Number(e.target.value))}
-        />
-      </div>
-      <div>
-        <label>Quantity:</label>
-        <input
-          type="number"
-          value={quantity}
-          onChange={e => setQuantity(Number(e.target.value))}
-        />
-      </div>
-      <div>
-        <label>Brand:</label>
-        <input
+      <div className="flex items-center md:flex-row flex-col gap-10">
+        <Input
+          name="quantity"
+          register={{ ...register('quantity') }}
           type="text"
-          value={brand}
-          onChange={e => setBrand(e.target.value)}
+          label="موجودی:"
+          errorTxt={errors.quantity?.message}
         />
+        <div className="w-[25%]">
+          <FileInput
+            id="uploadImage"
+            name="images"
+            register={{
+              ...register('images', {
+                onChange: e => handleChange(e, setImageSrc),
+              }),
+            }}
+            type="file"
+            label="آپلود تصاویر محصول"
+            errorTxt={errors.images?.message}
+          />
+          <div
+            className={`overflow-y-auto ${
+              imageSrc.length && 'h-[120px]'
+            } flex`}>
+            <ImagePreview imageSrc={imageSrc} setImageSrc={setImageSrc} />
+          </div>
+        </div>
+        <div>
+          <FileInput
+            id="uploadThumbnail"
+            name="thumbnail"
+            register={{
+              ...register('thumbnail', {
+                onChange: e => handleThumbnailChange(e, setThumbnailSrc),
+              }),
+            }}
+            type="file"
+            label="آپلود تصویر اصلی محصول"
+            errorTxt={errors.thumbnail?.message}
+          />
+          <div
+            className={`overflow-y-auto ${
+              imageSrc.length && 'h-[120px]'
+            } flex`}>
+            <ThumbnailPreview
+              thumbnailSrc={thumbnailSrc}
+              setThumbnailSrc={setThumbnailSrc}
+            />
+          </div>
+        </div>
       </div>
-      <div>
-        <label>Description:</label>
-        <textarea
-          value={description}
-          onChange={e => setDescription(e.target.value)}></textarea>
+      <div className="flex items-center md:flex-row flex-col gap-10">
+        <Input
+          name="category"
+          register={{ ...register('category') }}
+          type="text"
+          label="گروه:"
+          errorTxt={errors.category?.message}
+        />
+        <Input
+          name="subcategory"
+          register={{ ...register('subcategory') }}
+          type="text"
+          label="زیرگروه:"
+          errorTxt={errors.subcategory?.message}
+        />
+        <div className="w-full">
+          <Input
+            name="description"
+            register={{ ...register('description') }}
+            type="text"
+            label="توضیحات:"
+            errorTxt={errors.description?.message}
+          />
+        </div>
       </div>
-      <div>
-        <label>Thumbnail:</label>
-        <input type="file" onChange={e => setThumbnail(e.target.files[0])} />
+      <div className="flex items-center md:flex-row flex-col gap-10">
+        {/* <CategoryForm /> */}
       </div>
-      <div>
-        <label>Images:</label>
-        <input type="file" multiple onChange={handleImageChange} />
+      <div className="flex items-center justify-end py-5 text-white">
+        <button type="submit" className="bg-blue-500 rounded-md px-4 py-1">
+          ثبت اطلاعات
+        </button>
       </div>
-      <input type="submit" />
     </form>
   )
 }

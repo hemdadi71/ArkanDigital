@@ -11,7 +11,8 @@
 # next.js
 /.next/
 /out/
-
+# # publicPics
+# /public/
 # production
 /build
 
@@ -33,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+.vercel

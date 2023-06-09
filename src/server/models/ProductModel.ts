@@ -1,9 +1,37 @@
 
 import mongoose from 'mongoose'
-import { NextApiRequest, NextApiResponse } from 'next'
 
-// Define the product schema
 const productSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  slugname: {
+    type: String,
+    required: true,
+  },
+  brand: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  images: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  thumbnail: {
+    type: String,
+    required: true,
+  },
   category: {
     type: String,
     required: true,
@@ -12,58 +40,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  name: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  slugname: {
-    type: String,
-    trim: true,
-    required: false,
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  quantity: {
-    type: Number,
-    default: 1,
-  },
-  brand: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   description: {
     type: String,
     required: true,
-    trim: true,
-  },
-  thumbnail: {
-    type: String,
-    trim: true,
-    default: 'products-thumbnails-default.jpeg',
-  },
-  images: {
-    type: [String],
-    trim: true,
-    default: ['products-images-default.jpeg'],
-  },
-  rating: {
-    rate: {
-      type: Number,
-      default: 0,
-    },
-    count: {
-      type: Number,
-      default: 0,
-    },
   },
 })
 
-// Create the Product model
-const ProductModel =
+const Product =
   mongoose.models.Product || mongoose.model('Product', productSchema)
 
-export default ProductModel
+export default Product

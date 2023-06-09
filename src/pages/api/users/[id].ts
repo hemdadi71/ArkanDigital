@@ -1,9 +1,12 @@
 // pages/api/users/[id].js
 
-import UserModel from "@/server/models/User.model"
+import UserModel from '@/server/models/User.model'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id } = req.query // Extract the [id] parameter from the request query
 
   if (req.method === 'GET') {
@@ -21,12 +24,12 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'PUT') {
     try {
-      const { name, username, email, password } = req.body
+      const { firstname, lastname, phonenumber, address } = req.body
 
       // Update the user by ID with the data from the request body
       const updatedUser = await UserModel.findByIdAndUpdate(
         id,
-        { name, username, email, password },
+        { firstname, lastname, phonenumber, address },
         { new: true, runValidators: true }
       )
 

@@ -1,4 +1,3 @@
-
 // import dbConnect from '@/lib/dbConnect';
 import dbConnect from '@/lib/dbConenct'
 import OrderModel from '@/server/models/OrderModel'
@@ -8,14 +7,25 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { method, body } = req
+  const { method, body, query } = req
   await dbConnect()
 
   switch (method) {
     case 'GET':
       try {
-        // Fetch all orders from the MongoDB collection
-        const orders = await OrderModel.find({}).populate('user', 'username')
+        const { page = 1, limit = 10, deliveryStatus = false } = query
+
+        const skip = (Number(page) - 1) * Number(limit)
+        let queryOptions = {}
+
+        if (deliveryStatus) {
+          queryOptions = { ...queryOptions, deliveryStatus: deliveryStatus }
+        }
+
+        const orders = await OrderModel.find(queryOptions)
+          .skip(skip)
+          .limit(Number(limit))
+
         res.status(200).json({ success: true, orders })
       } catch (error) {
         res

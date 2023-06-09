@@ -9,18 +9,6 @@ import 'swiper/css'
 function Slider() {
   return (
     <>
-      {/* <Swiper
-        className="w-full"
-        slidesPerView={3}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={swiper => console.log(swiper)}>
-        <SwiperSlide>
-          <img className="w-full" src="/product/Slider/1.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide><p className='bg-blue-500'>fsdfsdff</p></SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-      </Swiper> */}
       <Splide
         className="cursor-pointer"
         options={{
@@ -51,7 +39,7 @@ function Slider() {
         <SplideSlide>
           <img
             className="h-full w-full rounded-xl"
-            src="/product/Slider/3.jpg"
+            src="/product/Slider/7.jpg"
             alt=""
           />
         </SplideSlide>

@@ -10,3 +10,41 @@ body {
   max-width: 1600px;
   margin: 0 auto;
 }
+.admin {
+  background-image: url(../../public/adminBG/v617batch2-bb-01-technology.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.full-width {
+  width: 100%;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #abb7c9;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #919cac;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  width: 45px;
+  height: 45px;
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}

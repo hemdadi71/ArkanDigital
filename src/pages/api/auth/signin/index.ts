@@ -35,11 +35,11 @@ export default async function handler(
         return
       }
 
-      // const accessTokenSecret = crypto.randomBytes(64).toString('hex')
-      // const refreshTokenSecret = crypto.randomBytes(64).toString('hex')
-      // // Generate tokens
-      // const accessToken = jwt.sign({ userId: user._id }, accessTokenSecret)
-      // const refreshToken = jwt.sign({ userId: user._id }, refreshTokenSecret)
+      const accessTokenSecret = crypto.randomBytes(64).toString('hex')
+      const refreshTokenSecret = crypto.randomBytes(64).toString('hex')
+      // Generate tokens
+      const accessToken = jwt.sign({ userId: user._id }, accessTokenSecret)
+      const refreshToken = jwt.sign({ userId: user._id }, refreshTokenSecret)
       res.status(200).json({
         success: true,
         user: {
@@ -47,15 +47,18 @@ export default async function handler(
           email: user.email,
           password: user.password,
           name: user.name,
+          username: user.username,
           role: user.role,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          phonenumber: user.phonenumber,
+          address: user.address,
           avatar: user.avatar,
         },
-        // tokens: {
-        //   accessToken,
-        //   refreshToken,
-        //   accessTokenSecret,
-        //   refreshTokenSecret,
-        // },
+        tokens: {
+          accessToken,
+          refreshToken,
+        },
       })
     } catch (error) {
       res.status(400).json({ success: false, error: 'fkldsfj' })
@@ -64,4 +67,3 @@ export default async function handler(
     res.status(400).json({ success: false })
   }
 }
-
