@@ -1,5 +1,5 @@
 import React from 'react'
-import { LayoutProps } from '../../Interfaces'
+import { LayoutProps } from '../../Types'
 import Header from '@/Components/Header/Header'
 import Footer from '@/Components/Footer/Footer'
 
