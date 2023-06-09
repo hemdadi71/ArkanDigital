@@ -16,7 +16,7 @@ function AdminTabs() {
                 selected && router.route.includes('products')
                   ? 'bg-purple text-white'
                   : 'bg-white text-black'
-              } py-1 px-6 rounded-md outline-none border`}>
+              } py-1 px-6 rounded-md outline-none border text-center`}>
               کالاها
             </Link>
           )}
@@ -29,7 +29,7 @@ function AdminTabs() {
                 selected || router.route.includes('price')
                   ? 'bg-purple text-white'
                   : 'bg-white text-black'
-              } py-1 px-6 rounded-md outline-none border`}>
+              } py-1 px-6 rounded-md outline-none border text-center`}>
               موجودی و قیمت ها
             </Link>
           )}
@@ -42,7 +42,7 @@ function AdminTabs() {
                 selected || router.route.includes('orders')
                   ? 'bg-purple text-white'
                   : 'bg-white text-black'
-              } py-1 px-6 rounded-md outline-none border`}>
+              } py-1 px-6 rounded-md outline-none border text-center`}>
               سفارش ها
             </Link>
           )}

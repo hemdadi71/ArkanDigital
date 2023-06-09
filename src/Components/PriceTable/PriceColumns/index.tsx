@@ -21,7 +21,7 @@ export const PriceColumns: GridColDef[] = [
   {
     field: 'quantity',
     headerName: 'موجودی',
-    width: 70,
+    width: 150,
     editable: true,
   },
 ]

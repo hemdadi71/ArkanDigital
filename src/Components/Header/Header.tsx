@@ -6,6 +6,7 @@ import { TbLogin } from 'react-icons/tb'
 import { RiAdminLine, RiShoppingCart2Line } from 'react-icons/ri'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { AiOutlineHome, AiOutlineUser } from 'react-icons/ai'
+import { GiHamburgerMenu } from 'react-icons/gi'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,11 +15,17 @@ import { RoleState } from '../../Types/types'
 import Cookies from 'js-cookie'
 import { setRole } from '@/Redux/Slices/Role'
 import moment from 'moment-jalaali'
+import Categories from '../Categories'
+import { getCategories } from '../api'
+import { useQuery } from 'react-query'
+import PhoneMenu from '../PhoneMenu'
 // ..........................................................
 function Header() {
   const date = moment(Date.now()).format('jYYYY/jMM/jDD')
   console.log(date)
   const [isShowDropdown, SetIsShowDropdown] = useState(false)
+  const [isShowMenu, setIsShowMenu] = useState(false)
+  const [isShowPhoneMenu, setIsShowPhoneMenu] = useState(false)
   const roleState = useSelector((state: RoleState) => state.role)
   const dispatch = useDispatch()
   const { role }: any = roleState
@@ -27,9 +34,10 @@ function Header() {
     Cookies.remove('token')
     dispatch(setRole(''))
   }
+  const { data, isLoading } = useQuery('getCategories', getCategories)
   return (
     <>
-      <header className="pb-4 pt-5 px-2">
+      <header className="pb-4 pt-5 px-2 relative z-50 bg-white">
         <div className="flex items-center justify-between px-4">
           <Logo />
           {router.pathname !== '/' && (
@@ -40,6 +48,28 @@ function Header() {
               <p className="font-semibold md:block hidden">صفحه نخست</p>
             </Link>
           )}
+          <div
+            onMouseOver={() => setIsShowMenu(true)}
+            onMouseLeave={() => setIsShowMenu(false)}
+            className="py-6 overflow-hidden lg:flex hidden items-center gap-2 cursor-pointer hover:text-purple">
+            <GiHamburgerMenu size={27} />
+            <p className="font-semibold md:block hidden">محصولات</p>
+
+            {isShowMenu && (
+              <div className="absolute bg-white z-50 w-[98%] right-4 top-[90px] p-4 rounded-b-md">
+                <Categories setIsShowMenu={setIsShowMenu} data={data} />
+              </div>
+            )}
+          </div>
+          <div className="lg:hidden">
+            <GiHamburgerMenu
+              onClick={() => setIsShowPhoneMenu(!isShowPhoneMenu)}
+              size={27}
+            />
+            {isShowPhoneMenu && (
+              <PhoneMenu setIsShowPhoneMenu={setIsShowPhoneMenu} data={data} />
+            )}
+          </div>
           <div className="w-[40%] md:block hidden">
             <SearchInput />
           </div>
@@ -124,6 +154,9 @@ function Header() {
           </Link>
         </div>
       </header>
+      {isShowMenu && (
+        <div className="bg-black fixed w-full h-[100vh] right-0 z-30 top-0 bg-opacity-60 backdrop-blur-sm"></div>
+      )}
     </>
   )
 }

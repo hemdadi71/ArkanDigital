@@ -16,8 +16,8 @@ export interface ProductProps {
   name: string
   price: string
   _id: string
-  thumbnail:  string
-  images:  [string]
+  thumbnail: string
+  images: [string]
   category: string
   subcategory: string
 }
@@ -77,4 +77,15 @@ export interface OrderTableProps {
 }
 export interface ProductsColumns {
   columns: GridColDef[]
+}
+export interface categoryData {
+  [x: string]: any
+  category?: any
+  subCategory?: string
+  _id?: string
+  setIsShowMenu: React.Dispatch<React.SetStateAction<boolean>>
+}
+export interface PhoneMenuProps {
+  data: categoryData
+  setIsShowPhoneMenu?: React.Dispatch<React.SetStateAction<boolean>>
 }

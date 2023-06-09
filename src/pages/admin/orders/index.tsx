@@ -17,8 +17,8 @@ function Orders() {
   const orderDataLength = orderData?.length
   return (
     <>
-      <div className="flex flex-col p-10 gap-5 w-[70%]">
-        <div className="flex items-center justify-between">
+      <div className="flex flex-col md:p-10 p-2 gap-5 lg:w-[70%]">
+        <div className="flex lg:flex-row flex-col items-center justify-between">
           <p className="text-xl font-semibold">مدیریت سفارش ها</p>
           <OrdersStatusPlan plan={plan} setPlan={setPlan} />
         </div>

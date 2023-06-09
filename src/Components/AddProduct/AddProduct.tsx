@@ -14,6 +14,7 @@ import ThumbnailPreview from './ThumbnailPreview'
 import { useDispatch } from 'react-redux'
 import { hideProductModal } from '@/Redux/Slices/AddProductSlice'
 import { ProductProps } from '@/Types/types'
+import CategoryForm from '../AddCategory'
 
 const ProductForm = () => {
   const [imageLink, setImageLink] = useState([])
@@ -146,14 +147,14 @@ const ProductForm = () => {
           name="category"
           register={{ ...register('category') }}
           type="text"
-          label="Category"
+          label="گروه:"
           errorTxt={errors.category?.message}
         />
         <Input
           name="subcategory"
           register={{ ...register('subcategory') }}
           type="text"
-          label="Subcategory"
+          label="زیرگروه:"
           errorTxt={errors.subcategory?.message}
         />
         <div className="w-full">
@@ -161,10 +162,13 @@ const ProductForm = () => {
             name="description"
             register={{ ...register('description') }}
             type="text"
-            label="description"
+            label="توضیحات:"
             errorTxt={errors.description?.message}
           />
         </div>
+      </div>
+      <div className="flex items-center md:flex-row flex-col gap-10">
+        {/* <CategoryForm /> */}
       </div>
       <div className="flex items-center justify-end py-5 text-white">
         <button type="submit" className="bg-blue-500 rounded-md px-4 py-1">

@@ -1,13 +1,19 @@
 import * as yup from 'yup'
 export const productSchema = yup.object({
-  category: yup.string().required(),
-  subcategory: yup.string().required(),
-  name: yup.string().required(),
-  slugname: yup.string().required(),
-  brand: yup.string().required(),
-  description: yup.string().required(),
+  category: yup.string().required('لطفا گرو را وارد کنید'),
+  subcategory: yup.string().required('لفا زیرگروه را وارد کنید'),
+  name: yup.string().required('لطفا نام را وارد کنید'),
+  slugname: yup.string().required('لطفا نام کوتاه را وارد کنید'),
+  brand: yup.string().required('لطفا برند را وارد کنید'),
+  description: yup.string().required('لفا توضیحات را وارد کنید'),
   thumbnail: yup.mixed().required(),
   images: yup.mixed().required(),
-  price: yup.number().required(),
-  quantity: yup.number().required(),
+  price: yup
+    .string()
+    .required('لطفا قیمت را وارد کنید')
+    .matches(/^[0-9]+$/, 'لطفا عدد وارد کنید'),
+  quantity: yup
+    .string()
+    .required('لطفا موجودی را وارد کنید')
+    .matches(/^[0-9]+$/, 'لطفا عدد وارد کنید'),
 })

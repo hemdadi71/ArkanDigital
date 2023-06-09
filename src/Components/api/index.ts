@@ -73,3 +73,11 @@ export const uploadCloudinary = async (file: File) => {
   )
   return { publicId: data?.public_id, url: data?.secure_url }
 }
+export const getCategories = async () => {
+  try {
+    const { data } = await axios('/api/subCategory')
+    return data.subcategories
+  } catch (error) {
+    console.log(error)
+  }
+}

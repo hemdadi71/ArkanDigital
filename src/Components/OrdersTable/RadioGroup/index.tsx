@@ -16,7 +16,7 @@ function OrdersStatusPlan({ plan, setPlan }: OrdersRadioGroup) {
         <RadioGroup.Option key={plan} value={plan} as={Fragment}>
           {({ active, checked }) => (
             <li className="cursor-pointer hover:text-purple">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-center">
                 {plan}
                 {checked ? (
                   <MdRadioButtonChecked />
