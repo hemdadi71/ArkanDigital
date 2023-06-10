@@ -34,10 +34,10 @@ function Header() {
     Cookies.remove('token')
     dispatch(setRole(''))
   }
-  const { data, isLoading } = useQuery('getCategories', getCategories)
+  const { data } = useQuery('getCategories', getCategories)
   return (
     <>
-      <header className="pb-4 pt-5 px-2 relative z-50 bg-white">
+      <header className="pb-4 pt-5 px-2 relative z-50 bg-[#fcfcfc]">
         <div className="flex items-center justify-between px-4">
           <Logo />
           {router.pathname !== '/' && (
@@ -54,9 +54,8 @@ function Header() {
             className="py-6 overflow-hidden lg:flex hidden items-center gap-2 cursor-pointer hover:text-purple">
             <GiHamburgerMenu size={27} />
             <p className="font-semibold md:block hidden">محصولات</p>
-
             {isShowMenu && (
-              <div className="absolute bg-white z-50 w-[98%] right-4 top-[90px] p-4 rounded-b-md">
+              <div className="absolute bg-[#fcfcfc] z-50 w-[98%] right-4 top-[90px] p-4 rounded-b-md">
                 <Categories setIsShowMenu={setIsShowMenu} data={data} />
               </div>
             )}

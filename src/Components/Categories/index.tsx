@@ -4,7 +4,7 @@ import { PhoneMenuProps, categoryData } from '@/Types/types'
 function Categories({ data, setIsShowMenu }: categoryData) {
   return (
     <>
-      <div className="flex gap-6">
+      <div className="flex xl:gap-6 2xl:gap-20">
         {data?.map((item: categoryData) => {
           return (
             <ul key={item._id} className="flex flex-col gap-2">
