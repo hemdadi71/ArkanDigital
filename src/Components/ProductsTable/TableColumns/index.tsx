@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
+import { deleteProduct } from '@/Components/api'
+import { showRemoveModal } from '@/Redux/Slices/RemoveModalSlice'
 import { Button } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
+import { useDispatch } from 'react-redux'
 
 export const columns: GridColDef[] = [
   {
@@ -71,13 +74,12 @@ export const columns: GridColDef[] = [
     width: 100,
     editable: false,
     renderCell: value => {
+      const dispatch = useDispatch()
       return (
         <Button
           color="error"
           variant="contained"
-          onClick={() => {
-            console.log(value.row)
-          }}>
+          onClick={() => dispatch(showRemoveModal(value.row._id))}>
           حذف
         </Button>
       )

@@ -4,18 +4,31 @@ import { useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import ProductForm from '@/Components/AddProduct/AddProduct'
 import CategoryForm from '../AddCategory'
+import { IoCloseSharp } from 'react-icons/io5'
 function AddProductModal() {
   const dispatch = useDispatch()
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        exit={{ opacity: 0, scale: 0.5 }}
-        className="bg-white z-20 p-3 flex flex-col justify-center fixed translate-x-1/2 translate-y-1/2 top-2 left-[5%] w-[90%] h-[600px] pt-10 overflow-auto rounded-md">
-        <ProductForm />
-        <CategoryForm />
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        exit={{ opacity: 0 }}
+        className="bg-white z-20 flex flex-col mx-5 md:mx-0 fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 overflow-auto rounded-md">
+        <div className="pb-2 flex w-full border-b p-2">
+          <IoCloseSharp
+            onClick={() => dispatch(hideProductModal())}
+            className="hover:text-red-500 cursor-pointer"
+            size={25}
+          />
+          <div className="flex justify-center w-full text-lg font-semibold text-purple">
+            <p>افزودن محصول جدید</p>
+          </div>
+        </div>
+        <div className="lg:h-auto h-[500px] overflow-auto p-3">
+          <ProductForm />
+          <CategoryForm />
+        </div>
       </motion.div>
       <div
         onClick={() => dispatch(hideProductModal())}

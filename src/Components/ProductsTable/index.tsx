@@ -11,20 +11,22 @@ export const RTLDataGridPagination = () => {
   return <GridPagination className="rtl-pagination ml-auto mr-6" />
 }
 // ..............................................................
-export default function ProductsPricesTable({ columns }: ProductsColumns) {
-  const procutsLength: number = +(localStorage.getItem('procutsLength') ?? 0)
+export default function ProductsPricesTable({
+  columns,
+  productsLength,
+}: ProductsColumns) {
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 5,
   })
   const { page, pageSize } = paginationModel
-  const totalPages = Math.ceil(procutsLength / pageSize)
-  const [rowCountState, setRowCountState] = useState(procutsLength)
+  const totalPages = Math.ceil(productsLength / pageSize)
+  const [rowCountState, setRowCountState] = useState(productsLength)
   useEffect(() => {
     setRowCountState(prevRowCountState =>
-      procutsLength !== undefined ? procutsLength : prevRowCountState
+      productsLength !== undefined ? productsLength : prevRowCountState
     )
-  }, [procutsLength, setRowCountState, pageSize])
+  }, [productsLength, setRowCountState, pageSize])
   const { data: rows, isLoading } = useQuery(
     ['getProducts', page, pageSize],
     () => getProducts(pageSize, page + 1)

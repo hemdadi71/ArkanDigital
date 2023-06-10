@@ -15,7 +15,6 @@ function Products() {
     {
       onSuccess: data => {
         dispatch(allProducts(data))
-        localStorage.setItem('procutsLength', data.length)
       },
     }
   )

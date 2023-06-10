@@ -3,6 +3,7 @@ import RegisterModal from './Slices/RegisterModal'
 import Role from './Slices/Role'
 import ProductsSlice from './Slices/ProductsSlice'
 import AddProductSlice from './Slices/AddProductSlice'
+import RemoveModalSlice from './Slices/RemoveModalSlice'
 
 // ....................................................
 export const store = configureStore({
@@ -11,5 +12,6 @@ export const store = configureStore({
     role: Role,
     products: ProductsSlice,
     productModal: AddProductSlice,
+    removeModal: RemoveModalSlice,
   },
 })

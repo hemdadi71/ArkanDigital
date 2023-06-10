@@ -1,8 +1,12 @@
 import ProductsPricesTable from '@/Components/ProductsTable'
 import { PriceColumns } from '@/Components/PriceTable/PriceColumns'
 import React from 'react'
+import { useQuery } from 'react-query'
+import { getProducts } from '@/Components/api'
 
-function details() {
+function Details() {
+  const { data } = useQuery('getProducts', () => getProducts())
+  const productsLength = data?.length
   return (
     <>
       <div className="flex flex-col md:p-10 p-2 gap-5 md:w-[70%]">
@@ -13,8 +17,11 @@ function details() {
           </button>
         </div>
         <div className="flex justify-end">
-          <div className='w-full'>
-            <ProductsPricesTable columns={PriceColumns} />
+          <div className="w-full">
+            <ProductsPricesTable
+              productsLength={productsLength}
+              columns={PriceColumns}
+            />
           </div>
         </div>
       </div>
@@ -22,4 +29,4 @@ function details() {
   )
 }
 
-export default details
+export default Details

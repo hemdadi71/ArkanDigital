@@ -32,9 +32,19 @@ export interface RegisterModalState {
 export interface registerModal {
   isOpen: boolean
 }
+export interface removeModal {
+  isOpen: boolean
+  id: string
+}
 export interface ProductsModalState {
   productModal: {
     isOpen: boolean
+  }
+}
+export interface removeModalState {
+  removeModal: {
+    isOpen: boolean
+    id: string
   }
 }
 export interface ProductsModal {

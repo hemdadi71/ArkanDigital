@@ -81,3 +81,12 @@ export const getCategories = async () => {
     console.log(error)
   }
 }
+export const deleteProduct = async ({ productId }: any) => {
+  try {
+    const response = await axios.delete(`/api/product/${productId}`)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    throw new Error('Failed to delete product')
+  }
+}

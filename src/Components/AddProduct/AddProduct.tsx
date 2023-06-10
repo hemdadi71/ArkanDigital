@@ -6,7 +6,7 @@ import Input from '../Input/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { productSchema } from '../../utils/Schema/ProuctSchema'
-import { postProduct, uploadCloudinary } from '../api'
+import { getCategories, postProduct, uploadCloudinary } from '../api'
 import FileInput from '../FileInput'
 import ImagePreview from './ImagePreview'
 import { handleChange, handleThumbnailChange } from './Functions'
@@ -15,17 +15,24 @@ import { useDispatch } from 'react-redux'
 import { hideProductModal } from '@/Redux/Slices/AddProductSlice'
 import { ProductProps } from '@/Types/types'
 import CategoryForm from '../AddCategory'
-
+import Select from '../CategorySelect/CategorySelect'
+import { useQuery } from 'react-query'
+import CategoriesSelect from '../Select'
+import SubCategorySelect from '../SubCategorySelect'
+import { toast } from 'react-hot-toast'
 const ProductForm = () => {
+  const { data } = useQuery('getCategories', getCategories)
   const [imageLink, setImageLink] = useState([])
   const [thumbnailLink, setThumbnailLink] = useState([])
   const [imageSrc, setImageSrc] = useState([])
   const [thumbnailSrc, setThumbnailSrc] = useState('')
+  const [category, SetCategory] = useState('')
   const dispatch = useDispatch()
   const {
     handleSubmit,
     register,
     formState: { errors },
+    control,
   } = useForm({
     resolver: yupResolver(productSchema),
   })
@@ -48,19 +55,25 @@ const ProductForm = () => {
     }
     data.images = imageLink
     data.thumbnail = thumbnailLink[0]
-    console.log(data.images)
-    console.log(data.thumbnail)
-    console.log(data)
     if (imageLink.length && thumbnailLink.length) {
       postProduct(data).then(res => {
         console.log(res)
+        toast('محصول با موفقیت اضافه شد')
         dispatch(hideProductModal())
       })
     }
   }
+
+  const SubCategories =
+    (data && data.find(item => item.category === category)) || {}
+  const handleChangeCategory = (event: SelectChangeEvent) => {
+    SetCategory(event.target.value as string)
+  }
   return (
-    <form className="flex flex-col gap-y-1" onSubmit={handleSubmit(formSubmit)}>
-      <div className="flex md:flex-row flex-col gap-10">
+    <form
+      className="flex flex-col overflow-auto gap-y-1"
+      onSubmit={handleSubmit(formSubmit)}>
+      <div className="flex lg:flex-row flex-col gap-10">
         <Input
           name="name"
           register={{ ...register('name') }}
@@ -128,7 +141,7 @@ const ProductForm = () => {
               }),
             }}
             type="file"
-            label="آپلود تصویر اصلی محصول"
+            label="آپلود تصویر کوچک محصول"
             errorTxt={errors.thumbnail?.message}
           />
           <div
@@ -142,20 +155,22 @@ const ProductForm = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center md:flex-row flex-col gap-10">
-        <Input
-          name="category"
-          register={{ ...register('category') }}
-          type="text"
+      <div className="flex items-start md:flex-row flex-col gap-10 relative">
+        <CategoriesSelect
+          handleChange={handleChangeCategory}
+          category={category}
           label="گروه:"
           errorTxt={errors.category?.message}
+          name="category"
+          register={{ ...register('category') }}
+          data={data}
         />
-        <Input
+        <SubCategorySelect
           name="subcategory"
           register={{ ...register('subcategory') }}
-          type="text"
           label="زیرگروه:"
           errorTxt={errors.subcategory?.message}
+          SubCategory={SubCategories.subCategory}
         />
         <div className="w-full">
           <Input
@@ -167,11 +182,9 @@ const ProductForm = () => {
           />
         </div>
       </div>
-      <div className="flex items-center md:flex-row flex-col gap-10">
-        {/* <CategoryForm /> */}
-      </div>
-      <div className="flex items-center justify-end py-5 text-white">
-        <button type="submit" className="bg-blue-500 rounded-md px-4 py-1">
+      <div className="flex items-center md:flex-row flex-col gap-10"></div>
+      <div className="flex items-center justify-center py-5 text-white">
+        <button type="submit" className="bg-blue-500 rounded-md px-5 py-1">
           ثبت اطلاعات
         </button>
       </div>

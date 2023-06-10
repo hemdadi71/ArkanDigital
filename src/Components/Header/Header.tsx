@@ -21,8 +21,6 @@ import { useQuery } from 'react-query'
 import PhoneMenu from '../PhoneMenu'
 // ..........................................................
 function Header() {
-  const date = moment(Date.now()).format('jYYYY/jMM/jDD')
-  console.log(date)
   const [isShowDropdown, SetIsShowDropdown] = useState(false)
   const [isShowMenu, setIsShowMenu] = useState(false)
   const [isShowPhoneMenu, setIsShowPhoneMenu] = useState(false)

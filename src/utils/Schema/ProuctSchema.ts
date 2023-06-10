@@ -1,11 +1,11 @@
 import * as yup from 'yup'
 export const productSchema = yup.object({
-  category: yup.string().required('لطفا گرو را وارد کنید'),
-  subcategory: yup.string().required('لفا زیرگروه را وارد کنید'),
+  category: yup.string().required('لطفا گروه را وارد کنید'),
+  subcategory: yup.string().required('لطفا زیرگروه را وارد کنید'),
   name: yup.string().required('لطفا نام را وارد کنید'),
   slugname: yup.string().required('لطفا نام کوتاه را وارد کنید'),
   brand: yup.string().required('لطفا برند را وارد کنید'),
-  description: yup.string().required('لفا توضیحات را وارد کنید'),
+  description: yup.string().required('لطفا توضیحات را وارد کنید'),
   thumbnail: yup.mixed().required(),
   images: yup.mixed().required(),
   price: yup
