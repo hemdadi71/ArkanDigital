@@ -4,6 +4,8 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { isEditnigState } from '@/Types/types'
 
 export default function SubCategorySelect({
   register,
@@ -11,8 +13,10 @@ export default function SubCategorySelect({
   errorTxt,
   label,
   SubCategory,
-}) {
-  const [subCategory, SetSubCategory] = useState('')
+}: any) {
+  const selectedEdit = useSelector((state: isEditnigState) => state.editingData)
+  const { isEditing, rowData } = selectedEdit
+  const [subCategory, SetSubCategory] = useState(rowData.subcategory)
   const handleChange = (event: SelectChangeEvent) => {
     SetSubCategory(event.target.value as string)
   }
@@ -21,7 +25,6 @@ export default function SubCategorySelect({
       <label>{label}</label>
       <FormControl fullWidth>
         <Select
-          defaultValue={subCategory}
           sx={{
             '& .MuiSvgIcon-root': {
               right: 'unset',
@@ -55,11 +58,11 @@ export default function SubCategorySelect({
           name={name}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          // value={subCategory}
           {...register}
+          value={subCategory}
           onChange={handleChange}>
           {SubCategory &&
-            SubCategory.map(item => {
+            SubCategory.map((item: any) => {
               return (
                 <MenuItem value={item} key={item}>
                   {item}

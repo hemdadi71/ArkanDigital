@@ -1,5 +1,6 @@
 // pages/api/products/[id].js
 
+import Product from '@/server/models/ProductModel'
 import ProductModel from '@/server/models/ProductModel'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -24,13 +25,36 @@ export default async function handler(
     }
   } else if (req.method === 'PUT') {
     try {
-      const { name, price, description } = req.body
+      const { id } = req.query
+      const {
+        name,
+        slugname,
+        brand,
+        price,
+        quantity,
+        images,
+        thumbnail,
+        category,
+        subcategory,
+        description,
+      } = req.body
 
-      // Update the product by ID with the data from the request body
-      const updatedProduct = await ProductModel.findByIdAndUpdate(
+      // Find the product by ID and update its properties
+      const updatedProduct = await Product.findByIdAndUpdate(
         id,
-        { name, price, description },
-        { new: true, runValidators: true }
+        {
+          name,
+          slugname,
+          brand,
+          price,
+          quantity,
+          images,
+          thumbnail,
+          category,
+          subcategory,
+          description,
+        },
+        { new: true }
       )
 
       if (!updatedProduct) {

@@ -1,4 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface LayoutProps {
   children: any
@@ -20,6 +21,13 @@ export interface ProductProps {
   images: [string]
   category: string
   subcategory: string
+  slugname: string
+  brand: string
+  quantity: string
+  description: string
+}
+export interface ProductTableRow {
+  row: ProductProps
 }
 export interface ProductState {
   products: ProductProps
@@ -32,6 +40,9 @@ export interface RegisterModalState {
 export interface registerModal {
   isOpen: boolean
 }
+export interface Loading {
+  isLoading: boolean
+}
 export interface removeModal {
   isOpen: boolean
   id: string
@@ -39,6 +50,11 @@ export interface removeModal {
 export interface ProductsModalState {
   productModal: {
     isOpen: boolean
+  }
+}
+export interface LoadingState {
+  loading: {
+    isLoading: boolean
   }
 }
 export interface removeModalState {
@@ -49,6 +65,16 @@ export interface removeModalState {
 }
 export interface ProductsModal {
   isOpen: boolean
+}
+export interface isEditing {
+  isEditing: boolean
+  rowData: ProductProps | {}
+}
+export interface isEditnigState {
+  editingData: {
+    isEditing: boolean
+    rowData: ProductProps
+  }
 }
 export interface RoleState {
   role: {
@@ -87,6 +113,7 @@ export interface OrderTableProps {
 }
 export interface ProductsColumns {
   columns: GridColDef[]
+  productsLength: number
 }
 export interface categoryData {
   [x: string]: any
@@ -98,4 +125,11 @@ export interface categoryData {
 export interface PhoneMenuProps {
   data: categoryData
   setIsShowPhoneMenu?: React.Dispatch<React.SetStateAction<boolean>>
+}
+export interface SpinnerProps {
+  className: string
+}
+export interface ImagePreviewProps {
+  imageSrc: string[]
+  setImageSrc: Dispatch<SetStateAction<any>>
 }

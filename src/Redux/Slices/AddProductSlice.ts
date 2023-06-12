@@ -4,7 +4,7 @@ const initialState: ProductsModal = {
   isOpen: false,
 }
 const addProductModalSlice = createSlice({
-  name: 'registerModal',
+  name: 'addProductModal',
   initialState,
   reducers: {
     showProductModal: state => {

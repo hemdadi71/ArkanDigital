@@ -1,10 +1,39 @@
 /* eslint-disable @next/next/no-img-element */
 import { deleteProduct } from '@/Components/api'
+import { showProductModal } from '@/Redux/Slices/AddProductSlice'
+import { Editing } from '@/Redux/Slices/IsEditingProductSlice'
 import { showRemoveModal } from '@/Redux/Slices/RemoveModalSlice'
+import { ProductProps, ProductTableRow, ProductsColumns } from '@/Types/types'
 import { Button } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
 import { useDispatch } from 'react-redux'
-
+// ............................................................
+const EditButton = ({ row }: ProductTableRow) => {
+  const dispatch = useDispatch()
+  const handleClick = () => {
+    console.log(row)
+    dispatch(showProductModal())
+    dispatch(Editing(row))
+  }
+  return (
+    <Button color="info" variant="contained" onClick={handleClick}>
+      ویرایش
+    </Button>
+  )
+}
+// ...............................................................
+const RemoveButton = ({ row }: ProductTableRow) => {
+  const dispatch = useDispatch()
+  const handleClick = () => {
+    dispatch(showRemoveModal(row._id))
+  }
+  return (
+    <Button color="error" variant="contained" onClick={handleClick}>
+      حذف
+    </Button>
+  )
+}
+// .................................................................
 export const columns: GridColDef[] = [
   {
     field: 'thumbnail',
@@ -53,18 +82,7 @@ export const columns: GridColDef[] = [
     sortable: false,
     width: 100,
     editable: false,
-    renderCell: value => {
-      return (
-        <Button
-          color="info"
-          variant="contained"
-          onClick={() => {
-            console.log(value.row)
-          }}>
-          ویرایش
-        </Button>
-      )
-    },
+    renderCell: params => <EditButton row={params.row} />,
   },
   {
     field: 'remove',
@@ -73,16 +91,6 @@ export const columns: GridColDef[] = [
     sortable: false,
     width: 100,
     editable: false,
-    renderCell: value => {
-      const dispatch = useDispatch()
-      return (
-        <Button
-          color="error"
-          variant="contained"
-          onClick={() => dispatch(showRemoveModal(value.row._id))}>
-          حذف
-        </Button>
-      )
-    },
+    renderCell: params => <RemoveButton row={params.row} />,
   },
 ]

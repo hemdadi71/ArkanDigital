@@ -55,7 +55,7 @@ export const getUsers = async () => {
   }
 }
 
-export const postProduct = async (data: ProductProps) => {
+export const postProduct = async (data: any) => {
   try {
     const response = await axios.post('/api/product', data)
     return response.data
@@ -71,6 +71,7 @@ export const uploadCloudinary = async (file: File) => {
     'https://api.cloudinary.com/v1_1/durpzunxl/image/upload',
     formData
   )
+  console.log(data)
   return { publicId: data?.public_id, url: data?.secure_url }
 }
 export const getCategories = async () => {
@@ -88,5 +89,15 @@ export const deleteProduct = async ({ productId }: any) => {
   } catch (error) {
     console.log(error)
     throw new Error('Failed to delete product')
+  }
+}
+
+export async function editProduct({ id, Data }: any) {
+  try {
+    const { data } = await axios.put(`/api/product/${id}`, Data)
+    console.log(data)
+    return data
+  } catch (error) {
+    throw new Error('Failed to edit product')
   }
 }

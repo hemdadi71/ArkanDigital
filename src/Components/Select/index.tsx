@@ -13,7 +13,7 @@ export default function CategoriesSelect({
   label,
   handleChange,
   category,
-}) {
+}: any) {
   return (
     <div className="w-[70%] flex flex-col gap-2">
       <label>{label}</label>
@@ -56,7 +56,7 @@ export default function CategoriesSelect({
           {...register}
           onChange={handleChange}>
           {data &&
-            data.map(item => {
+            data.map((item: any) => {
               return (
                 <MenuItem value={item.category} key={item._id}>
                   {item.category}

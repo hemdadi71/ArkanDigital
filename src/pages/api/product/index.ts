@@ -79,17 +79,41 @@ export default async function handler(
     case 'PUT':
       try {
         const { id } = req.query
+        const {
+          name,
+          slugname,
+          brand,
+          price,
+          quantity,
+          images,
+          thumbnail,
+          category,
+          subcategory,
+          description,
+        } = req.body
 
-        // Find the product by ID and update it with the data from the request body
-        const product = await Product.findByIdAndUpdate(id, body, {
-          new: true,
-          runValidators: true,
-        })
+        // Find the product by ID and update its properties
+        const updatedProduct = await Product.findByIdAndUpdate(
+          id,
+          {
+            name,
+            slugname,
+            brand,
+            price,
+            quantity,
+            images,
+            thumbnail,
+            category,
+            subcategory,
+            description,
+          },
+          { new: true }
+        )
 
-        if (!product) {
+        if (!updatedProduct) {
           res.status(404).json({ success: false, error: 'Product not found' })
         } else {
-          res.status(200).json({ success: true, data: product })
+          res.status(200).json({ success: true, data: updatedProduct })
         }
       } catch (error) {
         res
@@ -97,6 +121,7 @@ export default async function handler(
           .json({ success: false, error: 'Failed to update product' })
       }
       break
+
     case 'DELETE':
       try {
         const { id } = req.query

@@ -14,7 +14,7 @@ function RemoveModal() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation({
     mutationFn: deleteProduct,
-    onSuccess: data => {
+    onSuccess: () => {
       queryClient.invalidateQueries('getProducts')
       dispatch(hideRemoveModal())
       toast('محصول با موفقیت حذف گردید')

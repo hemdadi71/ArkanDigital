@@ -1,16 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Dispatch, SetStateAction } from 'react'
+import { ImagePreviewProps } from '@/Types/types'
+import React from 'react'
 import { IoClose } from 'react-icons/io5'
-interface ImagePreviewProps {
-  imageSrc: string[]
-  setImageSrc: Dispatch<SetStateAction<never[]>>
-}
-const ImagePreview: React.FC<ImagePreviewProps> = ({
-  imageSrc,
-  setImageSrc,
-}) => {
+
+const ImagePreview = ({ imageSrc, setImageSrc }: ImagePreviewProps) => {
   const handleRemoveImage = (index: number) => {
-    setImageSrc(prevImageSrc => {
+    setImageSrc((prevImageSrc: any) => {
       const updatedImageSrc = [...prevImageSrc]
       updatedImageSrc.splice(index, 1)
       return updatedImageSrc

@@ -1,71 +1,99 @@
 /* eslint-disable @next/next/no-img-element */
 // import React, { useState } from 'react';
 import axios from 'axios'
-import { useCallback, useState } from 'react'
+import {  useState } from 'react'
 import Input from '../Input/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { productSchema } from '../../utils/Schema/ProuctSchema'
-import { getCategories, postProduct, uploadCloudinary } from '../api'
+import {
+  editProduct,
+  getCategories,
+  postProduct,
+  uploadCloudinary,
+} from '../api'
 import FileInput from '../FileInput'
 import ImagePreview from './ImagePreview'
 import { handleChange, handleThumbnailChange } from './Functions'
 import ThumbnailPreview from './ThumbnailPreview'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hideProductModal } from '@/Redux/Slices/AddProductSlice'
-import { ProductProps } from '@/Types/types'
-import CategoryForm from '../AddCategory'
-import Select from '../CategorySelect/CategorySelect'
-import { useQuery } from 'react-query'
+import {
+  LoadingState,
+  categoryData,
+  isEditnigState,
+} from '@/Types/types'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import CategoriesSelect from '../Select'
 import SubCategorySelect from '../SubCategorySelect'
 import { toast } from 'react-hot-toast'
+import { SelectChangeEvent } from '@mui/material'
+import { notEditing } from '@/Redux/Slices/IsEditingProductSlice'
+import { hideLoading, showLoading } from '@/Redux/Slices/LoadingSlice'
+import Spinner from '../Spinner'
 const ProductForm = () => {
+  const selectedEdit = useSelector((state: isEditnigState) => state.editingData)
+  const { isEditing, rowData } = selectedEdit
   const { data } = useQuery('getCategories', getCategories)
-  const [imageLink, setImageLink] = useState([])
-  const [thumbnailLink, setThumbnailLink] = useState([])
-  const [imageSrc, setImageSrc] = useState([])
-  const [thumbnailSrc, setThumbnailSrc] = useState('')
-  const [category, SetCategory] = useState('')
+  const [imageSrc, setImageSrc] = useState(isEditing ? rowData.images : [])
+  const [thumbnailSrc, setThumbnailSrc] = useState(
+    isEditing ? rowData.thumbnail : ''
+  )
+  const [category, SetCategory] = useState(rowData.category)
   const dispatch = useDispatch()
+  const loading = useSelector((state: LoadingState) => state.loading.isLoading)
   const {
     handleSubmit,
     register,
     formState: { errors },
-    control,
   } = useForm({
     resolver: yupResolver(productSchema),
   })
+  const mutateFunction = isEditing ? editProduct : postProduct
+  const queryClient = useQueryClient()
+  const { mutate } = useMutation({
+    mutationFn: mutateFunction,
+    onSuccess: () => {
+      queryClient.invalidateQueries('getProducts')
+      dispatch(hideProductModal())
+      toast('محصول با موفقیت اضافه گردید')
+      dispatch(notEditing({}))
+      dispatch(hideLoading())
+    },
+  })
   const formSubmit = async (data: any) => {
+    dispatch(showLoading())
+    let imageArr = []
+    let thumbnailArr = []
     try {
-      const imageArr: any = []
-      for (let image of data.images) {
-        const Data = await uploadCloudinary(image)
-        imageArr.push(Data.url)
+      if (data.images.length !== 0) {
+        for (let image of data.images) {
+          const imageData = await uploadCloudinary(image)
+          imageArr.push(imageData.url)
+        }
+      } else {
+        rowData.images.map(item => imageArr.push(item))
       }
-      setImageLink(imageArr)
-      const thumbnailArr: any = []
-      for (let thumbnail of data.thumbnail) {
-        const Data = await uploadCloudinary(thumbnail)
-        thumbnailArr.push(Data.url)
+      if (data.thumbnail.length !== 0) {
+        for (let thumbnail of data.thumbnail) {
+          const thumbnailData = await uploadCloudinary(thumbnail)
+          thumbnailArr.push(thumbnailData.url)
+        }
+      } else {
+        thumbnailArr.push(rowData.thumbnail)
       }
-      setThumbnailLink(thumbnailArr)
     } catch (error) {
       console.log(error)
     }
-    data.images = imageLink
-    data.thumbnail = thumbnailLink[0]
-    if (imageLink.length && thumbnailLink.length) {
-      postProduct(data).then(res => {
-        console.log(res)
-        toast('محصول با موفقیت اضافه شد')
-        dispatch(hideProductModal())
-      })
+    data.images = imageArr
+    data.thumbnail = thumbnailArr[0]
+    if (data.images.length !== 0 && data.thumbnail) {
+      isEditing ? mutate({ id: rowData._id, Data: data }) : mutate(data)
     }
   }
-
   const SubCategories =
-    (data && data.find(item => item.category === category)) || {}
+    (data && data.find((item: categoryData) => item.category === category)) ||
+    {}
   const handleChangeCategory = (event: SelectChangeEvent) => {
     SetCategory(event.target.value as string)
   }
@@ -75,6 +103,7 @@ const ProductForm = () => {
       onSubmit={handleSubmit(formSubmit)}>
       <div className="flex lg:flex-row flex-col gap-10">
         <Input
+          defaultValue={rowData.name}
           name="name"
           register={{ ...register('name') }}
           type="text"
@@ -82,6 +111,7 @@ const ProductForm = () => {
           errorTxt={errors.name?.message}
         />
         <Input
+          defaultValue={rowData.slugname}
           name="slugname"
           register={{ ...register('slugname') }}
           type="text"
@@ -89,6 +119,7 @@ const ProductForm = () => {
           errorTxt={errors.slugname?.message}
         />
         <Input
+          defaultValue={rowData.brand}
           name="brand"
           register={{ ...register('brand') }}
           type="text"
@@ -96,6 +127,7 @@ const ProductForm = () => {
           errorTxt={errors.brand?.message}
         />
         <Input
+          defaultValue={rowData.price}
           name="price"
           register={{ ...register('price') }}
           type="text"
@@ -105,6 +137,7 @@ const ProductForm = () => {
       </div>
       <div className="flex items-center md:flex-row flex-col gap-10">
         <Input
+          defaultValue={rowData.quantity}
           name="quantity"
           register={{ ...register('quantity') }}
           type="text"
@@ -174,6 +207,7 @@ const ProductForm = () => {
         />
         <div className="w-full">
           <Input
+            defaultValue={rowData.description}
             name="description"
             register={{ ...register('description') }}
             type="text"
@@ -184,8 +218,11 @@ const ProductForm = () => {
       </div>
       <div className="flex items-center md:flex-row flex-col gap-10"></div>
       <div className="flex items-center justify-center py-5 text-white">
-        <button type="submit" className="bg-blue-500 rounded-md px-5 py-1">
-          ثبت اطلاعات
+        <button
+          type="submit"
+          className="bg-blue-500 rounded-md px-5 py-1 flex items-center gap-2">
+          <p>{isEditing ? 'ویرایش محصول' : 'افزودن محصول'}</p>
+          {loading && <Spinner className="w-4 h-4" />}
         </button>
       </div>
     </form>

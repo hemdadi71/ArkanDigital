@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
-export type Setter = Dispatch<SetStateAction<never[]>>
+export type Setter = Dispatch<SetStateAction<[string] | never[]>>
 
 export const handleChange = async (
   e: ChangeEvent<HTMLInputElement>,
@@ -8,6 +8,7 @@ export const handleChange = async (
 ) => {
   const imagesrc: any = []
   const files = e.target.files
+  console.log(files)
   if (files) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i]

@@ -4,6 +4,8 @@ import Role from './Slices/Role'
 import ProductsSlice from './Slices/ProductsSlice'
 import AddProductSlice from './Slices/AddProductSlice'
 import RemoveModalSlice from './Slices/RemoveModalSlice'
+import IsEditingProductSlice from './Slices/IsEditingProductSlice'
+import LoadingSlice from './Slices/LoadingSlice'
 
 // ....................................................
 export const store = configureStore({
@@ -13,5 +15,7 @@ export const store = configureStore({
     products: ProductsSlice,
     productModal: AddProductSlice,
     removeModal: RemoveModalSlice,
+    editingData: IsEditingProductSlice,
+    loading: LoadingSlice,
   },
 })
