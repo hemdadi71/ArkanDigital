@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 // import React, { useState } from 'react';
 import axios from 'axios'
-import {  useState } from 'react'
+import { useState } from 'react'
 import Input from '../Input/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -18,11 +18,7 @@ import { handleChange, handleThumbnailChange } from './Functions'
 import ThumbnailPreview from './ThumbnailPreview'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideProductModal } from '@/Redux/Slices/AddProductSlice'
-import {
-  LoadingState,
-  categoryData,
-  isEditnigState,
-} from '@/Types/types'
+import { LoadingState, categoryData, isEditnigState } from '@/Types/types'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import CategoriesSelect from '../Select'
 import SubCategorySelect from '../SubCategorySelect'
@@ -56,7 +52,12 @@ const ProductForm = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('getProducts')
       dispatch(hideProductModal())
-      toast('محصول با موفقیت اضافه گردید')
+      toast(`محصول با موفقیت ${isEditing ? 'ویرایش' : 'اضافه'} گردید`, {
+        style: {
+          background: `${isEditing ? 'yellow' : 'green'}`,
+          color: `${isEditing ? 'black' : 'white'}`,
+        },
+      })
       dispatch(notEditing({}))
       dispatch(hideLoading())
     },

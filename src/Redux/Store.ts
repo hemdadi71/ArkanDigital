@@ -6,6 +6,7 @@ import AddProductSlice from './Slices/AddProductSlice'
 import RemoveModalSlice from './Slices/RemoveModalSlice'
 import IsEditingProductSlice from './Slices/IsEditingProductSlice'
 import LoadingSlice from './Slices/LoadingSlice'
+import PriceSlice from './Slices/PriceSlice'
 
 // ....................................................
 export const store = configureStore({
@@ -17,5 +18,6 @@ export const store = configureStore({
     removeModal: RemoveModalSlice,
     editingData: IsEditingProductSlice,
     loading: LoadingSlice,
+    priceState: PriceSlice,
   },
 })

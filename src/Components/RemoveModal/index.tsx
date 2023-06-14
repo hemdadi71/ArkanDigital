@@ -1,13 +1,16 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { color, motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideRemoveModal } from '@/Redux/Slices/RemoveModalSlice'
-import { removeModalState } from '@/Types/types'
+import { LoadingState, removeModalState } from '@/Types/types'
 import { useMutation, useQueryClient } from 'react-query'
 import { deleteProduct } from '../api'
 import { toast } from 'react-hot-toast'
+import { hideLoading, showLoading } from '@/Redux/Slices/LoadingSlice'
+import Spinner from '../Spinner'
 function RemoveModal() {
   const dispatch = useDispatch()
+  const loading = useSelector((state: LoadingState) => state.loading.isLoading)
   const selectedId = useSelector(
     (state: removeModalState) => state.removeModal.id
   )
@@ -17,10 +20,17 @@ function RemoveModal() {
     onSuccess: () => {
       queryClient.invalidateQueries('getProducts')
       dispatch(hideRemoveModal())
-      toast('محصول با موفقیت حذف گردید')
+      toast('محصول با موفقیت حذف گردید', {
+        style: {
+          background: 'red',
+          color: 'white',
+        },
+      })
+      dispatch(hideLoading())
     },
   })
   const handleRemove = () => {
+    dispatch(showLoading())
     mutate({ productId: selectedId })
   }
   return (
@@ -36,8 +46,9 @@ function RemoveModal() {
           <div className="flex gap-6">
             <button
               onClick={handleRemove}
-              className="rounded-md px-3 py-1 bg-red-500 text-white">
-              بله
+              className="rounded-md px-3 py-1 bg-red-500 text-white flex items-center gap-2">
+              <p>بله</p>
+              {loading && <Spinner className="w-4 h-4" />}
             </button>
             <button
               onClick={() => dispatch(hideRemoveModal())}

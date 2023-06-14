@@ -34,6 +34,7 @@ function Products() {
         </div>
         <div className="w-full">
           <ProductsPricesTable
+            className="hidden"
             productsLength={productsLength}
             columns={columns}
           />
