@@ -36,24 +36,27 @@ const RemoveButton = ({ row }: ProductTableRow) => {
 // .................................................................
 export const columns: GridColDef[] = [
   {
-    field: 'thumbnail',
+    field: 'images',
     headerName: 'تصویر',
     disableColumnMenu: true,
     width: 120,
     editable: false,
     sortable: false,
     filterable: false,
-    renderCell: params => (
-      <>
-        <div className="rounded-md overflow-hidden">
-          <img
-            className="w-full h-full rounded-md hover:scale-[1.2] transition-all ease-in-out duration-200"
-            src={params.value}
-            alt="Thumbnail"
-          />
-        </div>
-      </>
-    ),
+    renderCell: params => {
+      console.log(params)
+      return (
+        <>
+          <div className="rounded-md overflow-hidden w-[70%]">
+            <img
+              className="w-full h-full rounded-md hover:scale-[1.1] transition-all ease-in-out duration-200"
+              src={params.value}
+              alt="Thumbnail"
+            />
+          </div>
+        </>
+      )
+    },
   },
   {
     field: 'name',

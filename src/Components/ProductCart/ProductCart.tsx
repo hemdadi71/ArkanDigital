@@ -14,7 +14,7 @@ function ProductCart({ item }: ProductCart) {
           href={`/product/${_id}`}
           className="h-[60%] w-full overflow-hidden bg-white">
           <img
-            className="w-full h-full hover:scale-[1.1] transition-all ease-in-out duration-200"
+            className="w-full h-full hover:scale-[1.1] hover:rotate-[1deg] transition-all ease-in-out duration-200"
             src={images[0]}
             alt="img"
           />
@@ -24,7 +24,7 @@ function ProductCart({ item }: ProductCart) {
           {name}
         </Link>
         <div className="flex items-center justify-between text-[#ac31f3]">
-          <p>{price} تومان</p>
+          <p>{price.toLocaleString()} تومان</p>
           <Link href={`/product/${_id}`} className="border rounded-md p-2">
             <RiShoppingCart2Line className="text-[#ac31f3]" size={24} />
           </Link>
