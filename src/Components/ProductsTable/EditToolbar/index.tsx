@@ -42,13 +42,9 @@ export function EditToolbar({
         editedData.quantity = Data.quantity.value
       }
 
-      editProduct({ id, Data: editedData })
-        .then((data: any) => {
-          console.log(data)
-        })
-        .catch((error: any) => {
-          console.error(error)
-        })
+      editProduct({ id, Data: editedData }).catch((error: any) => {
+        console.error(error)
+      })
     })
     toast('اطلاعات با موفقیت ویرایش شد', {
       style: {

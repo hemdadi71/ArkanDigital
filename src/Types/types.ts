@@ -11,6 +11,11 @@ export interface ProductCartProps {
   name: string
   price: string
   id: string
+  images: string
+}
+export interface ProductCart {
+  item: ProductProps
+  id: string
 }
 export interface ProductProps {
   src: string
@@ -25,6 +30,7 @@ export interface ProductProps {
   brand: string
   quantity: string
   description: string
+  id: string
 }
 export interface ProductTableRow {
   row: ProductProps
