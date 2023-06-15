@@ -9,7 +9,7 @@ import FooterBottom from './FooterBottom'
 function Footer() {
   return (
     <>
-      <footer className="px-10 pb-10  flex flex-col gap-5">
+      <footer className="px-5 pb-10 flex flex-col gap-5">
         <FooterTop />
         <FooterMiddle />
         <FooterBottom />

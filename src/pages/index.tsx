@@ -4,11 +4,12 @@ import Products from '@/Components/Products/products'
 import SearchInput from '@/Components/SearchInput/SearchInput'
 import Slider from '@/Components/Slider/Slider'
 import React from 'react'
+import { smallDatas } from '../../SmallDatas'
 
 export default function Home() {
   return (
     <>
-      <div className="flex gap-6 mb-8 justify-center px-2">
+      <div className="flex gap-6 mb-8 justify-center px-2 w-full">
         <div className="w-[16%] flex gap-3">
           <img
             className="rounded-xl w-full h-full md:block hidden"
@@ -27,10 +28,34 @@ export default function Home() {
           />
         </div>
       </div>
+      <div className="flex justify-between px-3 overflow-x-auto overflow-y-hidden text-[14px] bg-white pb-2">
+        {smallDatas.map(item => {
+          return (
+            <div
+              key={item.subcategory}
+              className="w-[80px] flex flex-col items-center text-center">
+              <img className="hover:rotate-[3deg]" src={item.src} alt="img" />
+              <p>{item.subcategory}</p>
+            </div>
+          )
+        })}
+      </div>
+      <div className="px-5">
+        <img
+          className="rounded-md w-full"
+          src="/product/Cover/1.jpeg"
+          alt="img"
+        />
+      </div>
       <div className="w-full md:hidden block px-10">
         <SearchInput />
       </div>
-      <Products />
+      <div className="py-3">
+        <Products />
+      </div>
+      <div className='w-full flex items-center justify-center px-5 py-7'>
+        <img className='w-full rounded-md' src="/product/Cover/2.jpeg" alt="img" />
+      </div>
     </>
   )
 }

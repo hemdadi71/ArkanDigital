@@ -5,7 +5,7 @@ import React from 'react'
 import { RiShoppingCart2Line } from 'react-icons/ri'
 
 function ProductCart({ item }: ProductCart) {
-  const { images, name, price, _id, subcategory, category } = item
+  const { thumbnail, name, price, _id, subcategory, category } = item
   console.log(item)
   return (
     <>
@@ -15,11 +15,11 @@ function ProductCart({ item }: ProductCart) {
           className="h-[60%] w-full overflow-hidden bg-white">
           <img
             className="w-full h-full hover:scale-[1.1] hover:rotate-[1deg] transition-all ease-in-out duration-200"
-            src={images[0]}
+            src={thumbnail}
             alt="img"
           />
         </Link>
-        <p className="text-gray-500 text-[15px]">{category}/{subcategory}</p>
+        <p className="text-gray-500 text-[15px]">{subcategory}</p>
         <Link href={`/product/${_id}`} className="text-[18px] h-[12%]">
           {name}
         </Link>

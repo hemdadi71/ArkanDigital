@@ -50,7 +50,7 @@ export const columns: GridColDef[] = [
           <div className="rounded-md overflow-hidden w-[70%]">
             <img
               className="w-full h-full rounded-md hover:scale-[1.1] transition-all ease-in-out duration-200"
-              src={params.value}
+              src={params.value[0]}
               alt="Thumbnail"
             />
           </div>

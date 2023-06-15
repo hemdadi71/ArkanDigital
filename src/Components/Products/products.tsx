@@ -1,31 +1,52 @@
 import ProductCart from '@/Components/ProductCart/ProductCart'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { ProductCartProps, ProductProps, ProductState } from '../../Types/types'
-import { getProducts } from '../api'
-import { useDispatch } from 'react-redux'
-import { allProducts } from '@/Redux/Slices/ProductsSlice'
+import React from 'react'
 import { useQuery } from 'react-query'
-
+import { getCategories, getProducts } from '../api'
+import { ProductProps, categoryData } from '../../Types/types'
+import Link from 'next/link'
+import Loading from '../Loading'
+// .........................................................................
 function Products() {
-  const dispatch = useDispatch()
-  const { data, isLoading } = useQuery(
+  const { data: products, isLoading: productsLoading } = useQuery(
     'getProducts',
-    () => getProducts(),
-    {
-      onSuccess: data => {
-        dispatch(allProducts(data))
-      },
-    }
+    () => getProducts()
   )
+  const { data: categories } = useQuery('getCategories', getCategories)
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-5  p-5">
-        {isLoading && <div>Loading...</div>}
-        {data &&
-          data.map((item: ProductProps) => {
-            return <ProductCart id={item._id} item={item} key={item._id} />
-          })}
+      <div className="p-5 flex flex-col gap-5">
+        {categories &&
+          categories.map((category: categoryData) => (
+            <div key={category._id} className="flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <p className="text-2xl font-semibold text-purple">
+                  {category.category}
+                </p>
+                <Link href={'/'}>نمایش همه</Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-5">
+                {productsLoading ? (
+                  <div>
+                    <Loading />
+                  </div>
+                ) : (
+                  products
+                    .filter(
+                      (product: ProductProps) =>
+                        product.category === category.category
+                    )
+                    .map((product: ProductProps) => (
+                      <ProductCart
+                        id={product._id}
+                        key={product._id}
+                        item={product}
+                      />
+                    ))
+                )}
+              </div>
+              <div className='w-full h-[2px] bg-gray-100 rounded-md'></div>
+            </div>
+          ))}
       </div>
     </>
   )
