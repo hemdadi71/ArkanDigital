@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { PhoneMenuProps, categoryData } from '@/Types/types'
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa'
+import Link from 'next/link'
 
 function PhoneMenu({ data, setIsShowPhoneMenu }: PhoneMenuProps) {
   const [activeCategory, setActiveCategory] = useState('')
@@ -24,20 +25,22 @@ function PhoneMenu({ data, setIsShowPhoneMenu }: PhoneMenuProps) {
                 ? 'text-[#E10083]'
                 : 'text-purple'
             }`}>
-            {item.category}
+            <Link href={`/products/${item.category}`}>{item.category}</Link>
             {activeCategory === item.category ? <FaAngleUp /> : <FaAngleDown />}
           </li>
           {activeCategory === item.category && (
             <ul className="flex flex-col gap-3">
               {Array.isArray(item.subCategory) &&
-                item.subCategory.map((subItem: string) => (
+                item.subCategory.map((subcategory: string) => (
                   <li
                     onClick={() =>
                       setIsShowPhoneMenu && setIsShowPhoneMenu(false)
                     }
-                    key={subItem}
+                    key={subcategory}
                     className="text-txtgray hover:text-purple cursor-pointer">
-                    {subItem}
+                    <Link href={`/products/${item.category}/${subcategory}`}>
+                      {subcategory}
+                    </Link>
                   </li>
                 ))}
             </ul>

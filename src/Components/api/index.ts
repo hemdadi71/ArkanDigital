@@ -1,9 +1,16 @@
 import { ProductProps, loginData } from '@/Types/types'
 import axios from 'axios'
 // ........................................................
-export const getProducts = async (limit: number = 0, page: number = 1) => {
+export const getProducts = async (
+  limit: number = 0,
+  page: number = 1,
+  category: string = '',
+  subcategory: string = ''
+) => {
   try {
-    const { data } = await axios.get(`/api/product?limit=${limit}&page=${page}`)
+    const { data } = await axios.get(
+      `/api/product?limit=${limit}&page=${page}&category=${category}&subcategory=${subcategory}`
+    )
     if (data.success) {
       const products = data.products
       return products

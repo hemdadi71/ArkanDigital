@@ -22,7 +22,7 @@ function Products() {
                 <p className="text-2xl font-semibold text-purple">
                   {category.category}
                 </p>
-                <Link href={'/'}>نمایش همه</Link>
+                <Link href={`/products/${category.category}`}>نمایش همه</Link>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-5">
                 {productsLoading ? (

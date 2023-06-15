@@ -10,14 +10,59 @@ export default async function handler(
   await dbConnect()
 
   switch (method) {
+    // case 'GET':
+    //   try {
+    //     const { page = 1, limit = 10, sort, quantity } = req.query
+
+    //     const filter: any = {}
+
+    //     if (quantity && typeof quantity === 'object' && 'gte' in quantity) {
+    //       filter.quantity = { $gte: Number(quantity.gte) }
+    //     }
+
+    //     let sortOption: any = {}
+
+    //     if (sort === 'price') {
+    //       sortOption = { price: 1 }
+    //     } else if (sort === '-price') {
+    //       sortOption = { price: -1 }
+    //     }
+
+    //     const products = await Product.find(filter)
+    //       .sort(sortOption)
+    //       .skip((Number(page) - 1) * Number(limit))
+    //       .limit(Number(limit))
+
+    //     res.status(200).json({ success: true, products })
+    //   } catch (error) {
+    //     res
+    //       .status(400)
+    //       .json({ success: false, error: 'Failed to fetch products' })
+    //   }
+    //   break
     case 'GET':
       try {
-        const { page = 1, limit = 10, sort, quantity } = req.query
+        const {
+          page = 1,
+          limit = 10,
+          sort,
+          quantity,
+          category,
+          subcategory,
+        } = req.query
 
         const filter: any = {}
 
         if (quantity && typeof quantity === 'object' && 'gte' in quantity) {
           filter.quantity = { $gte: Number(quantity.gte) }
+        }
+
+        if (category) {
+          filter.category = category
+        }
+
+        if (subcategory) {
+          filter.subcategory = subcategory
         }
 
         let sortOption: any = {}

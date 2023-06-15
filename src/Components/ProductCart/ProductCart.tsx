@@ -5,8 +5,7 @@ import React from 'react'
 import { RiShoppingCart2Line } from 'react-icons/ri'
 
 function ProductCart({ item }: ProductCart) {
-  const { thumbnail, name, price, _id, subcategory, category } = item
-  console.log(item)
+  const { thumbnail, name, price, _id, subcategory } = item
   return (
     <>
       <div className="border rounded-md flex flex-col gap-4 px-3 bg-white">

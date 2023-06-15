@@ -1,5 +1,6 @@
 import React from 'react'
 import { PhoneMenuProps, categoryData } from '@/Types/types'
+import Link from 'next/link'
 
 function Categories({ data, setIsShowMenu }: categoryData) {
   return (
@@ -9,17 +10,20 @@ function Categories({ data, setIsShowMenu }: categoryData) {
           return (
             <ul key={item._id} className="flex flex-col gap-2">
               <li className="font-semibold text-[16px] text-[#E10083]">
-                {item.category}
+                <Link href={`/products/${item.category}`}>{item.category}</Link>
               </li>
               <ul className="flex flex-col gap-3">
                 {Array.isArray(item.subCategory) &&
-                  item.subCategory.map((i: string) => {
+                  item.subCategory.map((subcategory: string) => {
                     return (
                       <li
                         onClick={() => setIsShowMenu(false)}
-                        key={i}
+                        key={subcategory}
                         className="text-txtgray hover:text-purple cursor-pointer">
-                        {i}
+                        <Link
+                          href={`/products/${item.category}/${subcategory}`}>
+                          {subcategory}
+                        </Link>
                       </li>
                     )
                   })}
