@@ -108,3 +108,12 @@ export async function editProduct({ id, Data }: any) {
     throw new Error('Failed to edit product')
   }
 }
+export const getSingleProduct = async (id: string) => {
+  try {
+    const { data } = await axios(`/api/product/${id}`)
+    const { data: product } = data
+    return product
+  } catch (error) {
+    console.log(error)
+  }
+}

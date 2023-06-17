@@ -67,7 +67,7 @@ function Header() {
               <PhoneMenu setIsShowPhoneMenu={setIsShowPhoneMenu} data={data} />
             )}
           </div>
-          <div className="w-[40%] md:block hidden">
+          <div className="w-[30%] md:block hidden">
             <SearchInput />
           </div>
           {role === '' && (
