@@ -72,7 +72,7 @@ function Product() {
                       exit={{ opacity: 0 }}
                       key={item}>
                       <img
-                        className="w-[80%] transition-all ease-in-out duration-300"
+                        className="w-[80%] transition-all ease-in-out duration-300 rounded-md"
                         src={item}
                         alt="img"
                       />
