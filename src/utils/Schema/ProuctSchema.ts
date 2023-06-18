@@ -6,8 +6,8 @@ export const productSchema = yup.object({
   slugname: yup.string().required('لطفا نام کوتاه را وارد کنید'),
   brand: yup.string().required('لطفا برند را وارد کنید'),
   description: yup.string().required('لطفا توضیحات را وارد کنید'),
-  thumbnail: yup.mixed().required(),
-  images: yup.mixed().required(),
+  thumbnail: yup.mixed().required('لطفا تصویر کوچک محصول را آپلود کنید'),
+  images: yup.mixed().required('لطفا تصاویر محصول را آپلود کنید'),
   price: yup
     .string()
     .required('لطفا قیمت را وارد کنید')

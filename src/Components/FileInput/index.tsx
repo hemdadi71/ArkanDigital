@@ -14,7 +14,7 @@ const FileInput = ({
     <>
       <div className="flex flex-col gap-2">
         <label
-          className="bg-purple text-white rounded-md px-4 py-1"
+          className="bg-purple text-white rounded-md px-4 py-1 cursor-pointer"
           htmlFor={id}>
           {label}
         </label>

@@ -3,7 +3,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import Input from '../Input/Input'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { productSchema } from '../../utils/Schema/ProuctSchema'
 import {
@@ -26,7 +26,23 @@ import { toast } from 'react-hot-toast'
 import { SelectChangeEvent } from '@mui/material'
 import { notEditing } from '@/Redux/Slices/IsEditingProductSlice'
 import { hideLoading, showLoading } from '@/Redux/Slices/LoadingSlice'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import Spinner from '../Spinner'
+const modules = {
+  toolbar: [
+    [{ font: [] }],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ color: [] }, { background: [] }],
+    [{ script: 'sub' }, { script: 'super' }],
+    ['blockquote', 'code-block'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+    ['link', 'image', 'video'],
+    ['clean'],
+  ],
+}
 const ProductForm = () => {
   const selectedEdit = useSelector((state: isEditnigState) => state.editingData)
   const { isEditing, rowData } = selectedEdit
@@ -41,6 +57,7 @@ const ProductForm = () => {
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(productSchema),
@@ -100,7 +117,7 @@ const ProductForm = () => {
   }
   return (
     <form
-      className="flex flex-col overflow-auto gap-y-1"
+      className="flex flex-col overflow-auto gap-y-1 px-3"
       onSubmit={handleSubmit(formSubmit)}>
       <div className="flex lg:flex-row flex-col gap-10">
         <Input
@@ -172,6 +189,7 @@ const ProductForm = () => {
             register={{
               ...register('thumbnail', {
                 onChange: e => handleThumbnailChange(e, setThumbnailSrc),
+                required: 'fsdfsdf',
               }),
             }}
             type="file"
@@ -188,6 +206,63 @@ const ProductForm = () => {
             />
           </div>
         </div>
+        {/* <div className="w-[25%]">
+          <Controller
+            name="images"
+            control={control}
+            render={({ field: { onChange } }) => (
+              <>
+                <FileInput
+                  id="uploadImage"
+                  name="images"
+                  onChange={e => {
+                    onChange(e)
+                    handleChange(e, setImageSrc)
+                  }}
+                  type="file"
+                  label="آپلود تصاویر محصول"
+                  errorTxt={errors.images?.message}
+                />
+                <div
+                  className={`overflow-y-auto ${
+                    imageSrc.length && 'h-[120px]'
+                  } flex`}>
+                  <ImagePreview imageSrc={imageSrc} setImageSrc={setImageSrc} />
+                </div>
+              </>
+            )}
+          />
+        </div> */}
+        {/* <div>
+          <Controller
+            name="thumbnail"
+            control={control}
+            render={({ field }) => (
+              <>
+                <FileInput
+                  id="uploadThumbnail"
+                  name="thumbnail"
+                  onChange={e => {
+                    handleThumbnailChange(e, setThumbnailSrc)
+                    field.onChange(e)
+                  }}
+                  type="file"
+                  label="آپلود تصویر کوچک محصول"
+                  errorTxt={errors.thumbnail?.message}
+                />
+                <div
+                  className={`overflow-y-auto ${
+                    imageSrc.length && 'h-[120px]'
+                  } flex`}>
+                  <ThumbnailPreview
+                    thumbnailSrc={thumbnailSrc}
+                    setThumbnailSrc={setThumbnailSrc}
+                  />
+                </div>
+              </>
+            )}
+          />
+        </div> */}
       </div>
       <div className="flex items-start md:flex-row flex-col gap-10 relative">
         <CategoriesSelect
@@ -206,16 +281,27 @@ const ProductForm = () => {
           errorTxt={errors.subcategory?.message}
           SubCategory={SubCategories.subCategory}
         />
-        <div className="w-full">
-          <Input
-            defaultValue={rowData.description}
-            name="description"
-            register={{ ...register('description') }}
-            type="text"
-            label="توضیحات:"
-            errorTxt={errors.description?.message}
-          />
-        </div>
+      </div>
+      <div dir="ltr" className="w-full mt-3">
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => {
+            return (
+              <ReactQuill
+                className="w-full h-[100px]"
+                id="description"
+                theme="snow"
+                onChange={onChange}
+                defaultValue={rowData.description ? rowData.description : value}
+                modules={modules}
+              />
+            )
+          }}
+        />
+        <p className="text-red-500 text-right mt-12">
+          {errors.description?.message?.toString()}
+        </p>
       </div>
       <div className="flex items-center md:flex-row flex-col gap-10"></div>
       <div className="flex items-center justify-center py-5 text-white">

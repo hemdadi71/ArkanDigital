@@ -18,7 +18,7 @@ function AddProductModal() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
         exit={{ opacity: 0 }}
-        className="bg-white z-20 flex flex-col mx-5 md:mx-0 fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 overflow-auto rounded-md">
+        className="bg-white z-20 flex flex-col mx-5 md:h-[400px] 2xl:h-[730px] md:mx-0 fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 overflow-auto rounded-md">
         <div className="pb-2 flex w-full border-b p-2">
           <IoCloseSharp
             onClick={() => {

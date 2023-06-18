@@ -11,9 +11,9 @@ import { useDispatch } from 'react-redux'
 const EditButton = ({ row }: ProductTableRow) => {
   const dispatch = useDispatch()
   const handleClick = () => {
-    console.log(row)
     dispatch(showProductModal())
     dispatch(Editing(row))
+    console.log(row)
   }
   return (
     <Button color="info" variant="contained" onClick={handleClick}>
@@ -44,7 +44,6 @@ export const columns: GridColDef[] = [
     sortable: false,
     filterable: false,
     renderCell: params => {
-      console.log(params)
       return (
         <>
           <div className="rounded-md overflow-hidden w-[70%]">

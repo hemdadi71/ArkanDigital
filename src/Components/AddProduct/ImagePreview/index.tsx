@@ -15,10 +15,10 @@ const ImagePreview = ({ imageSrc, setImageSrc }: ImagePreviewProps) => {
   return (
     <div className="flex flex-wrap gap-2">
       {imageSrc.map((src, index) => (
-        <div key={index} className="relative h-[57px]">
+        <div key={index} className="relative h-[100px]">
           <img width={100} className="rounded-md h-full" src={src} alt="" />
           <button
-            className="absolute bg-white rounded-full top-1 right-1 text-red-500 bg-transparent border-none cursor-pointer"
+            className="absolute bg-gray-300 z-30 rounded-full top-1 right-1 text-red-500 bg-transparent cursor-pointer"
             onClick={() => handleRemoveImage(index)}>
             <IoClose />
           </button>

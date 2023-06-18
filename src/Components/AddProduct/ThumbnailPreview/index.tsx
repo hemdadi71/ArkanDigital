@@ -18,7 +18,7 @@ const ThumbnailPreview: React.FC<ThumbnailPreviewProps> = ({
   return (
     <div className="flex flex-wrap gap-2">
       {thumbnailSrc && (
-        <div className="relative h-[57px]">
+        <div className="relative h-[100px]">
           <img
             width={100}
             className="rounded-md h-full"
@@ -26,7 +26,7 @@ const ThumbnailPreview: React.FC<ThumbnailPreviewProps> = ({
             alt=""
           />
           <button
-            className="absolute bg-white rounded-full top-1 right-1 text-red-500 bg-transparent border-none cursor-pointer"
+            className="absolute bg-gray-300 rounded-full top-1 right-1 text-red-500 bg-transparent border-none cursor-pointer"
             onClick={removeThumbnail}>
             <IoClose />
           </button>

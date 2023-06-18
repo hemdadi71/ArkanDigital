@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import Loading from '@/Components/Loading'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FastDelivery, OriginalSvg, ReturnMony, Svg } from '../../SVG/index'
+
 import {
   GlassMagnifier,
   MOUSE_ACTIVATION,
@@ -17,6 +17,7 @@ import {
 } from 'react-image-magnifiers'
 import ReactImageMagnify from 'react-image-magnify'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+import { FastDelivery, OriginalSvg, ReturnMony } from '@/SVG'
 type ProductProps = {
   id: string
 }
@@ -24,6 +25,7 @@ type ProductProps = {
 function Product() {
   const [img, setImg] = useState<string[]>([])
   const [count, setCount] = useState(1)
+  const [outputText, setOutputText] = useState('')
   const router = useRouter()
   const { id } = router.query as ProductProps
   const { data, isLoading, error } = useQuery(['getSingleProduct', id], () =>
@@ -41,7 +43,7 @@ function Product() {
   }
 
   return (
-    <div className={`mt-8 ${isLoading ? 'h-[100vh]' : ''}`}>
+    <div className={`mt-3 ${isLoading ? 'h-[100vh]' : ''}`}>
       {isLoading ? (
         <Loading className="-translate-x-1/2 left-1/2" />
       ) : (
@@ -81,7 +83,7 @@ function Product() {
                 })}
               </div>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 2xl:mt-16">
               <div className="flex flex-col gap-2">
                 <p className="font-semibold text-lg">{data.name}</p>
                 <div className="flex items-center gap-1">
@@ -198,7 +200,9 @@ function Product() {
           </div>
           <div className="px-10 py-5 flex flex-col gap-3">
             <p className="font-semibold">توضیحات محصول: </p>
-            <p className="text-gray-500">{data.description}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: data.description }}
+              className="text-gray-500"></div>
           </div>
         </div>
       )}
