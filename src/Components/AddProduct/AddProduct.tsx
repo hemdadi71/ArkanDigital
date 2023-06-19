@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 // import React, { useState } from 'react';
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from '../Input/Input'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -26,9 +26,12 @@ import { toast } from 'react-hot-toast'
 import { SelectChangeEvent } from '@mui/material'
 import { notEditing } from '@/Redux/Slices/IsEditingProductSlice'
 import { hideLoading, showLoading } from '@/Redux/Slices/LoadingSlice'
-import ReactQuill from 'react-quill'
+// import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import Spinner from '../Spinner'
+import dynamic from 'next/dynamic'
+
+const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 const modules = {
   toolbar: [
     [{ font: [] }],
@@ -189,7 +192,6 @@ const ProductForm = () => {
             register={{
               ...register('thumbnail', {
                 onChange: e => handleThumbnailChange(e, setThumbnailSrc),
-                required: 'fsdfsdf',
               }),
             }}
             type="file"
@@ -206,63 +208,6 @@ const ProductForm = () => {
             />
           </div>
         </div>
-        {/* <div className="w-[25%]">
-          <Controller
-            name="images"
-            control={control}
-            render={({ field: { onChange } }) => (
-              <>
-                <FileInput
-                  id="uploadImage"
-                  name="images"
-                  onChange={e => {
-                    onChange(e)
-                    handleChange(e, setImageSrc)
-                  }}
-                  type="file"
-                  label="آپلود تصاویر محصول"
-                  errorTxt={errors.images?.message}
-                />
-                <div
-                  className={`overflow-y-auto ${
-                    imageSrc.length && 'h-[120px]'
-                  } flex`}>
-                  <ImagePreview imageSrc={imageSrc} setImageSrc={setImageSrc} />
-                </div>
-              </>
-            )}
-          />
-        </div> */}
-        {/* <div>
-          <Controller
-            name="thumbnail"
-            control={control}
-            render={({ field }) => (
-              <>
-                <FileInput
-                  id="uploadThumbnail"
-                  name="thumbnail"
-                  onChange={e => {
-                    handleThumbnailChange(e, setThumbnailSrc)
-                    field.onChange(e)
-                  }}
-                  type="file"
-                  label="آپلود تصویر کوچک محصول"
-                  errorTxt={errors.thumbnail?.message}
-                />
-                <div
-                  className={`overflow-y-auto ${
-                    imageSrc.length && 'h-[120px]'
-                  } flex`}>
-                  <ThumbnailPreview
-                    thumbnailSrc={thumbnailSrc}
-                    setThumbnailSrc={setThumbnailSrc}
-                  />
-                </div>
-              </>
-            )}
-          />
-        </div> */}
       </div>
       <div className="flex items-start md:flex-row flex-col gap-10 relative">
         <CategoriesSelect

@@ -35,7 +35,7 @@ function Header() {
   const { data } = useQuery('getCategories', getCategories)
   return (
     <>
-      <header className="pb-4 pt-5 px-2 relative z-50 bg-[#fcfcfc]">
+      <header className="pb-4 pt-5 px-2 relative z-50 bg-[#fcfcfc] border-b mb-3">
         <div className="flex items-center justify-between px-4">
           <Logo />
           {router.pathname !== '/' && (
@@ -43,7 +43,7 @@ function Header() {
               href="/"
               className="flex items-center gap-2 hover:text-purple-600">
               <AiOutlineHome className="text-[#5D108B]" size={27} />
-              <p className="font-semibold md:block hidden">صفحه نخست</p>
+              <p className="font-semibold lg:block hidden">صفحه نخست</p>
             </Link>
           )}
           <div
@@ -76,13 +76,13 @@ function Header() {
                 onClick={() => dispatch(showRegisterModal())}
                 className="flex items-center gap-2 cursor-pointer hover:text-purple-600">
                 <TbLogin size={30} />
-                <p className="font-semibold md:block hidden">ورود | ثبت نام</p>
+                <p className="font-semibold lg:block hidden">ورود | ثبت نام</p>
               </div>
               <Link
                 href="/register"
                 className="font-semibold flex items-center gap-1">
                 <RiAdminLine size={30} />
-                <p className="md:block hidden">مدیریت</p>
+                <p className="lg:block hidden">مدیریت</p>
               </Link>
             </div>
           )}
@@ -93,7 +93,7 @@ function Header() {
               className="font-semibold relative cursor-pointer flex justify-center py-3">
               <div className="flex items-center gap-1 hover:text-purple-600">
                 <RiAdminLine size={30} />
-                <p className="md:block hidden">مدیریت</p>
+                <p className="lg:block hidden">مدیریت</p>
               </div>
               {isShowDropdown && (
                 <ul className="absolute bottom-[-108px] w-40 z-30 bg-white flex flex-col gap-2 rounded-md border">
@@ -140,13 +140,13 @@ function Header() {
               0
             </p>
             <RiShoppingCart2Line size={27} />
-            <p className="font-semibold mr-1 md:block hidden">سبد خرید</p>
+            <p className="font-semibold mr-1 lg:block hidden">سبد خرید</p>
           </Link>
 
           <Link
             href="/contactus"
             className="font-semibold cursor-pointer hover:text-purple-600 flex items-center gap-2">
-            <p className="md:block hidden">ارتباط با ما</p>
+            <p className="lg:block hidden">ارتباط با ما</p>
             <FaPhoneAlt size={21} />
           </Link>
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import AdminHeader from '@/Components/AdminHeader/AdminHeader'
 import Footer from '@/Components/Footer/Footer'
 import Header from '@/Components/Header/Header'

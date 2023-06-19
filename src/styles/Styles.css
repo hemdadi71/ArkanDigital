@@ -9,6 +9,10 @@ body {
   background-color: #fcfcfc;
   margin: 0 auto;
 }
+html,
+body {
+  width: 100vw !important;
+}
 .admin {
   background-image: url(../../public/adminBG/v617batch2-bb-01-technology.jpg);
   background-size: 100% 100%;
@@ -19,7 +23,7 @@ body {
 }
 ::-webkit-scrollbar {
   width: 10px;
-  height: 10px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: #e2e8f0;
@@ -30,6 +34,9 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #919cac;
+}
+.scrollBar-purple::-webkit-scrollbar-thumb {
+  background: #7414AD;
 }
 @keyframes spinner {
   0% {

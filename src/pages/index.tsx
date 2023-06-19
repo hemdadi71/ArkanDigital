@@ -5,8 +5,12 @@ import SearchInput from '@/Components/SearchInput/SearchInput'
 import Slider from '@/Components/Slider/Slider'
 import React from 'react'
 import { smallDatas } from '../../SmallDatas'
+import Link from 'next/link'
+import { useQuery } from 'react-query'
+import { getCategories } from '@/Components/api'
 
 export default function Home() {
+  const { data } = useQuery('getCategories', getCategories)
   return (
     <>
       <div className="flex gap-6 mb-8 justify-center px-2 w-full">
@@ -28,19 +32,28 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex justify-between px-3 overflow-x-auto overflow-y-hidden text-[14px] bg-white pb-2">
-        {smallDatas.map(item => {
-          return (
-            <div
-              key={item.subcategory}
-              className="w-[80px] flex flex-col items-center text-center">
-              <img className="hover:rotate-[3deg]" src={item.src} alt="img" />
-              <p>{item.subcategory}</p>
-            </div>
-          )
-        })}
+      <div className="px-5 w-full">
+        <div className="overflow-x-auto overflow-y-hidden mb-5 bg-white scrollBar-purple w-full">
+          <div className="flex w-[1100px] md:w-full justify-between px-3 text-[14px]">
+            {smallDatas.map(item => {
+              return (
+                <Link
+                  href={`/products/${item.category}/${item.subcategory}`}
+                  key={item.subcategory}
+                  className="md:w-[80px] flex flex-col items-center text-center">
+                  <img
+                    className="hover:rotate-[3deg]"
+                    src={item.src}
+                    alt="img"
+                  />
+                  <p className="w-full">{item.subcategory}</p>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </div>
-      <div className="px-5">
+      <div className="px-5 mb-5">
         <img
           className="rounded-md w-full"
           src="/product/Cover/1.jpeg"
@@ -53,8 +66,12 @@ export default function Home() {
       <div className="py-3">
         <Products />
       </div>
-      <div className='w-full flex items-center justify-center px-5 py-7'>
-        <img className='w-full rounded-md' src="/product/Cover/2.jpeg" alt="img" />
+      <div className="w-full flex items-center justify-center px-5 py-7">
+        <img
+          className="w-full rounded-md"
+          src="/product/Cover/2.jpeg"
+          alt="img"
+        />
       </div>
     </>
   )

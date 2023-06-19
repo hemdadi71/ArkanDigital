@@ -1,4 +1,4 @@
-import Loading from '@/Components/Loading'
+import Loading from '../../../Components/Loading'
 import ProductCart from '@/Components/ProductCart/ProductCart'
 import { getCategories, getProducts } from '@/Components/api'
 import { ProductProps, categoryData } from '@/Types/types'

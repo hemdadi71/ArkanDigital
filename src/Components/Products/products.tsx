@@ -26,8 +26,8 @@ function Products() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-5">
                 {productsLoading ? (
-                  <div>
-                    <Loading />
+                  <div className="relative">
+                    <Loading className="-tanslate-y-1/2 top-1/2 -translate-x-1/2 left-1/2" />
                   </div>
                 ) : (
                   products
@@ -44,7 +44,7 @@ function Products() {
                     ))
                 )}
               </div>
-              <div className='w-full h-[2px] bg-gray-100 rounded-md'></div>
+              <div className="w-full h-[2px] bg-gray-100 rounded-md"></div>
             </div>
           ))}
       </div>

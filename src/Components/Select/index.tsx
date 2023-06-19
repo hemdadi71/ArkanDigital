@@ -2,8 +2,7 @@ import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { useState } from 'react'
+import Select from '@mui/material/Select'
 
 export default function CategoriesSelect({
   data,
@@ -15,7 +14,7 @@ export default function CategoriesSelect({
   category,
 }: any) {
   return (
-    <div className="w-[70%] flex flex-col gap-2">
+    <div className="md:w-[30%] flex flex-col gap-2">
       <label>{label}</label>
       <FormControl fullWidth>
         <Select
