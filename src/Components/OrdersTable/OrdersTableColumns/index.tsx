@@ -26,11 +26,20 @@ export function Columns(userData: UserData[]) {
     },
     {
       field: 'totalPrice',
-      headerName: 'مجموع مبلغ',
-      width: 120,
+      headerName: 'مجموع مبلغ (تومان)',
+      width: 130,
       editable: true,
       sortable: true,
       filterable: true,
+      renderCell: params => {
+        return (
+          <>
+            <p onClick={() => console.log(params)}>
+              {params.row.totalPrice.toLocaleString()}
+            </p>
+          </>
+        )
+      },
     },
     {
       field: 'createdAt',

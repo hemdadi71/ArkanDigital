@@ -11,8 +11,8 @@ import {
   MuiEvent,
 } from '@mui/x-data-grid'
 import { useQuery } from 'react-query'
-import { ProductProps, ProductsColumns } from '@/Types/types'
-import { editProduct, getProducts } from '../api'
+import { ProductProps } from '@/Types/types'
+import {  getProducts } from '../api'
 import {
   FocusEvent,
   useCallback,
@@ -23,8 +23,6 @@ import {
 } from 'react'
 import { EditToolbar } from './EditToolbar'
 import { GridEventListener } from '@mui/x-data-grid'
-import { useDispatch, useSelector } from 'react-redux'
-import { addData } from '@/Redux/Slices/PriceSlice'
 // ..............................................................
 export const RTLDataGridPagination = () => {
   return <GridPagination className="rtl-pagination ml-auto mr-6" />

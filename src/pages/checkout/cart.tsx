@@ -1,17 +1,77 @@
+import RemoveCartModal from '@/Components/CartRemoveModal'
+import CartTable from '@/Components/CartTable'
+import { CartTableColumns } from '@/Components/CartTable/CartTableColumn'
+import { setCart } from '@/Redux/Slices/CartSlice'
+import { Cart, CartProps, removeCartModalState } from '@/Types/types'
+import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-function cart() {
+function Cart() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const localCart = localStorage.getItem('cart')
+    if (localCart) {
+      const cart = JSON.parse(localCart)
+      dispatch(setCart(cart.products))
+    }
+  }, [])
+  const rows = useSelector((state: Cart) => state.CartState.products) || []
+  const isRemoveModalOpen = useSelector(
+    (state: removeCartModalState) => state.removeCartModal.isOpen
+  )
+  const columns = CartTableColumns()
+  const totalPrice = rows.reduce(
+    (acc: number, row: CartProps) => acc + row.price * row.count,
+    0
+  )
   return (
     <>
-      <div className="text-center text-xl">سبد خرید</div>
-      <div className="text-center text-xl">
-        <Link href="/checkout/shipment">
-          نهایی کردن سبد خرید
-        </Link>
+      <div className="flex flex-col gap-4 py-5">
+        <div className="px-5 text-xl font-semibold">
+          <p>سبد خرید</p>
+        </div>
+        <div className="flex items-center justify-between px-5">
+          <div className="w-[60%]">
+            <CartTable columns={columns} rows={rows} />
+          </div>
+          <div className="w-[40%] px-14">
+            <div className="flex flex-col gap-3 rounded-md border bg-white p-5">
+              <div className="mb-3 flex flex-col gap-3">
+                <p className="text-xl font-semibold">اطلاعات پرداخت</p>
+                <div className="bg-gray-200 h-[1px]"></div>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="flex items-cetner justify-between">
+                  <p className="text-gray-400">جمع مبلغ کالاها</p>
+                  <p className="font-semibold">
+                    {totalPrice.toLocaleString()} تومان
+                  </p>
+                </div>
+                <div className="flex items-cetner justify-between">
+                  <p className="text-gray-400">هزینه ارسال</p>
+                  <p className="font-semibold">وابسته به آدرس</p>
+                </div>
+                <div className="flex items-cetner justify-between">
+                  <p className="text-gray-400">قابل پرداخت</p>
+                  <p className="text-[#ac31f3] font-semibold">
+                    {totalPrice.toLocaleString()} تومان
+                  </p>
+                </div>
+                <div className="text-center text-xl bg-purple text-white rounded-md py-1 mt-2">
+                  <Link href="/checkout/shipment">نهایی کردن سبد خرید</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <AnimatePresence>
+        {isRemoveModalOpen && <RemoveCartModal />}
+      </AnimatePresence>
     </>
   )
 }
 
-export default cart
+export default Cart

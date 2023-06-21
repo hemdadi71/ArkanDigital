@@ -16,6 +16,7 @@ function Layout({ children }: LayoutProps) {
       <AnimatePresence>
         {isRegisterModalOpen && <RegisterModal />}
       </AnimatePresence>
+      
       <Toaster />
     </>
   )

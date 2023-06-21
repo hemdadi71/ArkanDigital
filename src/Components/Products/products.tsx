@@ -12,6 +12,11 @@ function Products() {
     () => getProducts()
   )
   const { data: categories } = useQuery('getCategories', getCategories)
+  const getProductsWithLimit = (category: string) => {
+    return products
+      .filter((product: ProductProps) => product.category === category)
+      .slice(0, 4)
+  }
   return (
     <>
       <div className="p-5 flex flex-col gap-5">
@@ -30,18 +35,15 @@ function Products() {
                     <Loading className="-tanslate-y-1/2 top-1/2 -translate-x-1/2 left-1/2" />
                   </div>
                 ) : (
-                  products
-                    .filter(
-                      (product: ProductProps) =>
-                        product.category === category.category
-                    )
-                    .map((product: ProductProps) => (
+                  getProductsWithLimit(category.category).map(
+                    (product: ProductProps) => (
                       <ProductCart
                         id={product._id}
                         key={product._id}
                         item={product}
                       />
-                    ))
+                    )
+                  )
                 )}
               </div>
               <div className="w-full h-[2px] bg-gray-100 rounded-md"></div>

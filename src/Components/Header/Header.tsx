@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { showRegisterModal } from '@/Redux/Slices/RegisterModal'
-import { RoleState } from '../../Types/types'
+import { Cart, CartProps, CartState, RoleState } from '../../Types/types'
 import Cookies from 'js-cookie'
 import { setRole } from '@/Redux/Slices/Role'
 import moment from 'moment-jalaali'
@@ -19,6 +19,7 @@ import Categories from '../Categories'
 import { getCategories } from '../api'
 import { useQuery } from 'react-query'
 import PhoneMenu from '../PhoneMenu'
+import { setCart } from '@/Redux/Slices/CartSlice'
 // ..........................................................
 function Header() {
   const [isShowDropdown, SetIsShowDropdown] = useState(false)
@@ -33,9 +34,17 @@ function Header() {
     dispatch(setRole(''))
   }
   const { data } = useQuery('getCategories', getCategories)
+  useEffect(() => {
+    const localCart = localStorage.getItem('cart')
+    if (localCart) {
+      const cart = JSON.parse(localCart)
+      dispatch(setCart(cart.products))
+    }
+  }, [])
+  const cart = useSelector((state: Cart) => state.CartState.products) || []
   return (
     <>
-      <header className="pb-4 pt-5 px-2 relative z-50 bg-[#fcfcfc] border-b mb-3">
+      <header className="pb-4 pt-5 px-2 relative z-40 bg-[#fcfcfc] border-b mb-3">
         <div className="flex items-center justify-between px-4">
           <Logo />
           {router.pathname !== '/' && (
@@ -53,7 +62,7 @@ function Header() {
             <GiHamburgerMenu size={27} />
             <p className="font-semibold md:block hidden">محصولات</p>
             {isShowMenu && (
-              <div className="absolute bg-[#fcfcfc] z-50 w-[98%] right-4 top-[90px] p-4 rounded-b-md">
+              <div className="absolute bg-[#fcfcfc] z-50 w-[98%] right-2 top-[90px] p-4 rounded-b-md">
                 <Categories setIsShowMenu={setIsShowMenu} data={data} />
               </div>
             )}
@@ -136,8 +145,8 @@ function Header() {
           <Link
             href="/checkout/cart"
             className="relative flex cursor-pointer items-center hover:text-purple-600">
-            <p className="w-[20px] h-[20px] p-3 flex items-center justify-center text-white rounded-full bg-purple-600 absolute top-[-12px] right-[-12px]">
-              0
+            <p className="w-[20px] h-[20px] p-3 flex items-center justify-center text-white rounded-full bg-purple absolute top-[-12px] right-[-12px]">
+              {cart?.length}
             </p>
             <RiShoppingCart2Line size={27} />
             <p className="font-semibold mr-1 lg:block hidden">سبد خرید</p>

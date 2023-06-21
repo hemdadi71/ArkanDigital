@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-// import React, { useState } from 'react';
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import Input from '../Input/Input'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -26,26 +24,13 @@ import { toast } from 'react-hot-toast'
 import { SelectChangeEvent } from '@mui/material'
 import { notEditing } from '@/Redux/Slices/IsEditingProductSlice'
 import { hideLoading, showLoading } from '@/Redux/Slices/LoadingSlice'
-// import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import Spinner from '../Spinner'
 import dynamic from 'next/dynamic'
-
+import { modules } from '@/utils/ReactQuill/Modules'
+// ..........................................................
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
-const modules = {
-  toolbar: [
-    [{ font: [] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ color: [] }, { background: [] }],
-    [{ script: 'sub' }, { script: 'super' }],
-    ['blockquote', 'code-block'],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
-    ['link', 'image', 'video'],
-    ['clean'],
-  ],
-}
+
 const ProductForm = () => {
   const selectedEdit = useSelector((state: isEditnigState) => state.editingData)
   const { isEditing, rowData } = selectedEdit

@@ -6,6 +6,8 @@ import { showRemoveModal } from '@/Redux/Slices/RemoveModalSlice'
 import { ProductProps, ProductTableRow, ProductsColumns } from '@/Types/types'
 import { Button } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
+import { BsFillTrashFill } from 'react-icons/bs'
+import { RiEditBoxFill } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 // ............................................................
 const EditButton = ({ row }: ProductTableRow) => {
@@ -16,9 +18,9 @@ const EditButton = ({ row }: ProductTableRow) => {
     console.log(row)
   }
   return (
-    <Button color="info" variant="contained" onClick={handleClick}>
-      ویرایش
-    </Button>
+    <button className='text-blue-500' onClick={handleClick}>
+      <RiEditBoxFill size={25} />
+    </button>
   )
 }
 // ...............................................................
@@ -28,9 +30,9 @@ const RemoveButton = ({ row }: ProductTableRow) => {
     dispatch(showRemoveModal(row._id))
   }
   return (
-    <Button color="error" variant="contained" onClick={handleClick}>
-      حذف
-    </Button>
+    <button className="text-red-500" onClick={handleClick}>
+      <BsFillTrashFill size={20} />
+    </button>
   )
 }
 // .................................................................
@@ -60,7 +62,7 @@ export const columns: GridColDef[] = [
   {
     field: 'name',
     headerName: 'نام کالا',
-    width: 200,
+    width: 450,
     editable: true,
     cellClassName: 'font-semibold text-[15px]',
   },
