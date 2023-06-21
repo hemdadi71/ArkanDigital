@@ -30,9 +30,14 @@ function Product() {
     }
   }, [data])
 
-  if (error) {
-    return <div>Error loading product</div>
+  if (!data) {
+    return (
+      <div>
+        <Loading className="-translate-x-1/2 left-1/2" />
+      </div>
+    )
   }
+
   const {
     images,
     quantity,
@@ -43,7 +48,7 @@ function Product() {
     brand,
     category,
     _id,
-  } = !isLoading && data
+  } = data
   return (
     <>
       <div className={`mt-3 ${isLoading ? 'h-[100vh]' : ''}`}>
