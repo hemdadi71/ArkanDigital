@@ -1,10 +1,6 @@
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  CartProps,
-  LoadingState,
-  removeCartModalState,
-} from '@/Types/types'
+import { CartProps, LoadingState, removeCartModalState } from '@/Types/types'
 import { toast } from 'react-hot-toast'
 import Spinner from '../Spinner'
 import { hideRemoveCartModal } from '@/Redux/Slices/RemoveCartSlice'
@@ -14,19 +10,20 @@ function RemoveCartModal() {
   const dispatch = useDispatch()
   const loading = useSelector((state: LoadingState) => state.loading.isLoading)
   const selectedId = useSelector(
-    (state: removeCartModalState) => state.removeCartModal.id
+    (state: removeCartModalState) => state.removeCartModal.product
   )
+  console.log(selectedId)
   const handleRemoveRow = () => {
     const localCart = localStorage.getItem('cart')
     if (localCart) {
       const cart = JSON.parse(localCart)
       const filteredCart = cart.products.filter(
-        (item: CartProps) => item.id !== selectedId
+        (item: CartProps) => item.product !== selectedId
       )
       cart.products = filteredCart
       localStorage.setItem('cart', JSON.stringify(cart))
       dispatch(setCart(filteredCart))
-      toast('کالا با موقیت از سبد خرید حذف گردید', {
+      toast('کالا با موفقیت از سبد خرید حذف گردید', {
         style: {
           backgroundColor: 'red',
           color: 'white',

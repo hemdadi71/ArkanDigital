@@ -29,14 +29,14 @@ function Cart() {
   return (
     <>
       <div className="flex flex-col gap-4 py-5">
-        <div className="px-5 text-xl font-semibold">
+        <div className="px-5 text-xl font-semibold md:text-right text-center">
           <p>سبد خرید</p>
         </div>
-        <div className="flex items-center justify-between px-5">
-          <div className="w-[60%]">
+        <div className="flex lg:flex-row flex-col gap-y-3 items-center justify-between px-5">
+          <div className="lg:w-[60%] w-full lg:px-0">
             <CartTable columns={columns} rows={rows} />
           </div>
-          <div className="w-[40%] px-14">
+          <div className="lg:w-[40%] w-full lg:px-14 2xl:px-28">
             <div className="flex flex-col gap-3 rounded-md border bg-white p-5">
               <div className="mb-3 flex flex-col gap-3">
                 <p className="text-xl font-semibold">اطلاعات پرداخت</p>
@@ -59,9 +59,11 @@ function Cart() {
                     {totalPrice.toLocaleString()} تومان
                   </p>
                 </div>
-                <div className="text-center text-xl bg-purple text-white rounded-md py-1 mt-2">
-                  <Link href="/checkout/shipment">نهایی کردن سبد خرید</Link>
-                </div>
+                <Link
+                  className="text-center text-xl bg-purple text-white rounded-md py-1 mt-2"
+                  href="/checkout/shipment">
+                  نهایی کردن سبد خرید
+                </Link>
               </div>
             </div>
           </div>

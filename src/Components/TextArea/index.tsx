@@ -1,19 +1,24 @@
-const Input = ({
+const TextArea = ({
   name,
   label,
   type,
   register,
   errorTxt,
   defaultValue,
+  className = '',
+  cols,
+  rows = 4,
 }: any) => {
   return (
     <>
       <div className="flex flex-col gap-2">
         <label>{label}</label>
-        <input
+        <textarea
+          cols={cols}
+          rows={rows}
           defaultValue={defaultValue}
           name={name}
-          className="outline-none rounded-md border px-2 py-1"
+          className={`outline-none rounded-md border px-2 py-1 ${className}`}
           type={type}
           {...register}
         />
@@ -23,4 +28,4 @@ const Input = ({
   )
 }
 
-export default Input
+export default TextArea

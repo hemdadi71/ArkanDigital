@@ -31,6 +31,7 @@ export interface ProductProps {
   quantity: string
   description: string
   id: string
+  product?: string
 }
 export interface removeCartModalState {
   removeCartModal: {
@@ -57,7 +58,7 @@ export interface Loading {
 }
 export interface removeModal {
   isOpen: boolean
-  id: string
+  product: string
 }
 export interface ProductsModalState {
   productModal: {

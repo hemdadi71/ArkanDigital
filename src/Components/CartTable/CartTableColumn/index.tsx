@@ -43,11 +43,12 @@ export function CartTableColumns() {
       headerName: 'حذف',
       width: 50,
       renderCell: params => {
+        // console.log(params.row)
         return (
           <>
             <button
               onClick={() => {
-                dispatch(showRemoveCartModal(params.row.id))
+                dispatch(showRemoveCartModal(params.row.product))
               }}
               className="text-red-500">
               <BsFillTrashFill size={20} />

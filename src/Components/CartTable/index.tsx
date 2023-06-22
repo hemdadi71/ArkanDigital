@@ -22,7 +22,7 @@ export default function CartTable({ columns, rows }: any) {
       rows.length !== undefined ? rows.length : prevRowCountState
     )
   }, [rows.length, setRowCountState, pageSize])
-  const getRowId = (row: ProductProps) => row.id
+  const getRowId = (row: ProductProps) => row.product
   // ..............................................................................
   return (
     <>

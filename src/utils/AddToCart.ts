@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 
 export const HandleAddToCart = (
-  id: string,
+  product: string,
   count: number,
   name: string,
   price: number,
@@ -26,13 +26,13 @@ export const HandleAddToCart = (
     const cart: {
       user: string
       products: {
-        id: string
+        product: string
         count: number
         name: string
         price: number
       }[]
     } = JSON.parse(localCart)
-    const existingProduct = cart.products.find(product => product.id === id)
+    const existingProduct = cart.products.find(item => item.product === product)
 
     if (existingProduct) {
       toast('محصول قبلاً به سبد خرید اضافه شده است', {
@@ -42,7 +42,7 @@ export const HandleAddToCart = (
         },
       })
     } else {
-      cart.products.push({ id, count, name, price })
+      cart.products.push({ product, count, name, price })
       localStorage.setItem('cart', JSON.stringify(cart))
       toast('محصول با موفقیت به سبد خرید اضافه گردید', {
         style: {
@@ -55,7 +55,7 @@ export const HandleAddToCart = (
   } else {
     const cart = {
       user: userId,
-      products: [{ id, count, name, price }],
+      products: [{ product, count, name, price }],
     }
     localStorage.setItem('cart', JSON.stringify(cart))
     toast('محصول با موفقیت به سبد خرید اضافه گردید', {

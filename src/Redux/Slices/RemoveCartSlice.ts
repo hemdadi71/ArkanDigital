@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { removeModal } from '../../Types/types'
 const initialState: removeModal = {
   isOpen: false,
-  id: '',
+  product: '',
 }
 const removeCartSlice = createSlice({
   name: 'registerModal',
   initialState,
   reducers: {
     showRemoveCartModal: (state, action) => {
-      return { isOpen: true, id: action.payload }
+      return { isOpen: true, product: action.payload }
     },
     hideRemoveCartModal: state => {
       state.isOpen = false

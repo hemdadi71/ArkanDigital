@@ -32,7 +32,7 @@ function Product() {
 
   if (!data) {
     return (
-      <div>
+      <div className="py-5">
         <Loading className="-translate-x-1/2 left-1/2" />
       </div>
     )
