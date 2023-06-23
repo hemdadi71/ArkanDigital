@@ -9,7 +9,7 @@ const data = [
     value: '-price',
   },
   {
-    name: 'کمرترین قیمت',
+    name: 'کمترین قیمت',
     value: 'price',
   },
 ]
@@ -55,6 +55,7 @@ export default function SortSelect({ label, sort, setSort }: any) {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={sort}
+          placeholder='مرتب سازی'
           onChange={handleChange}>
           {data &&
             data.map((item: any) => {

@@ -15,7 +15,7 @@ function CategoriesPage() {
   const category: any = router.query.category
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
-  const [sort, setSort] = useState('newer')
+  const [sort, setSort] = useState('-price')
   const allProducts = AllProducts()
   const { data: products, isLoading } = useQuery(
     ['getProducts', router.query.category, page, limit, sort],
@@ -87,10 +87,7 @@ function CategoriesPage() {
               </div>
             </div>
             <div className="w-[30%]">
-              <SortSelect
-                sort={sort}
-                setSort={setSort}
-              />
+              <SortSelect sort={sort} setSort={setSort} />
             </div>
             <div className="flex items-center gap-2">
               <p>تعداد محصولات در هر صفحه:</p>
