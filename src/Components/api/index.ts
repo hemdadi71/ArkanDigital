@@ -5,11 +5,12 @@ export const getProducts = async (
   limit: number = 0,
   page: number = 1,
   category: string = '',
-  subcategory: string = ''
+  subcategory: string = '',
+  sort: string = ''
 ) => {
   try {
     const { data } = await axios.get(
-      `/api/product?limit=${limit}&page=${page}&category=${category}&subcategory=${subcategory}`
+      `/api/product?limit=${limit}&page=${page}&category=${category}&subcategory=${subcategory}&sort=${sort}`
     )
     if (data.success) {
       const products = data.products

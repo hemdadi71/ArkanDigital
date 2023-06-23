@@ -1,5 +1,6 @@
 import Loading from '@/Components/Loading'
 import ProductCart from '@/Components/ProductCart/ProductCart'
+import SortSelect from '@/Components/SortSelect'
 import { getCategories, getProducts } from '@/Components/api'
 import { ProductProps, categoryData } from '@/Types/types'
 import { AllProducts } from '@/utils/AllProducts'
@@ -14,10 +15,11 @@ function CategoriesPage() {
   const category: any = router.query.category
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
+  const [sort, setSort] = useState('newer')
   const allProducts = AllProducts()
   const { data: products, isLoading } = useQuery(
-    ['getProducts', router.query.category, page, limit],
-    () => getProducts(limit, page, category, '')
+    ['getProducts', router.query.category, page, limit, sort],
+    () => getProducts(limit, page, category, '', sort)
   )
   const totalPages = Math.ceil(allProducts?.length / limit)
   const { data: categories } = useQuery('getCategories', getCategories)
@@ -83,6 +85,12 @@ function CategoriesPage() {
                   <AiOutlineLeft />
                 </span>
               </div>
+            </div>
+            <div className="w-[30%]">
+              <SortSelect
+                sort={sort}
+                setSort={setSort}
+              />
             </div>
             <div className="flex items-center gap-2">
               <p>تعداد محصولات در هر صفحه:</p>

@@ -1,5 +1,6 @@
 import Loading from '../../../Components/Loading'
 import ProductCart from '@/Components/ProductCart/ProductCart'
+import SortSelect from '@/Components/SortSelect'
 import { getCategories, getProducts } from '@/Components/api'
 import { ProductProps, categoryData } from '@/Types/types'
 import { AllSubcategoryProducts } from '@/utils/AllProducts'
@@ -12,13 +13,14 @@ import { useQuery } from 'react-query'
 function SubCategoryGroup() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
+  const [sort, setSort] = useState('')
   const router = useRouter()
   const subcategory: any = router.query.subcategory
   const allProducts = AllSubcategoryProducts()
   const totalPages = Math.ceil(allProducts?.length / limit)
   const { data: products, isLoading } = useQuery(
-    ['getProducts', router.query.subcategory, page, limit],
-    () => getProducts(limit, page, '', subcategory)
+    ['getProducts', router.query.subcategory, page, limit, sort],
+    () => getProducts(limit, page, '', subcategory, sort)
   )
   const { data: categories } = useQuery('getCategories', getCategories)
   const handleIncreasePage = () => {
@@ -83,6 +85,12 @@ function SubCategoryGroup() {
                   <AiOutlineLeft />
                 </span>
               </div>
+            </div>
+            <div>
+              <SortSelect
+                sort={sort}
+                setSort={setSort}
+              />
             </div>
             <div className="flex items-center gap-2">
               <p>تعداد محصولات در هر صفحه:</p>
