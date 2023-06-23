@@ -51,7 +51,7 @@ function Shipment() {
       user: id,
       products: rows,
       totalPrice,
-      createdAt: moment(subDays(new Date(), 1)).format('jYYYY/jMM/jDD'),
+      createdAt: moment(addDays(new Date(), 1)).format('jYYYY/jMM/jDD'),
       deliveryDate: moment(new Date(data.deliveryDate)).format('jYYYY/jMM/jDD'),
     }
     try {

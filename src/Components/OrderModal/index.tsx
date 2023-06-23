@@ -36,7 +36,7 @@ function OrderModal() {
     },
   })
   const handleChangeStatus = () => {
-    const newDeliveryDate = moment(subDays(new Date(), 1)).format(
+    const newDeliveryDate = moment(addDays(new Date(), 1)).format(
       'jYYYY/jMM/jDD'
     )
     const newData = {
