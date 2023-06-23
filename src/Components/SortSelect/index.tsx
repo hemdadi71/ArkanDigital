@@ -18,7 +18,7 @@ export default function SortSelect({ label, sort, setSort }: any) {
     setSort(e.target.value)
   }
   return (
-    <div className="flex gap-2 items-center mb-8">
+    <div className="flex gap-2 items-center mb-9">
       <label>{label}</label>
       <FormControl fullWidth>
         <Select

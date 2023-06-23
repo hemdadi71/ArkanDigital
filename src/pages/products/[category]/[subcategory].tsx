@@ -13,7 +13,7 @@ import { useQuery } from 'react-query'
 function SubCategoryGroup() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
-  const [sort, setSort] = useState('')
+  const [sort, setSort] = useState('-price')
   const router = useRouter()
   const subcategory: any = router.query.subcategory
   const allProducts = AllSubcategoryProducts()
@@ -86,7 +86,7 @@ function SubCategoryGroup() {
                 </span>
               </div>
             </div>
-            <div>
+            <div className="w-[30%]">
               <SortSelect
                 sort={sort}
                 setSort={setSort}
