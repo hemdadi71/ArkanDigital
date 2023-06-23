@@ -8,6 +8,7 @@ import IsEditingProductSlice from './Slices/IsEditingProductSlice'
 import LoadingSlice from './Slices/LoadingSlice'
 import RemoveCartSlice from './Slices/RemoveCartSlice'
 import CartSlice from './Slices/CartSlice'
+import OrderModalSlice from './Slices/OrderModalSlice'
 // ....................................................
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     loading: LoadingSlice,
     CartState: CartSlice,
     removeCartModal: RemoveCartSlice,
+    orderModal: OrderModalSlice,
   },
 })

@@ -1,4 +1,3 @@
-
 import Loading from '@/Components/Loading'
 import ProductCart from '@/Components/ProductCart/ProductCart'
 import { getCategories, getProducts } from '@/Components/api'
@@ -30,7 +29,7 @@ function CategoriesPage() {
   }
   return (
     <>
-      <div className="flex gap-3 py-4">
+      <div className="flex gap-3 py-4 overflow-x-hidden">
         <div className="w-1/4 py-1 bg-white border rounded-l-md md:block hidden">
           <div className="border-b px-6">
             <p className="pb-3 text-xl text-purple font-semibold">محصولات</p>

@@ -60,7 +60,7 @@ export default function Home() {
       <div className="w-full md:hidden block px-10">
         <SearchInput />
       </div>
-      <div className="py-3">
+      <div className="py-3 overflow-x-hidden">
         <Products />
       </div>
       <div className="w-full flex items-center justify-center px-5 py-7">

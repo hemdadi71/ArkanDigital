@@ -51,10 +51,8 @@ function Shipment() {
       user: id,
       products: rows,
       totalPrice,
-      createdAt: moment(new Date()).format('jYYYY/jMM/jDD'),
-      deliveryDate: moment(addDays(new Date(data.deliveryDate), 1)).format(
-        'jYYYY/jMM/jDD'
-      ),
+      createdAt: moment(subDays(new Date(), 1)).format('jYYYY/jMM/jDD'),
+      deliveryDate: moment(new Date(data.deliveryDate)).format('jYYYY/jMM/jDD'),
     }
     try {
       const response = axios.put(`/api/users/${id}`, data)

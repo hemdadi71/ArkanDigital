@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { removeModal } from '../../Types/types'
-const initialState: removeModal = {
+import { removeCartModal } from '../../Types/types'
+const initialState: removeCartModal = {
   isOpen: false,
   product: '',
 }
@@ -17,5 +17,6 @@ const removeCartSlice = createSlice({
   },
 })
 
-export const { showRemoveCartModal, hideRemoveCartModal } = removeCartSlice.actions
+export const { showRemoveCartModal, hideRemoveCartModal } =
+  removeCartSlice.actions
 export default removeCartSlice.reducer

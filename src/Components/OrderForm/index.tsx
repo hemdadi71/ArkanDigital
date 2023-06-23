@@ -50,7 +50,7 @@ function OrderForm({ user, errors, register, control }: any) {
               <div className="flex justify-center">
                 <div className="flex flex-col gap-1 w-[45%]">
                   <Input
-                    defaultValue={user.phonenumber}
+                    defaultValue={String(user.phonenumber).padStart(11, '0')}
                     name="phonenumber"
                     register={{ ...register('phonenumber') }}
                     type="text"
@@ -101,7 +101,6 @@ function OrderForm({ user, errors, register, control }: any) {
                 control={control}
                 name="deliveryDate"
                 render={({ field: { onChange, value } }) => {
-                  const defaultDate = subDays(new Date(), 1)
                   const minDate = addDays(new Date(), 10)
                   return (
                     <DateInput

@@ -38,12 +38,6 @@ const OrderSchema = new mongoose.Schema({
   },
   deliveryDate: {
     type: Date,
-    default: () => {
-      const now = new Date()
-      const tomorrow = new Date()
-      tomorrow.setDate(now.getDate() + 1)
-      return tomorrow
-    },
   },
   deliveryStatus: {
     type: Boolean,

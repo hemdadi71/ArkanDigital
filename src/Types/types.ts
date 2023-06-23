@@ -31,11 +31,11 @@ export interface ProductProps {
   quantity: string
   description: string
   id: string
-  product?: string
+  product: any
 }
 export interface removeCartModalState {
   removeCartModal: {
-    id: string
+    product: string
     isOpen: boolean
   }
 }
@@ -57,6 +57,10 @@ export interface Loading {
   isLoading: boolean
 }
 export interface removeModal {
+  isOpen: boolean
+  id: string
+}
+export interface removeCartModal {
   isOpen: boolean
   product: string
 }
@@ -147,10 +151,23 @@ export interface ImagePreviewProps {
   setImageSrc: Dispatch<SetStateAction<any>>
 }
 export interface CartProps {
-  id: string
+  product: string
   name: string
   price: number
   count: number
+}
+export interface orderModal {
+  isOpen: boolean
+  row: any
+}
+export interface orderModalState {
+  orderModal: {
+    isOpen: boolean
+    row: any
+  }
+}
+export interface orderModalUserProps {
+  orderData: any
 }
 export interface CartState {
   CartState: CartProps
