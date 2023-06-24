@@ -7,7 +7,7 @@ export function Columns(userData: UserData[]) {
     {
       field: 'user.username',
       headerName: 'نام کاربر',
-      width: 150,
+      width: 200,
       editable: false,
       sortable: false,
       filterable: false,
@@ -27,7 +27,7 @@ export function Columns(userData: UserData[]) {
     {
       field: 'totalPrice',
       headerName: 'مجموع مبلغ',
-      width: 120,
+      width: 150,
       editable: true,
       sortable: true,
       filterable: true,

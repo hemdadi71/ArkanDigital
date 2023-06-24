@@ -60,14 +60,14 @@ export const columns: GridColDef[] = [
   {
     field: 'name',
     headerName: 'نام کالا',
-    width: 200,
+    width: 450,
     editable: true,
     cellClassName: 'font-semibold text-[15px]',
   },
   {
     field: 'category',
     headerName: 'دسته بندی',
-    width: 200,
+    width: 300,
     editable: false,
     renderCell: params => (
       <>
@@ -82,7 +82,7 @@ export const columns: GridColDef[] = [
     headerName: 'ویرایش',
     disableColumnMenu: true,
     sortable: false,
-    width: 100,
+    width: 150,
     editable: false,
     renderCell: params => <EditButton row={params.row} />,
   },
@@ -91,7 +91,7 @@ export const columns: GridColDef[] = [
     headerName: 'حذف',
     disableColumnMenu: true,
     sortable: false,
-    width: 100,
+    width: 150,
     editable: false,
     renderCell: params => <RemoveButton row={params.row} />,
   },

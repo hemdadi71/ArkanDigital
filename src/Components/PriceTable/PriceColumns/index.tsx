@@ -4,7 +4,7 @@ export const PriceColumns: GridColDef[] = [
   {
     field: 'name',
     headerName: 'نام کالا',
-    width: 300,
+    width: 500,
     editable: false,
     sortable: false,
     filterable: false,
@@ -13,7 +13,7 @@ export const PriceColumns: GridColDef[] = [
   {
     field: 'price',
     headerName: 'قیمت',
-    width: 120,
+    width: 150,
     editable: true,
     sortable: true,
     filterable: true,
