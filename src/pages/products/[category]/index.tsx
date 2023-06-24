@@ -89,41 +89,61 @@ function CategoriesPage() {
             <div className="w-[30%]">
               <SortSelect sort={sort} setSort={setSort} />
             </div>
-            <div className="flex items-center gap-2">
-              <p>تعداد محصولات در هر صفحه:</p>
+          </div>
+          <div>
+            {isLoading ? (
+              <Loading className="top-20 -translate-x-1/2 left-1/2" />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-3">
+                {products &&
+                  products.map((item: ProductProps) => {
+                    return (
+                      <ProductCart item={item} id={item._id} key={item._id} />
+                    )
+                  })}
+              </div>
+            )}
+          </div>
+          <div className="flex justify-end">
+            <div className="flex justify-between w-[63%] pl-6">
               <div className="flex items-center gap-2">
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    limit < 10 ? setLimit(prev => prev + 1) : setLimit(10)
-                  }}>
-                  <AiOutlineRight />
-                </span>
-                <span className="border rounded-md w-7 h-7 flex items-center justify-center bg-[#d9acf3]">
-                  {limit === 0 ? 'همه' : limit}
-                </span>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    limit > 1 ? setLimit(prev => prev - 1) : setLimit(1)
-                  }}>
-                  <AiOutlineLeft />
-                </span>
+                <p>صفحه:</p>
+                <div className="flex items-center gap-2">
+                  <span className="cursor-pointer" onClick={handleIncreasePage}>
+                    <AiOutlineRight />
+                  </span>
+                  <span className="border rounded-md bg-[#d9acf3] w-7 h-7 flex items-center justify-center">
+                    {page}
+                  </span>
+                  <span className="cursor-pointer" onClick={handleDecreasePage}>
+                    <AiOutlineLeft />
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <p>تعداد محصولات در هر صفحه:</p>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      limit < 10 ? setLimit(prev => prev + 1) : setLimit(10)
+                    }}>
+                    <AiOutlineRight />
+                  </span>
+                  <span className="border rounded-md w-7 h-7 flex items-center justify-center bg-[#d9acf3]">
+                    {limit === 0 ? 'همه' : limit}
+                  </span>
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      limit > 1 ? setLimit(prev => prev - 1) : setLimit(1)
+                    }}>
+                    <AiOutlineLeft />
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-          {isLoading ? (
-            <Loading className="top-20 -translate-x-1/2 left-1/2" />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-3">
-              {products &&
-                products.map((item: ProductProps) => {
-                  return (
-                    <ProductCart item={item} id={item._id} key={item._id} />
-                  )
-                })}
-            </div>
-          )}
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 export const smallDatas = [
   {
-    src: 'https://res.cloudinary.com/durpzunxl/image/upload/v1687272324/thumbnail/pyjlkwgwf6tuuou6smze.jpg',
+    src: 'https://baninopc.com/_next/image?url=https%3A%2F%2Fapi.baninopc.com%2Fstorage%2Fimages%2Fcategories%2FrIB6PubTA2VibA7bDSIRCsgJRIi8YD5GCN5eirNu.png&w=1920&q=70',
     subcategory: 'کنسول بازی',
     category: 'کنسول بازی و لوازم جانبی',
   },

@@ -1,23 +1,29 @@
 import ProductCart from '@/Components/ProductCart/ProductCart'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { getCategories, getProducts } from '../api'
 import { ProductProps, categoryData } from '../../Types/types'
 import Link from 'next/link'
 import Loading from '../Loading'
-import { AnimatePresence, motion } from 'framer-motion'
+import {  motion } from 'framer-motion'
 // .........................................................................
 function Products() {
+  const [screen, setScreen] = useState(1366)
   const { data: products, isLoading: productsLoading } = useQuery(
-    'getProducts',
+    ['getProducts', screen],
     () => getProducts()
   )
   const { data: categories } = useQuery('getCategories', getCategories)
   const getProductsWithLimit = (category: string) => {
     return products
       .filter((product: ProductProps) => product.category === category)
-      .slice(0, 4)
+      .slice(0, screen > 1366 ? 5 : 4)
   }
+  const windowSize = useRef([0, 0])
+  useEffect(() => {
+    windowSize.current = [window.innerWidth, window.innerHeight]
+    setScreen(windowSize.current[0])
+  }, [])
   return (
     <>
       <div className="p-5 flex flex-col gap-5">
