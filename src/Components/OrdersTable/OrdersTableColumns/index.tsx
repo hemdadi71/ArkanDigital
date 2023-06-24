@@ -39,13 +39,10 @@ export function Columns(userData: UserData[]) {
       editable: true,
       renderCell: params => {
         const dateNow = params.row.createdAt.split('T')[0].replace(/-/g, '/')
-        const timeNow = params.row.createdAt.split('T')[1].split('.')[0]
-        console.log(timeNow)
         return (
           <>
             <div className="flex items-center gap-1">
               <p>{dateNow}</p>
-              {/* <p>ساعت {timeNow}</p> */}
             </div>
           </>
         )
