@@ -3,16 +3,16 @@ import { ProductCart, ProductCartProps } from '@/Types/types'
 import Link from 'next/link'
 import React from 'react'
 import { RiShoppingCart2Line } from 'react-icons/ri'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 function ProductCart({ item }: ProductCart) {
   const { thumbnail, name, price, _id, subcategory } = item
   return (
     <>
       <motion.div
-        initial={{ x: -300 }}
+        initial={{ x: -100 }}
         whileInView={{ x: 0 }}
         transition={{ duration: 1.5 }}
-        className="border rounded-md flex flex-col gap-4 px-3 bg-white">
+        className="border rounded-md flex flex-col gap-4 px-3 bg-white overflow-hidden">
         <Link
           href={`/product/${_id}`}
           className="h-[60%] w-full overflow-hidden bg-white">

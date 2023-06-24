@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {  useState } from 'react'
+import { useState } from 'react'
 import Input from '../Input/Input'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -55,8 +55,8 @@ const ProductForm = () => {
   const { mutate } = useMutation({
     mutationFn: mutateFunction,
     onSuccess: () => {
-      queryClient.invalidateQueries('getProducts')
-      dispatch(hideProductModal())
+      queryClient.invalidateQueries('getProducts') -
+        +dispatch(hideProductModal())
       toast(`محصول با موفقیت ${isEditing ? 'ویرایش' : 'اضافه'} گردید`, {
         style: {
           background: `${isEditing ? 'yellow' : 'green'}`,

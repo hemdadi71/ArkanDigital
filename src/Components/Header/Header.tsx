@@ -116,7 +116,7 @@ function Header() {
               {isShowDropdown && (
                 <ul className="absolute bottom-[-108px] w-40 z-30 bg-white flex flex-col gap-2 rounded-md border">
                   <li className="hover:bg-[#ECE0F3] p-3">
-                    <Link href="/admin/products">حساب کاربری</Link>
+                    <Link href="/admin/orders">حساب کاربری</Link>
                   </li>
                   <li
                     onClick={handleSignOut}

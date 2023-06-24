@@ -33,7 +33,7 @@ function Login() {
       if (res) {
         dispatch(hideRegisterModal())
         dispatch(setRole(user.role))
-        user.role === 'admin' && router.push('/admin/products')
+        user.role === 'admin' && router.push('/admin/orders')
         toast('خوش آمدید', {
           icon: '👏',
         })

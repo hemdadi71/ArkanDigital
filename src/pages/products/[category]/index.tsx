@@ -14,7 +14,7 @@ function CategoriesPage() {
   const router = useRouter()
   const category: any = router.query.category
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(12)
   const [sort, setSort] = useState('-price')
   const allProducts = AllProducts()
   const { data: products, isLoading } = useQuery(

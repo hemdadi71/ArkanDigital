@@ -12,7 +12,7 @@ import { useQuery } from 'react-query'
 // ................................................................................
 function SubCategoryGroup() {
   const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(12)
   const [sort, setSort] = useState('-price')
   const router = useRouter()
   const subcategory: any = router.query.subcategory

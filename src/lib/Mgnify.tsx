@@ -7,7 +7,7 @@ export function ImageMagnifier({
   height,
   magnifierHeight = 150,
   magnifieWidth = 150,
-  zoomLevel = 1.7,
+  zoomLevel = 2,
 }: {
   src: string
   width?: string
