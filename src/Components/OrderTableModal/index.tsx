@@ -26,7 +26,7 @@ export default function OrderTableModal({ columns, rows }: any) {
   // ..............................................................................
   return (
     <>
-      <div className="h-[300px] w-full bg-white">
+      <div className="w-full bg-white">
         <DataGrid
           rowHeight={45}
           getRowId={getRowId}

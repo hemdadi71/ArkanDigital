@@ -10,7 +10,6 @@ export const userDataSchema = yup.object({
       'فرمت شماره نادرست است'
     ),
   address: yup.string().required(' آدرس خود را وارد کنید'),
-  deliveryDate: yup.string().required('تاریخ را وارد کنید'),
   // .typeError('تاریخ را به فرمت صحیح وارد کنید'),
   // deliveryDate: yup.date().required('تاریخ را وارد کنید'),
 })

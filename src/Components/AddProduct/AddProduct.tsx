@@ -55,8 +55,8 @@ const ProductForm = () => {
   const { mutate } = useMutation({
     mutationFn: mutateFunction,
     onSuccess: () => {
-      queryClient.invalidateQueries('getProducts') -
-        +dispatch(hideProductModal())
+      queryClient.invalidateQueries('getProducts')
+      dispatch(hideProductModal())
       toast(`محصول با موفقیت ${isEditing ? 'ویرایش' : 'اضافه'} گردید`, {
         style: {
           background: `${isEditing ? 'yellow' : 'green'}`,

@@ -35,11 +35,11 @@ export function LayoutHandler(children: any) {
     )
   if (router.pathname.includes('profile') && role === 'user')
     return (
-      <main className="flex">
+      <main className="flex overflow-hidden">
         <ProfileSidebar />
-        <div className="flex-1 full-width">
+        <div className="flex-1 full-width overflow-hidden  h-[100vh]">
           <ProfileHeader />
-          <article>{children}</article>
+          <article className='overflow-y-auto h-full pb-16 bg-[#F2F3F5]'>{children}</article>
         </div>
       </main>
     )
@@ -49,6 +49,13 @@ export function LayoutHandler(children: any) {
         <article className="w-full h-full">{children}</article>
       </main>
     )
+  if (router.pathname.includes('/payment')) {
+    return (
+      <main>
+        <article>{children}</article>
+      </main>
+    )
+  }
   if (
     !router.pathname.includes('/profile') &&
     !router.pathname.includes('/admin')

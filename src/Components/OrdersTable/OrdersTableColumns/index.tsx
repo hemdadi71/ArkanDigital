@@ -8,7 +8,6 @@ export function Columns(userData: UserData[]) {
   const dispatch = useDispatch()
 
   const renderCellCheckOrder = (params: any) => {
-    // console.log(params.row)
     return (
       <>
         <Button onClick={() => dispatch(showOrderModal(params.row))}>

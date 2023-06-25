@@ -49,6 +49,21 @@ export const getOrders = async (
     console.log(error)
   }
 }
+export const getAllOrders = async () => {
+  try {
+    const { data } = await axios.get(
+      '/api/order'
+    )
+    if (data.success) {
+      const orders = data.orders
+      return orders
+    } else {
+      console.log(data.error)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 export const getUsers = async () => {
   try {
     const { data } = await axios.get('/api/users')

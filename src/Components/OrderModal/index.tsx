@@ -36,7 +36,7 @@ function OrderModal() {
     },
   })
   const handleChangeStatus = () => {
-    const newDeliveryDate = moment(addDays(new Date(), 1)).format(
+    const newDeliveryDate = moment(new Date()).format(
       'jYYYY/jMM/jDD'
     )
     const newData = {
@@ -47,6 +47,7 @@ function OrderModal() {
     console.log(newData)
     mutate({ id: orderData._id, data: newData })
   }
+  console.log(orderData.products)
   return (
     <>
       <motion.div

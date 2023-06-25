@@ -21,10 +21,10 @@ function Shipment() {
     setIsClient(true)
   }, [])
   // ........................................................
-  const rows = useSelector((state: Cart) => state.CartState.products) || []
+  const products = useSelector((state: Cart) => state.CartState.products) || []
   const router = useRouter()
   const dispatch = useDispatch()
-  const totalPrice = rows.reduce(
+  const totalPrice = products.reduce(
     (acc: number, row: CartProps) => acc + row.price * row.count,
     0
   )
@@ -49,9 +49,9 @@ function Shipment() {
     const id = user.id ? user.id : user._id
     const OrderData = {
       user: id,
-      products: rows,
+      products,
       totalPrice,
-      createdAt: moment(addDays(new Date(), 1)).format('jYYYY/jMM/jDD'),
+      createdAt: moment(new Date()).format('jYYYY/jMM/jDD'),
       deliveryDate: moment(new Date(data.deliveryDate)).format('jYYYY/jMM/jDD'),
     }
     try {
@@ -61,18 +61,20 @@ function Shipment() {
         const updatedUserData = JSON.stringify({ tokens, user })
         Cookies.set('token', updatedUserData)
       })
-      axios.post('/api/order', OrderData).then(res => {
-        console.log(res.data)
-        localStorage.removeItem('cart')
-        toast('سفارش با موفقیت ثبت گردید', {
-          style: {
-            backgroundColor: 'green',
-            color: 'white',
-          },
-        })
-        dispatch(setCart([]))
-        router.push('/')
-      })
+      // axios.post('/api/order', OrderData).then(res => {
+      //   console.log(res.data)
+      //   localStorage.removeItem('cart')
+      //   toast('سفارش با موفقیت ثبت گردید', {
+      //     style: {
+      //       backgroundColor: 'green',
+      //       color: 'white',
+      //     },
+      //   })
+      //   dispatch(setCart([]))
+      //   router.push('/')
+      // })
+      localStorage.setItem('order', JSON.stringify(OrderData))
+      router.push('/payment')
       console.log(OrderData)
     } catch (error) {
       console.error(error)
