@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import RemoveCartModal from '@/Components/CartRemoveModal'
 import CartTable from '@/Components/CartTable'
 import { CartTableColumns } from '@/Components/CartTable/CartTableColumn'

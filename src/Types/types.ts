@@ -190,3 +190,8 @@ export interface Cart {
     }
   }
 }
+export interface SearchProduct {
+  _id: string
+  name: string
+  thumbnail: string
+}

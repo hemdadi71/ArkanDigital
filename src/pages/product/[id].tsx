@@ -20,7 +20,7 @@ function Product() {
   const [count, setCount] = useState(1)
   const router = useRouter()
   const { id } = router.query as ProductProps
-  const { data, isLoading, error } = useQuery(['getSingleProduct', id], () =>
+  const { data, isLoading } = useQuery(['getSingleProduct', id], () =>
     getSingleProduct(id)
   )
   const dispatch = useDispatch()
@@ -32,7 +32,7 @@ function Product() {
 
   if (!data) {
     return (
-      <div className="py-5">
+      <div className="py-5 h-[100vh]">
         <Loading className="-translate-x-1/2 left-1/2" />
       </div>
     )
@@ -55,7 +55,7 @@ function Product() {
         {isLoading ? (
           <Loading className="-translate-x-1/2 left-1/2" />
         ) : (
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 h-full">
             <div className="flex lg:flex-row flex-col w-full px-10 py-5">
               <div className="lg:w-1/2 flex mb-8 lg:mb-0 items-center">
                 <div className="w-1/5 flex flex-col gap-3">
