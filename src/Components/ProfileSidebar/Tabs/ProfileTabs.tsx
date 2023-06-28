@@ -54,7 +54,7 @@ export default function ProfileTabs() {
             </Link>
           )}
         </Tab>
-        <Tab as={Fragment}>
+        {/* <Tab as={Fragment}>
           {({ selected }) => (
             <Link
               href="/profile/addresses"
@@ -74,7 +74,7 @@ export default function ProfileTabs() {
               <p>آدرس های شما</p>
             </Link>
           )}
-        </Tab>
+        </Tab> */}
       </Tab.List>
     </Tab.Group>
   )

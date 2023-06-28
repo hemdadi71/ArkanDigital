@@ -5,11 +5,13 @@ import { setCart } from '@/Redux/Slices/CartSlice'
 import { Cart, CartProps, removeCartModalState } from '@/Types/types'
 import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 function Cart() {
   const dispatch = useDispatch()
+  const router = useRouter()
   useEffect(() => {
     const localCart = localStorage.getItem('cart')
     if (localCart) {
@@ -59,11 +61,16 @@ function Cart() {
                     {totalPrice.toLocaleString()} تومان
                   </p>
                 </div>
-                <Link
-                  className="text-center text-xl bg-purple text-white rounded-md py-1 mt-2"
-                  href="/checkout/shipment">
-                  نهایی کردن سبد خرید
-                </Link>
+                <button
+                  onClick={() => {
+                    router.push('/checkout/shipment')
+                  }}
+                  className={`text-center text-xl ${
+                    rows.length ? 'bg-purple' : 'bg-gray-500'
+                  } text-white rounded-md py-1 mt-2`}
+                  disabled={rows.length ? false : true}>
+                  {rows.length ? 'نهایی کردن سبد خرید' : 'سبد خرید خالی است'}
+                </button>
               </div>
             </div>
           </div>

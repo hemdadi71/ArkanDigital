@@ -21,25 +21,13 @@ function Payment() {
     axios.post('/api/order', order).then(res => {
       console.log(res.data)
       localStorage.removeItem('cart')
-      toast('سفارش با موفقیت ثبت گردید', {
-        style: {
-          backgroundColor: 'green',
-          color: 'white',
-        },
-      })
       dispatch(setCart([]))
-      router.push('/')
+      router.push('/payment/success')
     })
   }
   const handleCancelPayment = () => {
-    router.push('/')
+    router.push('/payment/error')
     localStorage.removeItem('order')
-    toast('پرداخت ناموفق', {
-      style: {
-        backgroundColor: 'red',
-        color: 'white',
-      },
-    })
   }
   return (
     <>

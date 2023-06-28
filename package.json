@@ -24,6 +24,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@splidejs/react-splide": "^0.7.12",
     "@types/express": "^4.17.17",
+    "@types/google-map-react": "^2.1.7",
     "@types/node": "20.1.2",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -40,9 +41,11 @@
     "express": "^4.18.2",
     "flowbite": "^1.6.5",
     "framer-motion": "^10.12.16",
+    "google-map-react": "^2.2.1",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
     "mantine-datepicker-jalali": "^1.2.3",
+    "mapbox-gl": "^2.15.0",
     "moment-jalaali": "^0.10.0",
     "mongodb": "^5.6.0",
     "mongoose": "^7.1.2",
@@ -56,6 +59,9 @@
     "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
+    "react-leaflet": "^4.2.1",
+    "react-map-gl": "^7.0.25",
+    "react-neshan-map-leaflet": "^1.2.1",
     "react-query": "^3.39.3",
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
@@ -69,6 +75,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/leaflet": "^1.9.3",
     "@types/moment-jalaali": "^0.7.6",
     "@types/multer": "^1.4.7"
   }
