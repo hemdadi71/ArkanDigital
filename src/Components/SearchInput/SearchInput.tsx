@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { useQuery } from 'react-query'
 import { getProducts } from '../api'
 import Link from 'next/link'
 import { debounce } from 'lodash'
 import { SearchProduct } from '@/Types/types'
+import { useRouter } from 'next/router'
 // .............................................................
 function SearchInput() {
   const [isFocus, setIsFocus] = useState(false)
@@ -17,21 +18,30 @@ function SearchInput() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
+  const router = useRouter()
   const debouncedHandleChange = debounce(handleChange, 1200)
   const Value = value ? value : 'not found'
   let results = data
-    ? data.filter(item =>
-        item.name.toLocaleLowerCase().includes(Value.toLocaleLowerCase())
-      )
+    ? data.filter(item => item.name.toLowerCase().includes(Value.toLowerCase()))
     : []
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const name = e.currentTarget.search.value
+    if (value && results.length) {
+      router.push(`/searchProducts/${name}`)
+      e.currentTarget.reset()
+      setValue('')
+    }
+  }
   return (
     <>
       <div className="w-full relative flex items-center">
-        <form ref={formRef} className="w-full">
+        <form onSubmit={handleSubmit} ref={formRef} className="w-full">
           <input
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={debouncedHandleChange}
+            name="search"
             className="bg-gray-100 py-2 px-3 rounded-md pr-10 w-full outline-none"
             type="text"
             placeholder="جسجو..."
