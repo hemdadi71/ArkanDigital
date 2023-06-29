@@ -36,7 +36,7 @@ function Cart() {
           <p>سبد خرید</p>
         </div>
         <div className="flex lg:flex-row flex-col gap-y-3 items-center justify-between px-5">
-          <div className="lg:w-[60%] w-full lg:px-0">
+          <div className="lg:w-[75%] w-full lg:px-0">
             <CartTable columns={columns} rows={rows} />
           </div>
           <div className="lg:w-[40%] w-full lg:px-14 2xl:px-28">

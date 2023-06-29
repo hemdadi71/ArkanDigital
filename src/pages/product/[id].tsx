@@ -158,6 +158,7 @@ function Product() {
                             count,
                             name,
                             price,
+                            quantity,
                             dispatch,
                             router
                           )

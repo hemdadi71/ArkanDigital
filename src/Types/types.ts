@@ -155,6 +155,7 @@ export interface CartProps {
   name: string
   price: number
   count: number
+  id?: string
 }
 export interface orderModal {
   isOpen: boolean

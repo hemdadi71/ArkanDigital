@@ -9,6 +9,7 @@ export const HandleAddToCart = (
   count: number,
   name: string,
   price: number,
+  quantity: number,
   dispatch: any,
   router: any
 ) => {
@@ -30,6 +31,7 @@ export const HandleAddToCart = (
         count: number
         name: string
         price: number
+        quantity: number
       }[]
     } = JSON.parse(localCart)
     const existingProduct = cart.products.find(item => item.product === product)
@@ -42,7 +44,7 @@ export const HandleAddToCart = (
         },
       })
     } else {
-      cart.products.push({ product, count, name, price })
+      cart.products.push({ product, count, name, price, quantity })
       localStorage.setItem('cart', JSON.stringify(cart))
       toast('محصول با موفقیت به سبد خرید اضافه گردید', {
         style: {
@@ -55,7 +57,7 @@ export const HandleAddToCart = (
   } else {
     const cart = {
       user: userId,
-      products: [{ product, count, name, price }],
+      products: [{ product, count, name, price, quantity }],
     }
     localStorage.setItem('cart', JSON.stringify(cart))
     toast('محصول با موفقیت به سبد خرید اضافه گردید', {

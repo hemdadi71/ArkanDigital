@@ -85,7 +85,7 @@ function Header() {
               <PhoneMenu setIsShowPhoneMenu={setIsShowPhoneMenu} data={data} />
             )}
           </div>
-          <div className="w-[30%] md:block hidden">
+          <div className="lg:w-[40%] 2xl:w-[50%] md:block hidden">
             <SearchInput />
           </div>
           {role === '' && (
@@ -159,13 +159,6 @@ function Header() {
             </p>
             <RiShoppingCart2Line size={27} />
             <p className="font-semibold mr-1 md:block hidden">سبد خرید</p>
-          </Link>
-
-          <Link
-            href="/contactus"
-            className="font-semibold cursor-pointer hover:text-purple-600 flex items-center gap-2">
-            <p className="md:block hidden">ارتباط با ما</p>
-            <FaPhoneAlt size={21} />
           </Link>
         </div>
       </header>

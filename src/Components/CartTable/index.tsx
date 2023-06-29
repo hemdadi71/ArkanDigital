@@ -28,6 +28,11 @@ export default function CartTable({ columns, rows }: any) {
     <>
       <div className="h-[350px] w-full bg-white">
         <DataGrid
+          sx={{
+            '&.MuiDataGrid-root .MuiDataGrid-cell:focus-within': {
+              outline: 'none !important',
+            },
+          }}
           rowHeight={65}
           getRowId={getRowId}
           rows={rows || []}
