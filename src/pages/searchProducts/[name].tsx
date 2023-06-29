@@ -17,13 +17,16 @@ function SearchResultsPage() {
   const [limit, setLimit] = useState(12)
   const [sort, setSort] = useState('-price')
   const allProducts = AllProducts()
+  const { data: categories } = useQuery('getCategories', getCategories)
   const { data, isLoading } = useQuery('getProducts', () => getProducts())
   const name: any = router.query.name
+  if (!data) {
+    return <Loading />
+  }
   const products = data.filter((item: any) =>
     item.name.toLowerCase().includes(name.toLowerCase())
   )
   const totalPages = Math.ceil(allProducts?.length / limit)
-  const { data: categories } = useQuery('getCategories', getCategories)
   const handleIncreasePage = () => {
     setPage(prevPage => Math.min(prevPage + 1, totalPages))
   }
@@ -71,7 +74,7 @@ function SearchResultsPage() {
         <div className="md:w-3/4 relative">
           <div className="flex md:flex-row flex-col items-center gap-2 justify-between pl-4">
             <div className="flex items-center gap-1">
-              <p className='text-xl text-purple font-semibold'>نتایج جستجو:</p>
+              <p className="text-xl text-purple font-semibold">نتایج جستجو:</p>
               <p className="px-3 text-xl text-purple font-semibold mb-1">
                 {router.query.name}
               </p>
