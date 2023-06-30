@@ -1,7 +1,5 @@
 import * as yup from 'yup'
 export const SingUpSchame = yup.object().shape({
-  firstname: yup.string().required('لطفا نام کاربری را وارد کنید'),
-  lastname: yup.string().required('لطفا نام کاربری را وارد کنید'),
   username: yup.string().required('لطفا نام کاربری را وارد کنید'),
   email: yup
     .string()

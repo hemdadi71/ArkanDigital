@@ -8,11 +8,11 @@ function RegisterModal() {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        exit={{ opacity: 0, scale: 0.5 }}
-        className="fixed translate-x-1/2 translate-y-1/2 top-[20%] md:left-[40%] left-[13%] p-5 bg-white z-[60000] rounded-md">
+        exit={{ opacity: 0 }}
+        className="fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 p-5 bg-white z-[60000] rounded-md">
         <ModalTabs />
       </motion.div>
       <div

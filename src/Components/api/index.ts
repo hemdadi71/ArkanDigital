@@ -5,11 +5,12 @@ export const getProducts = async (
   limit: number = 0,
   page: number = 1,
   category: string = '',
-  subcategory: string = ''
+  subcategory: string = '',
+  sort: string = ''
 ) => {
   try {
     const { data } = await axios.get(
-      `/api/product?limit=${limit}&page=${page}&category=${category}&subcategory=${subcategory}`
+      `/api/product?limit=${limit}&page=${page}&category=${category}&subcategory=${subcategory}&sort=${sort}`
     )
     if (data.success) {
       const products = data.products
@@ -37,6 +38,21 @@ export const getOrders = async (
   try {
     const { data } = await axios.get(
       `/api/order?limit=${limit}&page=${page}&deliveryStatus=${deliveryStatus}`
+    )
+    if (data.success) {
+      const orders = data.orders
+      return orders
+    } else {
+      console.log(data.error)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+export const getAllOrders = async () => {
+  try {
+    const { data } = await axios.get(
+      '/api/order'
     )
     if (data.success) {
       const orders = data.orders
@@ -108,11 +124,29 @@ export async function editProduct({ id, Data }: any) {
     throw new Error('Failed to edit product')
   }
 }
+
 export const getSingleProduct = async (id: string) => {
   try {
     const { data } = await axios(`/api/product/${id}`)
     const { data: product } = data
     return product
+  } catch (error) {
+    console.log(error)
+  }
+}
+export const getUser = async (id: string) => {
+  try {
+    const { data } = await axios(`/api/users/${id}`)
+    const { data: user } = data
+    return user
+  } catch (error) {
+    console.log(error)
+  }
+}
+export const putOrdetStatus = async ({ id, data }: any) => {
+  try {
+    const response = axios.put(`/api/order/${id}`, data)
+    return response
   } catch (error) {
     console.log(error)
   }

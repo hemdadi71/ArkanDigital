@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { Schema } from 'mongoose'
 import moment from 'moment-jalaali'
-
+import { getUnixTime, startOfDay, isSameDay, addDays, subDays } from 'date-fns'
 const OrderSchema = new mongoose.Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -19,6 +19,14 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'products.count is required'],
       },
+      name: {
+        type: String,
+        required: [true, 'products.name is required'],
+      },
+      price: {
+        type: Number,
+        required: [true, 'products.price is required'],
+      },
     },
   ],
   totalPrice: {
@@ -27,23 +35,9 @@ const OrderSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    // default: moment(Date.now()).format('jYYYY/jMM/jDD'),
-    default: () => {
-      const now = new Date()
-      const tommorrow = new Date()
-      tommorrow.setDate(now.getDate() + 1)
-      const updateDate = moment(tommorrow).format('jYYYY/jMM/jDD')
-      return updateDate
-    },
   },
   deliveryDate: {
     type: Date,
-    default: () => {
-      const now = new Date()
-      const tomorrow = new Date()
-      tomorrow.setDate(now.getDate() + 1)
-      return tomorrow
-    },
   },
   deliveryStatus: {
     type: Boolean,

@@ -19,7 +19,7 @@ function Profile() {
   } = useForm({
     resolver: yupResolver(userDataSchema),
   })
-  const handleSignIn = (data: any) => {
+  const submitForm = (data: any) => {
     try {
       const response = axios.put(
         `/api/users/${user.id ? user.id : user._id}`,
@@ -51,7 +51,7 @@ function Profile() {
             <p className="text-xl font-semibold p-5">اطلاعات شخصی</p>
           </div>
           <form
-            onSubmit={handleSubmit(handleSignIn)}
+            onSubmit={handleSubmit(submitForm)}
             className="flex flex-col items-center gap-8">
             <div className="flex flex-wrap justify-center gap-10">
               <div className="flex flex-col gap-1 w-[40%]">

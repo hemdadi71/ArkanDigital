@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { RoleState } from '../../../Types/types'
+import { RoleState, orderModalState } from '../../../Types/types'
 import OrdersTable from '@/Components/OrdersTable'
 import { columns } from '@/Components/ProductsTable/TableColumns'
 import OrdersStatusPlan, { plans } from '@/Components/OrdersTable/RadioGroup'
 import { useQuery } from 'react-query'
 import { getOrders, getUsers } from '@/Components/api'
+import OrderModal from '@/Components/OrderModal'
+import { AnimatePresence } from 'framer-motion'
 
 function Orders() {
   const [plan, setPlan] = useState(plans[1])
@@ -15,6 +17,9 @@ function Orders() {
     getOrders(0, 1, status)
   )
   const orderDataLength = orderData?.length
+  const isOpenOrderModal = useSelector(
+    (state: orderModalState) => state.orderModal.isOpen
+  )
   return (
     <>
       <div className="flex flex-col md:p-10 p-2 gap-5 lg:w-full">
@@ -30,6 +35,7 @@ function Orders() {
           />
         </div>
       </div>
+      <AnimatePresence>{isOpenOrderModal && <OrderModal />}</AnimatePresence>
     </>
   )
 }

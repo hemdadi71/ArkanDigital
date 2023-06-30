@@ -1,24 +1,94 @@
-import React, { useState } from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
+import { useQuery } from 'react-query'
+import { getProducts } from '../api'
+import Link from 'next/link'
+import { debounce } from 'lodash'
+import { SearchProduct } from '@/Types/types'
+import { useRouter } from 'next/router'
+// .............................................................
 function SearchInput() {
   const [isFocus, setIsFocus] = useState(false)
+  const [value, setValue] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
+  const { data, isLoading } = useQuery<SearchProduct[]>('getProducts', () =>
+    getProducts()
+  )
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }
+  const router = useRouter()
+  const debouncedHandleChange = debounce(handleChange, 1200)
+  const Value = value ? value : 'not found'
+  let results = data
+    ? data.filter(item => item.name.toLowerCase().includes(Value.toLowerCase()))
+    : []
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const name = e.currentTarget.search.value
+    if (value && results.length) {
+      router.push(`/searchProducts/${name}`)
+      e.currentTarget.reset()
+      setValue('')
+    }
+  }
   return (
     <>
       <div className="w-full relative flex items-center">
-        <input
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          className="bg-gray-100 py-2 px-3 rounded-md pr-10 w-full outline-none"
-          type="text"
-          placeholder="جسجو..."
-        />
+        <form onSubmit={handleSubmit} ref={formRef} className="w-full">
+          <input
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={debouncedHandleChange}
+            name="search"
+            className="bg-gray-100 py-2 px-3 rounded-md pr-10 w-full outline-none"
+            type="text"
+            placeholder="جسجو..."
+          />
+        </form>
         <div
           className={`absolute right-2 ${
-            isFocus ? 'text-purple-600' : 'text-black'
+            isFocus ? 'text-[#ac31f3]' : 'text-black'
           }`}>
           <BsSearch size={22} />
         </div>
-        
+        {!isLoading && (
+          <ul
+            className={`absolute bg-white ${
+              value ? 'border border-t-0' : ''
+            } rounded-b-md top-[45px] overflow-y-auto w-full ${
+              results.length ? 'max-h-[300px]' : 'h-auto'
+            }`}>
+            {results.length ? (
+              results.map(item => {
+                return (
+                  <>
+                    <Link href={`/product/${item._id}`}>
+                      <li
+                        onClick={() => {
+                          setValue('')
+                          formRef.current?.reset()
+                        }}
+                        className="flex items-center py-2 px-3 gap-3 cursor-pointer hover:bg-[#e9d3f7] transition-all ease-in-out duration-300">
+                        <img
+                          className="w-[15%] rounded-md"
+                          src={item.thumbnail}
+                          alt="img"
+                        />
+                        <p className="truncate">{item.name}</p>
+                      </li>
+                    </Link>
+                  </>
+                )
+              })
+            ) : value ? (
+              <li className="py-2 px-3 text-center">
+                <p className="text-red-500">محصولی یافت نشد</p>
+              </li>
+            ) : null}
+          </ul>
+        )}
       </div>
     </>
   )

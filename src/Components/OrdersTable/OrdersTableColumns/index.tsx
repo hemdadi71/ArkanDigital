@@ -1,8 +1,21 @@
+import { showOrderModal } from '@/Redux/Slices/OrderModalSlice'
 import { UserData } from '@/Types/types'
 import { Button } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
+import { useDispatch } from 'react-redux'
 // ....................................................
 export function Columns(userData: UserData[]) {
+  const dispatch = useDispatch()
+
+  const renderCellCheckOrder = (params: any) => {
+    return (
+      <>
+        <Button onClick={() => dispatch(showOrderModal(params.row))}>
+          بررسی سفارش
+        </Button>
+      </>
+    )
+  }
   const columns: GridColDef[] = [
     {
       field: 'user.username',
@@ -26,11 +39,18 @@ export function Columns(userData: UserData[]) {
     },
     {
       field: 'totalPrice',
-      headerName: 'مجموع مبلغ',
-      width: 150,
+      headerName: 'مجموع مبلغ (تومان)',
+      width: 130,
       editable: true,
       sortable: true,
       filterable: true,
+      renderCell: params => {
+        return (
+          <>
+            <p>{params.row.totalPrice.toLocaleString()}</p>
+          </>
+        )
+      },
     },
     {
       field: 'createdAt',
@@ -53,13 +73,7 @@ export function Columns(userData: UserData[]) {
       headerName: 'بررسی',
       width: 120,
       editable: true,
-      renderCell: () => {
-        return (
-          <>
-            <Button>بررسی سفارش</Button>
-          </>
-        )
-      },
+      renderCell: renderCellCheckOrder,
     },
   ]
   return columns

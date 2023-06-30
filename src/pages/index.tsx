@@ -1,16 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import Categories from '@/Components/Categories'
 import Products from '@/Components/Products/products'
 import SearchInput from '@/Components/SearchInput/SearchInput'
 import Slider from '@/Components/Slider/Slider'
-import React from 'react'
 import { smallDatas } from '../../SmallDatas'
 import Link from 'next/link'
-import { useQuery } from 'react-query'
-import { getCategories } from '@/Components/api'
 
 export default function Home() {
-  const { data } = useQuery('getCategories', getCategories)
   return (
     <>
       <div className="flex gap-6 mb-8 justify-center px-2 w-full">
@@ -63,7 +60,7 @@ export default function Home() {
       <div className="w-full md:hidden block px-10">
         <SearchInput />
       </div>
-      <div className="py-3">
+      <div className="py-3 overflow-x-hidden">
         <Products />
       </div>
       <div className="w-full flex items-center justify-center px-5 py-7">

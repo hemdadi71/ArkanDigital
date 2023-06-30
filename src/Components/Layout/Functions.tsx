@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import AdminHeader from '@/Components/AdminHeader/AdminHeader'
 import Footer from '@/Components/Footer/Footer'
-import Header from '@/Components/Header/Header'
+import Header from '../Header/Header'
 import LoginFirst from '@/Components/LoginFirst/LoginFirst'
 import ProfileHeader from '@/Components/ProfileHeader/ProfileHeader'
 import ProfileSidebar from '@/Components/ProfileSidebar/ProfileSidebar'
@@ -35,11 +35,11 @@ export function LayoutHandler(children: any) {
     )
   if (router.pathname.includes('profile') && role === 'user')
     return (
-      <main className="flex">
+      <main className="flex overflow-hidden">
         <ProfileSidebar />
-        <div className="flex-1 full-width">
+        <div className="flex-1 full-width overflow-hidden  h-[100vh]">
           <ProfileHeader />
-          <article>{children}</article>
+          <article className='overflow-y-auto h-full pb-16 bg-[#F2F3F5]'>{children}</article>
         </div>
       </main>
     )
@@ -49,6 +49,13 @@ export function LayoutHandler(children: any) {
         <article className="w-full h-full">{children}</article>
       </main>
     )
+  if (router.pathname.includes('/payment')) {
+    return (
+      <main>
+        <article>{children}</article>
+      </main>
+    )
+  }
   if (
     !router.pathname.includes('/profile') &&
     !router.pathname.includes('/admin')

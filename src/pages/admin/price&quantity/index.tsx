@@ -1,6 +1,9 @@
 import ProductsPricesTable from '@/Components/ProductsTable'
 import { PriceColumns } from '@/Components/PriceTable/PriceColumns'
+<<<<<<< HEAD
 import React from 'react'
+=======
+>>>>>>> fourth-phase
 import { useQuery } from 'react-query'
 import { getProducts } from '@/Components/api'
 
@@ -9,7 +12,11 @@ function Details() {
   const productsLength = data?.length
   return (
     <>
+<<<<<<< HEAD
       <div className="flex flex-col md:p-10 p-2 gap-5 md:w-full">
+=======
+      <div className="flex flex-col md:p-10 p-2 gap-5 md:w-[80%]">
+>>>>>>> fourth-phase
         <div className="flex justify-between items-center relative">
           <p className="text-xl font-semibold">مدیریت موجودی و قیمت ها</p>
         </div>

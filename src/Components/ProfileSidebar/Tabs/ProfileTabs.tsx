@@ -4,8 +4,11 @@ import { Fragment, useState } from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
 import { RiShoppingCart2Line } from 'react-icons/ri'
 import { BiMapAlt } from 'react-icons/bi'
+import { useRouter } from 'next/router'
 export default function ProfileTabs() {
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const router = useRouter()
+  const { pathname } = router
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List className="flex flex-col w-full gap-5">
@@ -14,13 +17,13 @@ export default function ProfileTabs() {
             <Link
               href="/profile"
               className={`${
-                selected
+                pathname === '/profile' && selected
                   ? 'bg-white text-purple-800'
                   : ' text-white bg-transparent'
               } font-semibold flex items-center gap-2 w-full outline-none rounded-md py-2 px-4`}>
               <div
                 className={`rounded-md ${
-                  selectedIndex === 0
+                  selectedIndex === 0 || pathname === '/profile'
                     ? 'bg-[#5D108B]'
                     : 'bg-black bg-opacity-25'
                 }  text-white p-[5px]`}>
@@ -35,13 +38,13 @@ export default function ProfileTabs() {
             <Link
               href="/profile/orders"
               className={`${
-                selected
+                selected || pathname === '/profile/orders'
                   ? 'bg-white text-purple-800'
                   : ' text-white bg-transparent'
               } font-semibold flex items-center gap-2 w-full outline-none rounded-md py-2 px-4`}>
               <div
                 className={`rounded-md ${
-                  selectedIndex === 1
+                  selectedIndex === 1 || pathname === '/profile/orders'
                     ? 'bg-[#5D108B]'
                     : 'bg-black bg-opacity-25'
                 }  text-white p-[5px]`}>
@@ -51,18 +54,18 @@ export default function ProfileTabs() {
             </Link>
           )}
         </Tab>
-        <Tab as={Fragment}>
+        {/* <Tab as={Fragment}>
           {({ selected }) => (
             <Link
               href="/profile/addresses"
               className={`${
-                selected
+                selected || pathname === '/profile/addresses'
                   ? 'bg-white text-purple-800'
                   : ' text-white bg-transparent'
               } font-semibold flex items-center gap-2 w-full outline-none rounded-md py-2 px-4`}>
               <div
                 className={`rounded-md ${
-                  selectedIndex === 2
+                  selectedIndex === 2 || pathname === '/profile/addresses'
                     ? 'bg-[#5D108B]'
                     : 'bg-black bg-opacity-25'
                 }  text-white p-[5px]`}>
@@ -71,7 +74,7 @@ export default function ProfileTabs() {
               <p>آدرس های شما</p>
             </Link>
           )}
-        </Tab>
+        </Tab> */}
       </Tab.List>
     </Tab.Group>
   )

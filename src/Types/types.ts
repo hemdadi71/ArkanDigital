@@ -1,5 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 
 export interface LayoutProps {
   children: any
@@ -31,6 +31,13 @@ export interface ProductProps {
   quantity: string
   description: string
   id: string
+  product: any
+}
+export interface removeCartModalState {
+  removeCartModal: {
+    product: string
+    isOpen: boolean
+  }
 }
 export interface ProductTableRow {
   row: ProductProps
@@ -52,6 +59,10 @@ export interface Loading {
 export interface removeModal {
   isOpen: boolean
   id: string
+}
+export interface removeCartModal {
+  isOpen: boolean
+  product: string
 }
 export interface ProductsModalState {
   productModal: {
@@ -138,4 +149,50 @@ export interface SpinnerProps {
 export interface ImagePreviewProps {
   imageSrc: string[]
   setImageSrc: Dispatch<SetStateAction<any>>
+}
+export interface CartProps {
+  product: string
+  name: string
+  price: number
+  count: number
+  id?: string
+}
+export interface orderModal {
+  isOpen: boolean
+  row: any
+}
+export interface orderModalState {
+  orderModal: {
+    isOpen: boolean
+    row: any
+  }
+}
+export interface orderModalUserProps {
+  orderData: any
+}
+export interface CartState {
+  CartState: CartProps
+}
+export interface RemoveCartModalProps {
+  setRows: React.Dispatch<React.SetStateAction<never[]>>
+}
+export interface Cart {
+  CartState: {
+    user: string
+    reduce?: undefined
+    length?: undefined
+    products: {
+      reduce?: any
+      length?: any
+      id: string
+      count: number
+      name: string
+      price: number
+    }
+  }
+}
+export interface SearchProduct {
+  _id: string
+  name: string
+  thumbnail: string
 }

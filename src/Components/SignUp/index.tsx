@@ -6,6 +6,7 @@ import Input from '../Input/Input'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { hideRegisterModal } from '@/Redux/Slices/RegisterModal'
+import { toast } from 'react-hot-toast'
 // .............................................................
 const SignUpForm: React.FC = () => {
   const {
@@ -22,6 +23,13 @@ const SignUpForm: React.FC = () => {
       console.log(response.data)
       if (response.data) {
         dispatch(hideRegisterModal())
+        toast('ثبت نام موفقیت آمیز بود می توانید وارد حساب کاربری خود شوید', {
+          style: {
+            backgroundColor: 'green',
+            color: 'white',
+            textAlign: 'center',
+          },
+        })
       }
     } catch (error) {
       console.error('Failed to sign up:', error)
@@ -29,25 +37,7 @@ const SignUpForm: React.FC = () => {
   }
 
   return (
-    <form className="flex flex-wrap gap-1" onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-1">
-        <Input
-          name="firstname"
-          register={{ ...register('firstname') }}
-          type="text"
-          label="نام:"
-          errorTxt={errors.firstname?.message}
-        />
-      </div>
-      <div className="flex flex-wrap gap-1">
-        <Input
-          name="lastname"
-          register={{ ...register('lastname') }}
-          type="text"
-          label="نام خانوادگی:"
-          errorTxt={errors.lastname?.message}
-        />
-      </div>
+    <form className="flex flex-col gap-1" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-1">
         <Input
           name="username"
@@ -70,7 +60,7 @@ const SignUpForm: React.FC = () => {
         <Input
           name="password"
           register={{ ...register('password') }}
-          type="text"
+          type="password"
           label="رمز عبور:"
           errorTxt={errors.password?.message}
         />
@@ -79,7 +69,7 @@ const SignUpForm: React.FC = () => {
         <Input
           name="reenterPassword"
           register={{ ...register('reenterPassword') }}
-          type="text"
+          type="password"
           label="تایید رمز عبور:"
           errorTxt={errors.reenterPassword?.message}
         />

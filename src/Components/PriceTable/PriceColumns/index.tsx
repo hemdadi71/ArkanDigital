@@ -8,15 +8,22 @@ export const PriceColumns: GridColDef[] = [
     editable: false,
     sortable: false,
     filterable: false,
-    cellClassName:'font-semibold'
+    cellClassName: 'font-semibold',
   },
   {
     field: 'price',
-    headerName: 'قیمت',
-    width: 150,
+    headerName: 'قیمت (تومان)',
+    width: 120,
     editable: true,
     sortable: true,
     filterable: true,
+    renderCell: params => {
+      return (
+        <>
+          <p>{params.row.price.toLocaleString()}</p>
+        </>
+      )
+    },
   },
   {
     field: 'quantity',

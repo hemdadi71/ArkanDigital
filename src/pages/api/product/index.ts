@@ -12,12 +12,27 @@ export default async function handler(
   switch (method) {
     // case 'GET':
     //   try {
-    //     const { page = 1, limit = 10, sort, quantity } = req.query
+    //     const {
+    //       page = 1,
+    //       limit = 10,
+    //       sort,
+    //       quantity,
+    //       category,
+    //       subcategory,
+    //     } = req.query
 
     //     const filter: any = {}
 
     //     if (quantity && typeof quantity === 'object' && 'gte' in quantity) {
     //       filter.quantity = { $gte: Number(quantity.gte) }
+    //     }
+
+    //     if (category) {
+    //       filter.category = category
+    //     }
+
+    //     if (subcategory) {
+    //       filter.subcategory = subcategory
     //     }
 
     //     let sortOption: any = {}
@@ -71,6 +86,10 @@ export default async function handler(
           sortOption = { price: 1 }
         } else if (sort === '-price') {
           sortOption = { price: -1 }
+        } else if (sort === 'newer') {
+          sortOption = { createdAt: -1 }
+        } else if (sort === 'older') {
+          sortOption = { createdAt: 1 }
         }
 
         const products = await Product.find(filter)

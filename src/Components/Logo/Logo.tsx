@@ -9,7 +9,7 @@ function Logo() {
         <Link href="/">
           <img className="w-16" src="/product/Logo/1.png" alt="img" />
         </Link>
-        <p>فروشگاه آرکان</p>
+        <p>آرکان دیجیتال</p>
       </div>
     </>
   )

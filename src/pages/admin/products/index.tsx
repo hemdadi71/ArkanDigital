@@ -23,7 +23,11 @@ function Products() {
   const productsLength = data?.length
   return (
     <>
+<<<<<<< HEAD
       <div className="flex flex-col md:p-10 p-2 gap-5 md:w-full">
+=======
+      <div className="flex flex-col md:p-10 p-2 gap-5 md:w-[80%]">
+>>>>>>> fourth-phase
         <div className="flex justify-between items-center">
           <p className="text-xl font-semibold">مدیریت کالاها</p>
           <button

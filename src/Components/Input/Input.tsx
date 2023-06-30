@@ -17,7 +17,7 @@ const Input = ({
           type={type}
           {...register}
         />
-        <span className="text-red-500">{errorTxt}</span>
+        <span className="text-red-500 text-[14px]">{errorTxt}</span>
       </div>
     </>
   )

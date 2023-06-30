@@ -8,7 +8,7 @@ function ProfileSidebar() {
   const { user } = data
   return (
     <>
-      <aside className="w-[30%] h-[100vh]">
+      <aside className="w-[23%]">
         <div className="bg-[#5D108B]  py-5 px-10 flex flex-col gap-10 h-full">
           <div className="bg-black bg-opacity-40 rounded-md py-2 px-4 text-xl text-white">
             سلام {`${user.firstname} ${user.lastname}`}
