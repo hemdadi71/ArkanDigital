@@ -97,7 +97,7 @@ function SearchResultsPage() {
               <SortSelect sort={sort} setSort={setSort} />
             </div>
           </div>
-          <div>
+          <div  className={`${isLoading ? 'h-[100vh]' : ''}`}>
             {isLoading ? (
               <Loading className="top-20 -translate-x-1/2 left-1/2" />
             ) : (

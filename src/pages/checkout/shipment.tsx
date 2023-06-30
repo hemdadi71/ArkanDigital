@@ -61,21 +61,8 @@ function Shipment() {
         const updatedUserData = JSON.stringify({ tokens, user })
         Cookies.set('token', updatedUserData)
       })
-      // axios.post('/api/order', OrderData).then(res => {
-      //   console.log(res.data)
-      //   localStorage.removeItem('cart')
-      //   toast('سفارش با موفقیت ثبت گردید', {
-      //     style: {
-      //       backgroundColor: 'green',
-      //       color: 'white',
-      //     },
-      //   })
-      //   dispatch(setCart([]))
-      //   router.push('/')
-      // })
       localStorage.setItem('order', JSON.stringify(OrderData))
       router.push('/payment')
-      console.log(OrderData)
     } catch (error) {
       console.error(error)
     }

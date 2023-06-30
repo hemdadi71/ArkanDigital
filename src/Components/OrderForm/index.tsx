@@ -1,15 +1,14 @@
-'use client'
-import React, { useState } from 'react'
+
+import React from 'react'
 import { HiOutlineUser } from 'react-icons/hi'
 import Input from '../Input/Input'
-import Cookies from 'js-cookie'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import TextArea from '../TextArea'
 import { SlCalender } from 'react-icons/sl'
-import { DateValue, DateInput } from 'mantine-datepicker-jalali'
+import {  DateInput } from 'mantine-datepicker-jalali'
 import 'dayjs/locale/fa'
 import { Controller } from 'react-hook-form'
-import { getUnixTime, startOfDay, isSameDay, addDays, subDays } from 'date-fns'
+import {  addDays } from 'date-fns'
 function OrderForm({ user, errors, register, control }: any) {
   return (
     <>
@@ -101,7 +100,7 @@ function OrderForm({ user, errors, register, control }: any) {
                 control={control}
                 name="deliveryDate"
                 render={({ field: { onChange, value } }) => {
-                  const minDate = addDays(new Date(), 10)
+                  const minDate = addDays(new Date(), 5)
                   return (
                     <DateInput
                       onChange={onChange}

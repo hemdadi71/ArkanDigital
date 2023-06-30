@@ -89,30 +89,8 @@ function SubCategoryGroup() {
             <div className="w-[30%]">
               <SortSelect sort={sort} setSort={setSort} />
             </div>
-            {/* <div className="flex items-center gap-2">
-              <p>تعداد محصولات در هر صفحه:</p>
-              <div className="flex items-center gap-2">
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    limit < 10 ? setLimit(prev => prev + 1) : setLimit(10)
-                  }}>
-                  <AiOutlineRight />
-                </span>
-                <span className="border rounded-md w-7 h-7 flex items-center justify-center bg-[#d9acf3]">
-                  {limit}
-                </span>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    limit > 1 ? setLimit(prev => prev - 1) : setLimit(1)
-                  }}>
-                  <AiOutlineLeft />
-                </span>
-              </div>
-            </div> */}
           </div>
-          <div>
+          <div className={`${isLoading ? 'h-[100vh]' : ''}`}>
             {isLoading ? (
               <Loading className="top-20 -translate-x-1/2 left-1/2" />
             ) : (

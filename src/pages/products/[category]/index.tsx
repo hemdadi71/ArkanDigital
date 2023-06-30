@@ -67,7 +67,7 @@ function CategoriesPage() {
             })}
           </div>
         </div>
-        <div className="md:w-3/4 relative">
+        <div className='md:w-3/4 relative'>
           <div className="flex md:flex-row flex-col items-center gap-2 justify-between pl-4">
             <p className="px-3 text-xl text-purple font-semibold mb-1">
               {router.query.category}
@@ -90,7 +90,7 @@ function CategoriesPage() {
               <SortSelect sort={sort} setSort={setSort} />
             </div>
           </div>
-          <div>
+          <div className={`${isLoading ? 'h-[100vh]' : ''}`}>
             {isLoading ? (
               <Loading className="top-20 -translate-x-1/2 left-1/2" />
             ) : (
