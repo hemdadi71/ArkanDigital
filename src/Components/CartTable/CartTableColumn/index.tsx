@@ -3,6 +3,7 @@ import { showRemoveCartModal } from '@/Redux/Slices/RemoveCartSlice'
 import Cart from '@/pages/checkout/cart'
 import { GridColDef } from '@mui/x-data-grid'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 import { BsFillTrashFill } from 'react-icons/bs'
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // ..................................................................
 export function CartTableColumns() {
   const dispatch = useDispatch()
+  const router = useRouter()
   const handleIncreaseCount = (row: any) => {
     dispatch(increaseCount({ product: row.product, quantity: row.quantity }))
     const localCart = localStorage.getItem('cart')
@@ -17,10 +19,7 @@ export function CartTableColumns() {
     const { products } = cart
     const token = Cookies.get('token')
     const userId = token ? JSON.parse(token).user.id : ''
-    localStorage.setItem(
-      'cart',
-      JSON.stringify({ user: userId, products })
-    )
+    localStorage.setItem('cart', JSON.stringify({ user: userId, products }))
   }
 
   const handleDecreaseCount = (row: any) => {
@@ -30,10 +29,10 @@ export function CartTableColumns() {
     const { products } = cart
     const token = Cookies.get('token')
     const userId = token ? JSON.parse(token).user.id : ''
-    localStorage.setItem(
-      'cart',
-      JSON.stringify({ user: userId, products })
-    )
+    localStorage.setItem('cart', JSON.stringify({ user: userId, products }))
+  }
+  const handleGoToSinglePage = (row: any) => {
+    router.push(`/product/${row}`)
   }
   const columns: GridColDef[] = [
     {
@@ -42,6 +41,17 @@ export function CartTableColumns() {
       width: 400,
       editable: false,
       cellClassName: 'text-[15px]',
+      renderCell: params => {
+        return (
+          <>
+            <p
+              className="truncate cursor-pointer"
+              onClick={() => handleGoToSinglePage(params.row.product)}>
+              {params.row.name}
+            </p>
+          </>
+        )
+      },
     },
     {
       field: 'price',
@@ -87,7 +97,7 @@ export function CartTableColumns() {
         return (
           <>
             <div className="w-7 h-7 p-1 flex items-center justify-center bg-[#ac31f3] rounded-md text-white">
-              <p className='mt-1'>{params.row.count}</p>
+              <p className="mt-1">{params.row.count}</p>
             </div>
           </>
         )
