@@ -79,23 +79,6 @@ function SearchResultsPage() {
                 {router.query.name}
               </p>
             </div>
-            <div className="flex items-center gap-2">
-              <p>صفحه:</p>
-              <div className="flex items-center gap-2">
-                <span className="cursor-pointer" onClick={handleIncreasePage}>
-                  <AiOutlineRight />
-                </span>
-                <span className="border rounded-md bg-[#d9acf3] w-7 h-7 flex items-center justify-center">
-                  {page}
-                </span>
-                <span className="cursor-pointer" onClick={handleDecreasePage}>
-                  <AiOutlineLeft />
-                </span>
-              </div>
-            </div>
-            <div className="w-[30%]">
-              <SortSelect sort={sort} setSort={setSort} />
-            </div>
           </div>
           <div  className={`${isLoading ? 'h-[100vh]' : ''}`}>
             {isLoading ? (
@@ -110,46 +93,6 @@ function SearchResultsPage() {
                   })}
               </div>
             )}
-          </div>
-          <div className="flex justify-end">
-            <div className="flex justify-between w-[63%] pl-6">
-              <div className="flex items-center gap-2">
-                <p>صفحه:</p>
-                <div className="flex items-center gap-2">
-                  <span className="cursor-pointer" onClick={handleIncreasePage}>
-                    <AiOutlineRight />
-                  </span>
-                  <span className="border rounded-md bg-[#d9acf3] w-7 h-7 flex items-center justify-center">
-                    {page}
-                  </span>
-                  <span className="cursor-pointer" onClick={handleDecreasePage}>
-                    <AiOutlineLeft />
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <p>تعداد محصولات در هر صفحه:</p>
-                <div className="flex items-center gap-2">
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => {
-                      limit < 10 ? setLimit(prev => prev + 1) : setLimit(10)
-                    }}>
-                    <AiOutlineRight />
-                  </span>
-                  <span className="border rounded-md w-7 h-7 flex items-center justify-center bg-[#d9acf3]">
-                    {limit === 0 ? 'همه' : limit}
-                  </span>
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => {
-                      limit > 1 ? setLimit(prev => prev - 1) : setLimit(1)
-                    }}>
-                    <AiOutlineLeft />
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

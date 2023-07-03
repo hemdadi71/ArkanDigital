@@ -51,6 +51,7 @@ export default function CartTable({ columns, rows }: any) {
                   paginationModel.page + 1
                 } از ${totalPages}: تعداد کل صفحات ${totalPages}`,
               labelRowsPerPage: 'تعداد ردیف در هر صفحه:',
+              
             },
           }}
           disableRowSelectionOnClick
