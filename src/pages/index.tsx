@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import Categories from '@/Components/Categories'
 import Products from '@/Components/Products/products'
 import SearchInput from '@/Components/SearchInput/SearchInput'
 import Slider from '@/Components/Slider/Slider'
