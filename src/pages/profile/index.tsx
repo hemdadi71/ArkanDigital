@@ -76,7 +76,7 @@ function Profile() {
               </div>
               <div className="flex flex-col gap-1 w-[40%]">
                 <Input
-                  defaultValue={user.phonenumber}
+                  defaultValue={String(user.phonenumber).padStart(11, '0')}
                   name="phonenumber"
                   register={{ ...register('phonenumber') }}
                   type="text"

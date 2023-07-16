@@ -27,15 +27,22 @@ function Login() {
   })
   const handleSignIn = (data: loginData) => {
     postLogin(data).then(res => {
-      const { tokens, user } = res
-      const userData = JSON.stringify({ tokens, user })
-      Cookies.set('token', userData, { expires: 7 })
       if (res) {
+        const { tokens, user } = res
+        const userData = JSON.stringify({ tokens, user })
+        Cookies.set('token', userData, { expires: 7 })
         dispatch(hideRegisterModal())
         dispatch(setRole(user.role))
         user.role === 'admin' && router.push('/admin/orders')
         toast('خوش آمدید', {
           icon: '👏',
+        })
+      } else {
+        toast('کاربری با این اطلاعات وجود ندارد', {
+          style: {
+            backgroundColor: 'red',
+            color: 'white',
+          },
         })
       }
     })

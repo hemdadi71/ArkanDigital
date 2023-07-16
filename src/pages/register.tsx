@@ -9,7 +9,7 @@ function AdminRegister() {
     <>
       <div className="w-full h-full admin bg-[#D2E4ED] flex items-center justify-center relative">
         <div className="rounded-md flex bg-[#ECF1F4] z-20">
-          <div className="md:w-[50%] p-3 md:p-0 w-full bg-white md:rounded-r-md rounded-md flex items-center flex-col justify-center">
+          <div className="md:w-[50%] p-3 md:p-3 w-full bg-white rounded-r-md lg:rounded-l-none rounded-l-md flex items-center flex-col justify-center">
             <h1 className="text-[18px] font-semibold">ورود به پنل مدیریت</h1>
             <Login />
             <Link
