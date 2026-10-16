@@ -20,7 +20,6 @@ const SignUpForm: React.FC = () => {
   const onSubmit = async (data: SignUpFormInputs) => {
     try {
       const response = await axios.post('/api/auth/signup', data)
-      console.log(response.data)
       if (response.data) {
         dispatch(hideRegisterModal())
         toast('ثبت نام موفقیت آمیز بود می توانید وارد حساب کاربری خود شوید', {
@@ -32,7 +31,13 @@ const SignUpForm: React.FC = () => {
         })
       }
     } catch (error) {
-      console.error('Failed to sign up:', error)
+      toast((error as any).response?.data?.message || 'ثبت نام انجام نشد', {
+          style: {
+            backgroundColor: 'red',
+            color: 'white',
+            textAlign: 'center',
+          },
+        })
     }
   }
 

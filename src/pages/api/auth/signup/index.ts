@@ -4,17 +4,16 @@ import UserModel from '@/server/models/User.model'
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const { method } = req
   await dbConnect()
 
   switch (method) {
-    case 'POST': // Sign up
+    case 'POST':
       try {
         const { username, email, password, reenterPassword } = req.body
 
-        // Check if required properties exist
         if (!username || !email || !password || !reenterPassword) {
           res
             .status(400)
@@ -22,7 +21,6 @@ export default async function handler(
           return
         }
 
-        // Check if password and reentered password match
         if (password !== reenterPassword) {
           res
             .status(400)
@@ -30,12 +28,17 @@ export default async function handler(
           return
         }
 
-        // Check if user with the same email already exists
-        const existingUser = await UserModel.findOne({ email })
+        const existingUser = await UserModel.findOne({
+          $or: [{ email }, { username }],
+        })
+
         if (existingUser) {
           res.status(400).json({
             success: false,
-            message: 'User with this email already exists',
+            message:
+              existingUser.email === email
+                ? 'این ایمیل قبلاً ثبت شده است'
+                : 'این نام کاربری قبلاً ثبت شده است',
           })
           return
         }
@@ -52,24 +55,21 @@ export default async function handler(
         res.status(400).json({ success: false, error: 'Failed to create user' })
       }
       break
-    case 'PUT': // Update profile
+    case 'PUT':
       try {
         const { firstname, lastname, phone, address, userId } = req.body
 
-        // Find the user in the database
         const user = await UserModel.findById(userId)
         if (!user) {
           res.status(404).json({ success: false, message: 'User not found' })
           return
         }
 
-        // Update the user's profile fields
         user.firstname = firstname || user.firstname
         user.lastname = lastname || user.lastname
         user.phone = phone || user.phone
         user.address = address || user.address
 
-        // Save the updated user
         await user.save()
 
         res.status(200).json({ success: true, user })
