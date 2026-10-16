@@ -6,7 +6,20 @@ export const userDataSchema = yup.object({
     .string()
     .trim()
     .required('شماره موبایل خود را وارد کنید')
-    .matches(/^09[0-9]{9}$/, 'فرمت شماره موبایل نادرست است'),
+    .test(
+      'english-digits',
+      'لطفاً زبان کیبورد را انگلیسی کنید',
+      value => !/[۰-۹٠-٩]/.test(value || ''),
+    )
+    .test(
+      'phone-format',
+      'شماره موبایل باید ۱۱ رقم و با 09 شروع شود',
+      value => {
+        if (!value || /[۰-۹٠-٩]/.test(value)) return true
+
+        return /^09[0-9]{9}$/.test(value)
+      },
+    ),
   address: yup.string().required(' آدرس خود را وارد کنید'),
   // .typeError('تاریخ را به فرمت صحیح وارد کنید'),
   // deliveryDate: yup.date().required('تاریخ را وارد کنید'),
