@@ -32,12 +32,12 @@ const SignUpForm: React.FC = () => {
       }
     } catch (error) {
       toast((error as any).response?.data?.message || 'ثبت نام انجام نشد', {
-          style: {
-            backgroundColor: 'red',
-            color: 'white',
-            textAlign: 'center',
-          },
-        })
+        style: {
+          backgroundColor: 'red',
+          color: 'white',
+          textAlign: 'center',
+        },
+      })
     }
   }
 

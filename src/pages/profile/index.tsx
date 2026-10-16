@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-hot-toast'
+
 function Profile() {
   const router = useRouter()
   const token = Cookies.get('token')
@@ -28,12 +30,24 @@ function Profile() {
       response.then(res => {
         user = res.data.data
         const updatedUserData = JSON.stringify({ tokens, user })
-        console.log(JSON.parse(updatedUserData))
+        toast('اطلاعات با موفقیت ثبت گردید', {
+          style: {
+            backgroundColor: 'green',
+            color: 'white',
+            textAlign: 'center',
+          },
+        })
         Cookies.set('token', updatedUserData)
         router.push('/profile')
       })
     } catch (error) {
-      console.error(error)
+      toast((error as any).response?.data?.message || 'ثبت اطلاعات انجام نشد', {
+        style: {
+          backgroundColor: 'red',
+          color: 'white',
+          textAlign: 'center',
+        },
+      })
     }
   }
   return (
