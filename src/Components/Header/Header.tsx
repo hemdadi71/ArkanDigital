@@ -85,7 +85,7 @@ function Header() {
               <PhoneMenu setIsShowPhoneMenu={setIsShowPhoneMenu} data={data} />
             )}
           </div>
-          <div className="lg:w-[40%] 2xl:w-[50%] md:block hidden">
+          <div className="lg:w-[45%] 2xl:w-[50%] md:block hidden">
             <SearchInput />
           </div>
           {role === '' && (
@@ -96,12 +96,12 @@ function Header() {
                 <TbLogin size={30} />
                 <p className="font-semibold md:block hidden">ورود | ثبت نام</p>
               </div>
-              <Link
+              {/* <Link
                 href="/register"
                 className="font-semibold flex items-center gap-1">
                 <RiAdminLine size={30} />
                 <p className="md:block hidden">مدیریت</p>
-              </Link>
+              </Link> */}
             </div>
           )}
           {role === 'admin' ? (

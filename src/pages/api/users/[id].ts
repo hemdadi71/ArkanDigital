@@ -1,4 +1,3 @@
-// pages/api/users/[id].js
 
 import UserModel from '@/server/models/User.model'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -7,11 +6,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id } = req.query // Extract the [id] parameter from the request query
+  const { id } = req.query
 
   if (req.method === 'GET') {
     try {
-      // Retrieve the user by ID from the database
       const user = await UserModel.findById(id)
 
       if (!user) {
@@ -26,7 +24,6 @@ export default async function handler(
     try {
       const { firstname, lastname, phonenumber, address } = req.body
 
-      // Update the user by ID with the data from the request body
       const updatedUser = await UserModel.findByIdAndUpdate(
         id,
         { firstname, lastname, phonenumber, address },
@@ -43,7 +40,6 @@ export default async function handler(
     }
   } else if (req.method === 'DELETE') {
     try {
-      // Delete the user by ID from the database
       const deletedUser = await UserModel.findByIdAndDelete(id)
 
       if (!deletedUser) {
