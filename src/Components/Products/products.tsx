@@ -42,8 +42,8 @@ function Products() {
                 transition={{ duration: 1.5 }}
                 className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-5">
                 {productsLoading ? (
-                  <div className="relative">
-                    <Loading className="-tanslate-y-1/2 top-1/2 -translate-x-1/2 left-1/2" />
+                  <div className='w-full flex items-center justify-center col-span-5'>
+                    <Loading className="relative" />
                   </div>
                 ) : (
                   getProductsWithLimit(category.category).map(
